@@ -30,6 +30,16 @@ const router = createRouter({
       name: 'publishPicPost',
       component: () => import('../views/postViews/publishPicPost.vue'),
     },
+    {
+      path: '/aiDetails',
+      name: 'aiDetails',
+      component: () => import('../views/aiViews/aiDetails.vue'),
+    },
+    {
+      path: '/aiChat',
+      name: 'aiChat',
+      component: () => import('../views/aiViews/aiChat.vue'),
+    },
   ],
 })
 
