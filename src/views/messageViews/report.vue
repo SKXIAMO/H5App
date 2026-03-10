@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import BackButton from '@/components/back.vue'
 import { useOtherStore } from '@/stores/other'
-import { ref } from 'vue'
 import { useUIStore } from '@/stores/ui'
 
 const otherStore =  useOtherStore()

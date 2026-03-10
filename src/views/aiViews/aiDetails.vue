@@ -34,19 +34,43 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCurrentUserStore } from '@/stores/currentUser'
+import { useUserStore } from '@/stores/user'
+import { useUIStore } from '@/stores/ui'
 import BackButton from '@/components/back.vue'
 import CoinNotDialog from '@/views/aiViews/coinNot.vue'
-import { ref } from 'vue'
+
 const showCoinNot = ref(false)
 
+const currentUserStore = useCurrentUserStore()
+const uiStore = useUIStore()
+const userStore =  useUserStore()
 function handlePurchaseClick() {
-  showCoinNot.value = true
+  if (currentUserStore.currentUser.coins <= 100) {
+    if (uiStore.loading) return
+    uiStore.showLoading()
+
+    const currentCoins = currentUserStore.currentUser.coins - 100
+    userStore.updateUser(currentUserStore.currentUser.userId, { coins: currentCoins })
+
+    const delay = Math.floor(Math.random() * 1500) + 500
+
+    setTimeout(() => {
+      uiStore.hideLoading()
+      router.push({ name: 'aiChat' })
+    }, delay)
+  } else {
+    showCoinNot.value = true
+  }
 }
 
+const router = useRouter()
 function handleRechargeEvent(value) {
-    showCoinNot.value = false
+  showCoinNot.value = false
   if (value === true) {
-    console.log('Recharge clicked, parent received true')
+    router.push({ name: 'coins' })
   }
 }
 </script>

@@ -30,23 +30,23 @@
       <!-- 顶部按钮 -->
       <div class="top-actions">
         <BackButton />
-        <MoreButton />
+        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
       </div>
 
       <!-- 底部信息 -->
       <div class="bottom-info">
         <div class="user-left"> 
           <div class="avatar-wrap">
-            <div class="avatar">
+            <div class="avatar" @click="goOtherHome(post.userId)">
               <img :src="postUser && postUser.avator" alt="avatar" />
             </div>
-            <div class="follow">
+            <div class="follow" v-if="post.userId !== currentUserStore.currentUser.userId && !currentUserStore.currentUser.follow.includes(post.userId)" @click="handleFollow" >
               <img src="@/assets/follow.png" alt="follow" />
             </div>
           </div>
 
           <div class="user-text">
-            <div class="username">{{ postUser && postUser.name }}</div>
+            <div class="username"  @click="goOtherHome(post.userId)">{{ postUser && postUser.name }}</div>
             <div class="video-desc">{{ post && post.dynamicDesc }}</div>
           </div>
         </div>
@@ -55,42 +55,44 @@
 
     <!-- 喜欢、评论数 -->
     <div class="action-buttons">
-      <div class="action-button">
-        <img src="@/assets/likepic.png" alt="like" />
-        <span>123</span>
+      <div class="action-button" @click="toggleLike">
+        <img v-if="currentUserStore.currentUser.postLikeIds.includes(post.dynamicId)" src="@/assets/likepic.png" alt="like" />
+        <img v-else src="@/assets/dislikepic.png" alt="like" />
+        <span>{{post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(post.dynamicId) ? 1 : 0) }}</span>
       </div>
-      <div class="action-button" @click="openComment">
+      <div class="action-button" @click="uiStore.openComment()">
         <img src="@/assets/chaticon.png" alt="comment" />
-        <span>45</span>
+        <span>{{ post.dynamicCommentCount }}</span>
       </div>
     </div>
 
     <!-- 评论弹窗（底部弹出） -->
-    <div v-if="showComment" class="comment-overlay" @click.self="closeComment">
+    <div v-if="uiStore.showComment" class="comment-overlay" @click.self="uiStore.closeComment()">
       <div class="comment-sheet">
-        <Comment />
+        <Comment :postId="postId" :reportAction="commentAction" @openCommentReport="showCommentReport = true" />
       </div>
     </div>
+    <ReportDialog v-if="showPostReport" @close="showPostReport = false" @select="postReportSelect" >
+    </ReportDialog>
+    <ReportDialog v-if="showCommentReport" @close="showCommentReport = false" @select="commentReportSelect" >
+    </ReportDialog>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePostStore } from '@/stores/post'
 import { useUserStore } from '@/stores/user'
+import { useCurrentUserStore } from '@/stores/currentUser'
+import { useUIStore } from '@/stores/ui'
 import { onMounted, onBeforeUnmount } from 'vue'
 import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import Comment from '@/views/postViews/comment.vue'
-
-const showComment = ref(false)
-function openComment() {
-  showComment.value = true
-}
-function closeComment() {
-  showComment.value = false
-}
+import ReportDialog from '@/components/reportChoose.vue'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -107,6 +109,10 @@ const postUser = userStore.getUserById(post.userId)
 
 const videoRef = ref(null)
 const isPaused = ref(false)
+
+const currentUserStore = useCurrentUserStore()
+const router = useRouter()
+const uiStore = useUIStore()
 
 function togglePlay() {
   const video = videoRef.value
@@ -139,6 +145,102 @@ onBeforeUnmount(() => {
   }
 })
 
+//帖子举报、拉黑
+const showPostReport = ref(false)
+function postReportSelect(value) {
+  showPostReport.value = false
+  if (value === 0) {
+    router.push({ name: 'report' })
+  } else if (value === 1) {
+    //用户选择屏蔽
+    if (uiStore.loading) return
+    uiStore.showLoading()
+
+    const postUserId = post.userId
+
+    // 用户选择屏蔽时加入 blockList
+    if (postUserId) {
+      const blockList = currentUserStore.currentUser.blockList || []
+
+      // 不存在才加入，避免重复
+      if (!blockList.includes(postUserId)) {
+        blockList.unshift(postUserId)
+
+        // 使用 userStore 公共方法同步更新当前用户并回传 iOS
+        userStore.updateUser(currentUserStore.currentUser.userId, { blockList: blockList })
+      }
+    }
+
+    const delay = Math.floor(Math.random() * 1500) + 500
+
+    setTimeout(() => {
+      uiStore.hideLoading()
+      uiStore.showToast('Blocking successful')
+
+      goBackOrClose()
+
+    }, delay)
+  }
+}
+
+// Handle follow action
+function handleFollow() {
+  const currentUserId = currentUserStore.currentUser.userId
+  const postUserId = post.userId
+
+  // Update current user's follow list
+  const currentUserFollow = currentUserStore.currentUser.follow ? [...currentUserStore.currentUser.follow] : []
+  if (!currentUserFollow.includes(postUserId)) {
+    currentUserFollow.unshift(postUserId)
+  }
+
+  // Update post user's fans list
+  const postUserFans = postUser.fans ? [...postUser.fans] : []
+  if (!postUserFans.includes(currentUserId)) {
+    postUserFans.unshift(currentUserId)
+  }
+
+  // Update current user store and user store
+  userStore.updateUser(currentUserId, { follow: currentUserFollow })
+
+  userStore.updateUser(postUserId, { fans: postUserFans })
+  
+  uiStore.showToast('Followed successfully')
+}
+
+// 点击用户头像跳转到用户主页
+function goOtherHome(userId) {
+  if (!userId) return
+  router.push({ name: 'otherHome', params: { userId } })
+}
+
+// 点赞逻辑
+function toggleLike() {
+  const postLikeIds = currentUserStore.currentUser.postLikeIds
+  // 判断当前用户是否已经点赞
+  const likedIndex = postLikeIds.indexOf(postId)
+
+  if (likedIndex === -1) {
+    // 未点赞，添加postId到postLikeIds
+    postLikeIds.push(postId)
+  } else {
+    // 已点赞，移除postId
+    postLikeIds.splice(likedIndex, 1)
+    // 点赞数不减少，保持原有逻辑
+  }
+
+  // 同步更新userStore，并回传iOS
+  userStore.updateUser(currentUserStore.currentUser.userId, { postLikeIds: postLikeIds })
+}
+
+//评论举报、拉黑显示
+const showCommentReport = ref(false)
+const commentAction = ref(null) // 保存 0 或 1
+
+function commentReportSelect(value) {
+  commentAction.value = value  // 保存选择
+  showCommentReport.value = false
+}
 </script>
 
 <style scoped>
@@ -280,6 +382,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   box-shadow: inset calc(100vw * -1 / 375) calc(100vw * -1 / 375) calc(100vw * 1 / 375) rgba(255, 255, 255, 0.6), inset calc(100vw * 1 / 375) calc(100vw * 1 / 375) calc(100vw * 1 / 375) rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(10px);
+  cursor: pointer;
 }
 
 .follow img {
@@ -362,7 +465,7 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  z-index: 10000;
+  z-index: 100;
 }
 
 .comment-sheet {

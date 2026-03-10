@@ -26,26 +26,29 @@
         <div class="upload-list">
           <!-- 添加图片按钮 -->
           <label
-            v-if="uploadedImages.length < maxImages"
+            v-if="uploadedImagesFiles.length < maxImages"
             class="upload-item"
           >
             <input type="file" accept="image/*" multiple style="display:none" @change="handleAddImage" />
             <div class="upload-add"></div>
           </label>
-          <!-- 已上传的图片 -->
-          <template v-if="uploadedImages.length > 0">
+          <!-- 预览已选择但未上传的图片 -->
+          <template v-if="uploadedImagesFiles.length > 0">
             <label
-              v-for="(img, index) in uploadedImages"
+              v-for="(file, index) in uploadedImagesFiles"
               :key="index"
               class="upload-item"
             >
-              <div class="upload-image" :style="getUploadStyle(img)"></div>
+              <div
+                class="upload-image"
+                :style="{ backgroundImage: file ? `url(${file.preview || file._previewUrl || URL.createObjectURL(file)})` : '' }"
+              ></div>
               <van-icon class="upload-remove" name="clear" size="20" @click="handleRemoveImage(index)" color="#fff"/>
             </label>
           </template>
         </div>
         <!-- Release -->
-        <div class="release-button">Release</div>
+        <div class="release-button" @click="handleRelease">Release</div>
     </div>
   </div>
 </template>
@@ -53,37 +56,80 @@
 <script setup>
 import { ref } from 'vue'
 import { useOtherStore } from '@/stores/other'
+import { useUIStore } from '@/stores/ui'
+import { usePostStore } from '@/stores/post'
+import { useCurrentUserStore } from '@/stores/currentUser'
 import BackButton from '@/components/back.vue'
+import { uploadMultipleImages } from '@/utils/ossUpload.js'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const text = ref('')
 const selectedTheme = ref(0)
 
-const otherStore =  useOtherStore()
+const otherStore = useOtherStore()
 
-// 图片上传相关
-const uploadedImages = ref([]) // 存储已上传图片
 const maxImages = 5
+const uploadedImagesFiles = ref([]) // store selected File objects (local preview only)
 
 const handleAddImage = (event) => {
   const files = Array.from(event.target.files)
-  for (const file of files) {
-    if (uploadedImages.value.length >= maxImages) break
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      uploadedImages.value.push(e.target.result)
-    }
-    reader.readAsDataURL(file)
-  }
-}
-
-const getUploadStyle = (img) => {
-  if (!img) return {}
-  const url = typeof img === 'string' ? img : img.url
-  return { backgroundImage: url ? `url(${url})` : '' }
+  const remaining = maxImages - uploadedImagesFiles.value.length
+  const toAdd = files.slice(0, remaining).map(file => {
+    file.preview = window.URL.createObjectURL(file) // local preview only
+    return file
+  })
+  uploadedImagesFiles.value.push(...toAdd)
 }
 
 const handleRemoveImage = (index) => {
-  uploadedImages.value.splice(index, 1)
+  uploadedImagesFiles.value.splice(index, 1)
+}
+
+const uiStore = useUIStore()
+const postStore = usePostStore()
+const currentUserStore = useCurrentUserStore()
+const handleRelease = async () => {
+  if (!text.value.trim()) {
+    uiStore.showToast('Please fill in the post text.')
+    return
+  }
+  if (!uploadedImagesFiles.value.length) {
+    uiStore.showToast('Please select at least one image.')
+    return
+  }
+
+  if (uiStore.loading) return
+  uiStore.showLoading()
+
+  try {
+    // 上传图片到 OSS
+    const urls = await uploadMultipleImages(uploadedImagesFiles.value, 'template_development')
+
+    // 构造新帖子对象
+    const newPost = {
+      dynamicId: String(postStore.posts.length + 1), // 生成唯一ID
+      userId: currentUserStore.currentUser.userId, // 可以替换为当前用户ID
+      dynamicType: 0,
+      dynamicDesc: text.value,
+      dynamicTitleType: selectedTheme.value,
+      dynamicPic: urls,
+      dynamicVideo: '', // 如果有视频可以赋值
+      dynamicLikeCount: 0,
+      dynamicCommentCount: 0
+    }
+
+    // 添加到帖子列表
+    postStore.addPost(newPost)
+
+    uiStore.showToast('Post released successfully')
+    goBackOrClose()
+    
+  } catch (err) {
+    console.error('上传失败', err)
+    uiStore.showToast('Upload failed, please check your network.')
+  } finally {
+    uiStore.hideLoading()
+  }
 }
 </script>
 

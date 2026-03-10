@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import postData from '../data/posts.json'  // 本地 JSON
+import { sendPostsToIOS } from '@/utils/iosBridge'
 
 export const usePostStore = defineStore('post', {
   state: () => ({
@@ -13,6 +14,17 @@ export const usePostStore = defineStore('post', {
     },
     getPostsByUserId(userId) {
       return this.posts.filter(p => p.userId === String(userId))
+    },
+    updatePostById(postId, newData) {
+      const post = this.posts.find(p => p.dynamicId === String(postId))
+      if (post) {
+        Object.assign(post, newData)
+        sendPostsToIOS(this.posts)
+      }
+    },
+    addPost(newPost) {
+      this.posts.push(newPost)
+      sendPostsToIOS(this.posts)
     }
   }
 })

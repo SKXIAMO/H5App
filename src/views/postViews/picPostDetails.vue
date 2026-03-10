@@ -18,9 +18,9 @@
           </template>
         </van-swipe>
         <!-- 顶部按钮 -->
-        <div class="top-btn" v-if="post.userId != currentUserStore.userId" @click="showReport = true">
+        <div class="top-btn">
           <BackButton/>
-          <MoreButton/>
+          <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
         </div>
       </div>
       <!-- 帖子内容 -->
@@ -48,9 +48,9 @@
           </div>
           </div>
           <!-- 点赞内容 -->
-          <div class="like-box">
-            <img :src="likeImage" alt="like" class="like-icon" />
-            <div class="like-count">{{ post.dynamicLikeCount }}</div>
+          <div class="like-box" @click="toggleLike">
+            <img :src="currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? likeImage : disLikeImage" alt="like" class="like-icon" />
+            <div class="like-count">{{ post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? 1 : 0) }}</div>
           </div>
         </div>
       </div>
@@ -62,29 +62,36 @@
       </div>
       <!-- 评论列表 -->
       <div class="comments-list">
-        <div class="comment-item" v-for="(comment, index) in comments" :key="index">
-          <div class="comment-list-top">
-            <div class="comment-list-user">
-              <div class="comment-avatar">
-                <div class="comment-avatar-img" :style="{ backgroundImage: `url(${userStore.getUserById(comment.userId).avator})` }"></div>
+        <template v-if="comments.length">
+          <div class="comment-item" v-for="(comment, index) in comments" :key="index">
+            <div class="comment-list-top">
+              <div class="comment-list-user" @click="goOtherHome(comment.userId)">
+                <div class="comment-avatar">
+                  <div class="comment-avatar-img" :style="{ backgroundImage: `url(${userStore.getUserById(comment.userId).avator})` }"></div>
+                </div>
+                <div class="comment-user-name">{{ userStore.getUserById(comment.userId).name }}</div>
               </div>
-              <div class="comment-user-name">{{ userStore.getUserById(comment.userId).name }}</div>
+              <div class="comments-list-more" :style="{ backgroundImage: `url(${commentMoreImage})` }" v-if="comment.userId !== currentUserStore.currentUser.userId" @click="handleCommentReport(comment.userId)"></div>
             </div>
-            <div class="comments-list-more" :style="{ backgroundImage: `url(${commentMoreImage})` }" v-if="comment.userId != currentUserStore.userId"></div>
+            <div class="comment-list-bottom">{{ comment.content }}</div>
           </div>
-          <div class="comment-list-bottom">{{ comment.content }}</div>
-        </div>
+        </template>
+        <template v-else>
+          <Empty />
+        </template>
       </div>
       <!-- 输入框 -->
       <div class="input-box">
-        <input type="text" placeholder="Say something" class="input-field" />
-        <div class="send-btn" :style="{ backgroundImage: `url(${commentSendImage})` }"></div>
+        <input type="text" placeholder="Say something" class="input-field" v-model="commentInput" />
+        <div class="send-btn" :style="{ backgroundImage: `url(${commentSendImage})` }" @click="sendComment"></div>
       </div>
     </div>
     <div v-else class="not-found">
       <p>The post was not found.</p>
     </div>
-    <ReportDialog v-if="showReport" @close="showReport = false" @select="handleSelect" >
+    <ReportDialog v-if="showPostReport" @close="showPostReport = false" @select="postReportSelect" >
+    </ReportDialog>
+    <ReportDialog v-if="showCommentReport" @close="showCommentReport = false" @select="commentReportSelect" >
     </ReportDialog>
   </div>
 </template>
@@ -92,19 +99,22 @@
 <script setup>
 import { ref } from 'vue'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePostStore } from '@/stores/post'
 import { useUserStore } from '@/stores/user'
 import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
+import { useUIStore } from '@/stores/ui'
+import { useCommentsStore } from '@/stores/comment'
 import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import likeImage from '@/assets/likepic.png'
 import disLikeImage from '@/assets/dislikepic.png'
 import commentMoreImage from '@/assets/postpiccommentreport.png'
 import commentSendImage from '@/assets/commentsend.png'
-import { useCommentsStore } from '@/stores/comment'
 import ReportDialog from '@/components/reportChoose.vue'
-import { useRouter } from 'vue-router'
+import Empty from '@/components/empty.vue'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -126,20 +136,52 @@ const otherStore =  useOtherStore()
 const postTag = otherStore.getTagByIndex(post.dynamicTitleType)
 
 const commentsStore = useCommentsStore()
-const comments = commentsStore.getCommentsById(postId)
+const comments = ref(commentsStore.getCommentsById(postId))
+
+// 评论输入框内容
+const commentInput = ref('')
 
 const currentUserStore = useCurrentUserStore()
 
+const uiStore = useUIStore()
+
 const router = useRouter()
-const showReport = ref(false)
-function handleSelect(value) {
-  showReport.value = false
+
+//帖子举报、拉黑
+const showPostReport = ref(false)
+function postReportSelect(value) {
+  showPostReport.value = false
   if (value === 0) {
     router.push({ name: 'report' })
   } else if (value === 1) {
-    // 点击了 Shield
-    console.log('用户选择屏蔽')
-    // 执行屏蔽逻辑
+    //用户选择屏蔽
+    if (uiStore.loading) return
+    uiStore.showLoading()
+
+    const postUserId = post.userId
+
+    // 用户选择屏蔽时加入 blockList
+    if (postUserId) {
+      const blockList = currentUserStore.currentUser.blockList || []
+
+      // 不存在才加入，避免重复
+      if (!blockList.includes(postUserId)) {
+        blockList.unshift(postUserId)
+
+        // 使用 userStore 公共方法同步更新当前用户并回传 iOS
+        userStore.updateUser(currentUserStore.currentUser.userId, { blockList: blockList })
+      }
+    }
+
+    const delay = Math.floor(Math.random() * 1500) + 500
+
+    setTimeout(() => {
+      uiStore.hideLoading()
+      uiStore.showToast('Blocking successful')
+
+      goBackOrClose()
+
+    }, delay)
   }
 }
 
@@ -147,6 +189,91 @@ function handleSelect(value) {
 function goOtherHome(userId) {
   if (!userId) return
   router.push({ name: 'otherHome', params: { userId } })
+}
+
+// 点赞逻辑
+function toggleLike() {
+  const postLikeIds = currentUserStore.currentUser.postLikeIds
+  // 判断当前用户是否已经点赞
+  const likedIndex = postLikeIds.indexOf(postId)
+
+  if (likedIndex === -1) {
+    // 未点赞，添加postId到postLikeIds
+    postLikeIds.push(postId)
+  } else {
+    // 已点赞，移除postId
+    postLikeIds.splice(likedIndex, 1)
+    // 点赞数不减少，保持原有逻辑
+  }
+
+  // 同步更新userStore，并回传iOS
+  userStore.updateUser(currentUserStore.currentUser.userId, { postLikeIds: postLikeIds })
+}
+
+//评论击败、拉黑
+const reportCommentUserId = ref(null)
+const showCommentReport = ref(false)
+
+function handleCommentReport(userId) {
+  reportCommentUserId.value = userId
+  showCommentReport.value = true
+}
+
+function commentReportSelect(value) {
+  showCommentReport.value = false
+
+  const userIdToBlock = reportCommentUserId.value
+  if (!userIdToBlock) return
+
+  if (value === 0) {
+    router.push({ name: 'report' })
+  } else if (value === 1) {
+    // 拉黑逻辑
+    if (uiStore.loading) return
+    uiStore.showLoading()
+
+    const blockList = currentUserStore.currentUser.blockList || []
+    if (!blockList.includes(userIdToBlock)) {
+      blockList.unshift(userIdToBlock)
+      userStore.updateUser(currentUserStore.currentUser.userId, { blockList })
+    }
+
+    const delay = Math.floor(Math.random() * 1500) + 500
+
+    setTimeout(() => {
+      uiStore.hideLoading()
+      uiStore.showToast('Blocking successful')
+      // 重新获取评论列表，过滤掉被拉黑的用户
+      comments.value = commentsStore.getCommentsById(postId)
+
+    }, delay)
+  }
+}
+
+// 发送评论逻辑
+function sendComment() {
+  const content = commentInput.value.trim()
+  if (!content) return // 输入为空直接返回
+
+  // 创建评论对象
+  const newComment = {
+    commentId: String(commentsStore.comment.length + 1),
+    dynamicId: String(postId),
+    userId: currentUserStore.currentUser.userId,
+    content: content
+  }
+
+  // 添加到评论 store
+  commentsStore.addComment(newComment)
+
+  // 更新帖子评论数量
+  postStore.updatePostById(postId, { dynamicCommentCount: (post.dynamicCommentCount || 0) + 1 })
+
+  // 清空输入框
+  commentInput.value = ''
+
+  // 重新获取评论列表，过滤掉被拉黑的用户
+  comments.value = commentsStore.getCommentsById(postId)
 }
 </script>
 

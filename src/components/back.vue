@@ -8,21 +8,13 @@
 // 导入 assets 图片
 import backImage from '../assets/back.png'
 import { useRouter } from 'vue-router'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const router = useRouter()
 
 function handleBack() {
   // 判断历史栈长度，优先返回上一页
-  if (window.history.length > 1) {
-      history.back()
-    } else {
-      // iOS WKWebView 回调原生
-      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.close) {
-        window.webkit.messageHandlers.close.postMessage()
-      } else {
-        console.warn('WebKit close handler not found')
-      }
-    }
+  goBackOrClose()
 }
 </script>
 

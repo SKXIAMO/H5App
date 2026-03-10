@@ -22,7 +22,7 @@
       <div class="bottom-section">
         <div class="bottom-scroll">
           <div v-for="(item, index) in bottomItems" :key="index" class="chat-item">
-            <div class="chat-choose" v-if="index % 2 === 0">
+            <div class="chat-choose" v-if="item.sendId === '0'">
                 <div class="chat-time">{{ item.time }}</div>
                     <div class="chat-content">
                     <img class="chat-avatar" src="@/assets/aiavator.png" alt="AI Avatar" />
@@ -55,6 +55,9 @@
 import { ref } from 'vue'
 import BackButton from '@/components/back.vue'
 import { useCurrentUserStore } from '@/stores/currentUser'
+import { useUIStore } from '@/stores/ui'
+import { aiChat } from '@/utils/ai'
+import { decryptAES } from '@/utils/aes'
 
 const messages = ref([
   "I'm feeling great today.",
@@ -63,24 +66,109 @@ const messages = ref([
 ])
 
 const currentUserStore = useCurrentUserStore()
+const uiStore = useUIStore()
+
+const getFirstTime = () => {
+  const key = 'chat_first_time'
+  const saved = localStorage.getItem(key)
+
+  if (saved) return saved
+
+  const now = new Date()
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // 12:00
+  localStorage.setItem(key, time)
+
+  return time
+}
 
 const bottomItems = ref([
-  { time: '12:00', message: 'Hi there! I’m Kico, your AI buddy for all things fun and creative.' },
-  { time: '12:05', message: 'Do you want' }
+  { sendId: '0', time: getFirstTime(), message: 'Hi there! I’m Kico, your AI buddy for all things fun and creative.' },
 ])
 
-function handleMessageClick(message) {
-  console.log('Clicked message:', message)
-  // TODO: perform actions with the clicked string
+async function handleMessageClick(message) {
+  const now = new Date()
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  bottomItems.value.push({
+    sendId: currentUserStore.currentUser.id,
+    time,
+    message: message
+  })
+
+  if (uiStore.loading) return
+  uiStore.showLoading()
+
+  try {
+    const res = await aiChat(message)
+
+    uiStore.hideLoading()
+
+    if (res.data.code === '0000') {
+      // 1 解密
+      const decryptText = decryptAES(res.data.result)
+      // 2 转 JSON
+      const data = JSON.parse(decryptText)
+      const aiMessage = data?.output?.choices?.[0]?.message?.content || ''
+      
+      // 然后 push 到聊天列表
+      bottomItems.value.push({
+        sendId: '0',           // AI
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        message: aiMessage
+      })
+    } else {
+      uiStore.showToast(res.data.message)
+    }
+
+  } catch (err) {
+    uiStore.hideLoading()
+    uiStore.showToast('Network error')
+  }
 }
 
 const chatInput = ref('')
 
-function sendMessage() {
-  if (chatInput.value.trim() !== '') {
-    console.log('Send message:', chatInput.value)
-    // TODO: add message to bottomItems or messages
-    chatInput.value = ''
+async function sendMessage() {
+  const text = chatInput.value.trim()
+  if (!text) return
+
+  const now = new Date()
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
+  bottomItems.value.push({
+    sendId: currentUserStore.currentUser.id,
+    time,
+    message: text
+  })
+
+  if (uiStore.loading) return
+  uiStore.showLoading()
+  try {
+    const res = await aiChat(text)
+
+    uiStore.hideLoading()
+
+    if (res.data.code === '0000') {
+      // 1 解密
+      const decryptText = decryptAES(res.data.result)
+      // 2 转 JSON
+      const data = JSON.parse(decryptText)
+      const aiMessage = data?.output?.choices?.[0]?.message?.content || ''
+      
+      // 然后 push 到聊天列表
+      bottomItems.value.push({
+        sendId: '0',           // AI
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        message: aiMessage
+      })
+
+      chatInput.value = ""
+    } else {
+      uiStore.showToast(res.data.message)
+    }
+
+  } catch (err) {
+    uiStore.hideLoading()
+    uiStore.showToast('Network error')
   }
 }
 </script>
@@ -174,7 +262,7 @@ function sendMessage() {
 }
 
 .bottom-scroll {
-  height: 100%;
+  height: calc(100% - calc(100vh * 20 / 812));
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -240,6 +328,7 @@ function sendMessage() {
 .chat-avatar-rigth {
   width: calc(100vw * 44 / 375);
   height: calc(100vw * 44 / 375);
+  flex-shrink: 0;
   border-radius: 50%; /* fully circular */
   padding: calc(100vw * 1 / 375); /* border thickness */
   background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);

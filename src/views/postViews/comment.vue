@@ -9,20 +9,21 @@
       </div>
 
       <!-- 评论列表 -->
-      <div class="comment-list">
+      <div v-if="comments.length > 0" class="comment-list" >
         <div v-for="(item, index) in comments" :key="index" class="comment-item">
           <div class="comment-top">
-            <div class="comment-user">
+            <div class="comment-user" @click="goOtherHome(item.userId)">
               <div class="avatar">
-                <img :src="item.avatar" alt="avatar" />
+                <img :src="userStore.getUserById(item.userId).avator" alt="avatar" />
               </div>
-              <div class="username">{{ item.name }}</div>
+              <div class="username">{{ userStore.getUserById(item.userId).name }}</div>
             </div>
-            <img class="report-btn" src="@/assets/postpiccommentreport.png" alt="report" />
+            <img @click="openComment(item.userId)" v-if="item.userId !== currentUserStore.currentUser.userId" class="report-btn" src="@/assets/postpiccommentreport.png" alt="report" />
           </div>
-          <div class="comment-text">{{ item.text }}</div>
+          <div class="comment-text">{{ item.content }}</div>
         </div>
       </div>
+      <Empty class="empty" v-else />
     </div>
 
     <!-- Bottom input box -->
@@ -35,22 +36,112 @@
 
 <script setup>
 import { ref } from 'vue'
+import { watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCommentsStore } from '@/stores/comment'
+import { useUserStore } from '@/stores/user'
+import { useCurrentUserStore } from '@/stores/currentUser'
+import { useUIStore } from '@/stores/ui'
+import { usePostStore } from '@/stores/post'
+import ReportDialog from '@/components/reportChoose.vue'
+import Empty from '@/components/empty.vue'
 
-const comments = ref([
-  { avatar: 'https://img.js.design/assets/img/69435f7e0aebe8c71fc55eef.png#27c87ac7309481d72bde1bebd6b5801a', name: 'User1', text: 'This is a comment example.' },
-  { avatar: 'https://img.js.design/assets/img/69435f7e0aebe8c71fc55eef.png#27c87ac7309481d72bde1bebd6b5801a', name: 'User1', text: 'This is a comment example.' },
-  { avatar: 'https://img.js.design/assets/img/69435f7e0aebe8c71fc55eef.png#27c87ac7309481d72bde1bebd6b5801a', name: 'User1', text: 'This is a comment example.' },
-  { avatar: 'https://img.js.design/assets/img/69435f7e0aebe8c71fc55eef.png#27c87ac7309481d72bde1bebd6b5801a', name: 'User1', text: 'This is a comment example.' },
-  { avatar: 'https://img.js.design/assets/img/69435f7e0aebe8c71fc55eef.png#27c87ac7309481d72bde1bebd6b5801a', name: 'User1', text: 'This is a comment example.' },
-])
+const props = defineProps({
+  postId: {
+    type: [String, Number],
+    required: true
+  },
+  reportAction: {
+    type: Number,
+    default: null
+  } // 0 或 1
+})
+
+const postId = props.postId
+
+const router = useRouter()
+
+const uiStore = useUIStore()
+const commentsStore = useCommentsStore()
+const userStore =  useUserStore()
+const currentUserStore = useCurrentUserStore()
+const postStore = usePostStore()
+const comments = ref(commentsStore.getCommentsById(postId))
+
+// 点击用户头像跳转到用户主页
+function goOtherHome(userId) {
+  if (!userId) return
+  router.push({ name: 'otherHome', params: { userId } })
+}
 
 const inputText = ref('')
+
 function sendComment() {
-  if(inputText.value.trim() !== '') {
-    console.log('Send comment:', inputText.value)
-    inputText.value = ''
+  const content = inputText.value.trim()
+  if (!content) return // 输入为空直接返回
+
+  // 创建评论对象
+  const newComment = {
+    commentId: String(commentsStore.comment.length + 1),
+    dynamicId: String(postId),
+    userId: currentUserStore.currentUser.userId,
+    content: content
   }
+
+  // 添加到评论 store
+  commentsStore.addComment(newComment)
+
+  // 更新帖子评论数量
+  const post = postStore.getPostById(postId)
+  postStore.updatePostById(postId, { dynamicCommentCount: (post.dynamicCommentCount || 0) + 1 })
+
+  // 清空输入框
+  inputText.value = ''
+
+  // 重新获取评论列表，过滤掉被拉黑的用户
+  comments.value = commentsStore.getCommentsById(postId)
 }
+
+const emit = defineEmits(['openCommentReport'])
+
+// 打开帖子举报
+function openComment(userId) {
+  reportCommentUserId.value = userId
+  emit('openCommentReport')
+}
+
+//帖子举报、拉黑
+const reportCommentUserId = ref(null)
+
+watch(
+  () => props.reportAction,
+  (newVal) => {
+    if (newVal === null) return
+
+    if (newVal === 0) {
+      router.push({ name: 'report' })
+    } else if (newVal === 1) {
+      if (uiStore.loading) return
+      uiStore.showLoading()
+
+      const blockList = currentUserStore.currentUser.blockList || []
+      if (!blockList.includes(reportCommentUserId.value)) {
+        blockList.unshift(reportCommentUserId.value)
+        userStore.updateUser(currentUserStore.currentUser.userId, { blockList })
+      }
+
+      const delay = Math.floor(Math.random() * 1500) + 500
+
+      setTimeout(() => {
+        uiStore.hideLoading()
+        uiStore.showToast('Blocking successful')
+        // 重新获取评论列表，过滤掉被拉黑的用户
+        comments.value = commentsStore.getCommentsById(postId)
+
+      }, delay)
+    }
+  }
+)
 </script>
 
 <style scoped>
@@ -212,5 +303,9 @@ function sendComment() {
   width: calc(100vw * 30 / 375);
   height: calc(100vw * 30 / 375);
   cursor: pointer;
+}
+
+.empty {
+  padding: calc(100vw * 60 / 375) 0 0;
 }
 </style>

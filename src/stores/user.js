@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import usersData from '../data/users.json'
 import { useCurrentUserStore } from './currentUser'
+import { sendUsersToIOS } from '@/utils/iosBridge'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -15,6 +16,22 @@ export const useUserStore = defineStore('user', {
       const myId = currentUserStore.currentUser.userId
       const otherId = chatUserIds.find(id => id !== myId)
       return this.getUserById(otherId)
-    }
+    },
+    // 公共方法：更新用户信息并通知iOS
+    updateUser(userId, newData) {
+      const user = this.users.find(u => u.userId === userId)
+      if (user) {
+        Object.assign(user, newData)
+
+        // 如果是当前登录用户，同步更新 currentUserStore
+        const currentUserStore = useCurrentUserStore()
+        if (userId === currentUserStore.currentUser.userId) {
+          Object.assign(currentUserStore.currentUser, newData)
+        }
+
+        // 通知iOS
+        sendUsersToIOS(this.users)
+      }
+    },
   }
 })

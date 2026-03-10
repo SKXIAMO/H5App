@@ -6,7 +6,7 @@
     <div class="scroll-content">
       <div class="top">
         <div class="top-avatar" :style="{ '--avatar-url': `url(${currentUser.avator})` }">
-            <div class="follow-btn">
+            <div class="follow-btn" v-if="userId !== currentUserStore.currentUser.userId && !currentUserStore.currentUser.follow.includes(userId)" @click="handleFollow" >
                 <div class="follow-icon"></div>
             </div> 
         </div>
@@ -15,7 +15,7 @@
       <!-- 用户作品数量、粉丝、关注 -->
       <div class="user-stats">
         <div class="stat-item">
-          <div class="stat-number">{{ 0 }}</div>
+          <div class="stat-number">{{ userPosts.length || 0 }}</div>
           <div class="stat-label">Works</div>
         </div>
         <div class="stat-item">
@@ -39,54 +39,66 @@
       <div class="post-title">Post</div>
       <!-- PostList -->
       <div class="post-list">
-        <div class="post-item" v-for="post in userPosts" :key="post.dynamicId">
-          <div class="post-content">
-            <!-- Top row: avatar + name (left) and report button (right) -->
-            <div class="post-top">
-                <div class="post-user">
-                <div class="post-avatar">
-                  <div class="post-avatar-img" :style="{ backgroundImage: `url(${currentUser.avator})` }"></div>
-                </div>
-                <div class="post-username" :title="currentUser.name">{{ currentUser.name }}</div>
-                </div>
-                <div class="post-report"></div>
-            </div>
-            <!-- Middle image -->
-            <div class="post-image" :style="{ backgroundImage: `url(${post.dynamicPic[0]})` }">
-              <div class="post-image-overlay">
-                <div class="overlay-item">
-                  <div class="overlay-icon overlay-like"></div>
-                  <div class="overlay-count">{{ post.dynamicLikeCount || 0 }}</div>
-                </div>
-                <div class="overlay-item">
-                  <div class="overlay-icon overlay-comment"></div>
-                  <div class="overlay-count">{{ post.dynamicCommentCount || 0 }}</div>
+        <template v-if="userPosts.length > 0">
+          <div class="post-item" v-for="post in userPosts" :key="post.dynamicId" @click="toPostDetail(post.dynamicId, post.dynamicType)">
+            <div class="post-content">
+              <!-- Top row: avatar + name (left) and report button (right) -->
+              <div class="post-top">
+                  <div class="post-user">
+                  <div class="post-avatar">
+                    <div class="post-avatar-img" :style="{ backgroundImage: `url(${currentUser.avator})` }"></div>
+                  </div>
+                  <div class="post-username" :title="currentUser.name">{{ currentUser.name }}</div>
+                  </div>
+                  <div class="post-report" v-if="userId !== currentUserStore.currentUser.userId" @click="showReport = true"></div>
+              </div>
+              <!-- Middle image -->
+              <div class="post-image" :style="{ backgroundImage: `url(${post.dynamicPic[0]})` }">
+                <div class="post-image-overlay">
+                  <div class="overlay-item">
+                    <div class="overlay-icon overlay-like"></div>
+                    <div class="overlay-count">{{ post.dynamicLikeCount || 0 }}</div>
+                  </div>
+                  <div class="overlay-item">
+                    <div class="overlay-icon overlay-comment"></div>
+                    <div class="overlay-count">{{ post.dynamicCommentCount || 0 }}</div>
+                  </div>
                 </div>
               </div>
+              <!-- Bottom: post type -->
+              <div class="post-type"># {{ otherStore.getTagByIndex(post.dynamicTitleType) }}</div>
             </div>
-            <!-- Bottom: post type -->
-            <div class="post-type"># {{ otherStore.getTagByIndex(post.dynamicTitleType) }}</div>
           </div>
-        </div>
+        </template>
+        <template v-else>
+          <Empty />
+        </template>
       </div>
-      
     </div>
     <!-- 顶部按钮 -->
     <div class="top-btn">
         <BackButton/>
-        <MoreButton v-if="userId != currentUserStore.userId" />
+        <MoreButton v-if="userId !== currentUserStore.currentUser.userId" @click="showReport = true" />
     </div>
+    <ReportDialog v-if="showReport" @close="showReport = false" @select="reportSelect" >
+    </ReportDialog>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { usePostStore } from '@/stores/post'
 import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
+import { useUIStore } from '@/stores/ui'
 import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
+import ReportDialog from '@/components/reportChoose.vue'
+import Empty from '@/components/empty.vue'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const { userId } = defineProps({
   userId: {
@@ -102,10 +114,83 @@ const currentUser = computed(() => {
 // 用户帖子列表
 const postStore = usePostStore()
 const userPosts = computed(() => postStore.getPostsByUserId(userId))
-
 const otherStore =  useOtherStore()
-
 const currentUserStore = useCurrentUserStore()
+const uiStore = useUIStore()
+const router = useRouter()
+
+const showReport = ref(false)
+function reportSelect(value) {
+  showReport.value = false
+  if (value === 0) {
+    router.push({ name: 'report' })
+  } else if (value === 1) {
+    //用户选择屏蔽
+    if (uiStore.loading) return
+    uiStore.showLoading()
+
+    // 用户选择屏蔽时加入 blockList
+    const blockList = currentUserStore.currentUser.blockList || []
+
+    // 不存在才加入，避免重复
+    if (!blockList.includes(userId)) {
+      blockList.unshift(userId)
+
+      // 使用 userStore 公共方法同步更新当前用户并回传 iOS
+      userStore.updateUser(currentUserStore.currentUser.userId, { blockList: blockList })
+    }
+
+    const delay = Math.floor(Math.random() * 1500) + 500
+
+    setTimeout(() => {
+      uiStore.hideLoading()
+      uiStore.showToast('Blocking successful')
+
+      goBackOrClose()
+
+    }, delay)
+  }
+}
+
+// Handle follow action
+function handleFollow() {
+  const currentUserId = currentUserStore.currentUser.userId
+
+  // Update current user's follow list
+  const currentUserFollow = currentUserStore.currentUser.follow ? [...currentUserStore.currentUser.follow] : []
+  if (!currentUserFollow.includes(userId)) {
+    currentUserFollow.unshift(userId)
+  }
+
+  // Update post user's fans list
+  const postUserFans = currentUser.fans ? [...currentUser.fans] : []
+  if (!postUserFans.includes(currentUserId)) {
+    postUserFans.unshift(currentUserId)
+  }
+
+  // Update current user store and user store
+  userStore.updateUser(currentUserId, { follow: currentUserFollow })
+
+  userStore.updateUser(userId, { fans: postUserFans })
+  
+  uiStore.showToast('Followed successfully')
+}
+
+//详情
+function toPostDetail(dynamicId, dynamicType) {
+  if (dynamicType == 0) {
+    router.push({
+      name: 'picPostDetails',
+      params: { postId: dynamicId }   // ✅ 注意这里是 postId
+    })
+  }
+  if (dynamicType == 1) {
+    router.push({
+      name: 'videoPostDetails',
+      params: { postId: dynamicId }   // ✅ 同样修改
+    })
+  }
+}
 </script>
 
 <style scoped>
@@ -346,6 +431,7 @@ const currentUserStore = useCurrentUserStore()
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  pointer-events: none;
 }
 
 /* Post item new sections */

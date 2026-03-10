@@ -4,6 +4,7 @@ import { ref } from 'vue'
 export const useUIStore = defineStore('ui', () => {
     const loading = ref(false)
     const toastMessage = ref('')
+    const showComment = ref(false)
 
     function showLoading() {
         loading.value = true
@@ -18,11 +19,22 @@ export const useUIStore = defineStore('ui', () => {
         setTimeout(() => { toastMessage.value = '' }, duration)
     }
 
+    function openComment() {
+        showComment.value = true
+    }
+
+    function closeComment() {
+        showComment.value = false
+    }
+
     return {
         loading,
         showLoading,
         hideLoading,
         toastMessage,
-        showToast
+        showToast,
+        showComment,
+        openComment,
+        closeComment
     }
 })

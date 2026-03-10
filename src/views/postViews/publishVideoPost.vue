@@ -33,7 +33,7 @@
           </template>
         </div>
         <!-- Release -->
-        <div class="release-button">Release</div>
+        <div class="release-button" @click="handleRelease">Release</div>
     </div>
   </div>
 </template>
@@ -41,12 +41,20 @@
 <script setup>
 import { ref } from 'vue'
 import { useOtherStore } from '@/stores/other'
+import { useUIStore } from '@/stores/ui'
+import { usePostStore } from '@/stores/post'
+import { useCurrentUserStore } from '@/stores/currentUser'
 import BackButton from '@/components/back.vue'
+import { uploadSingleImage, uploadVideo } from '@/utils/ossUpload'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const text = ref('')
 const selectedTheme = ref(0)
 
 const otherStore =  useOtherStore()
+const uiStore = useUIStore()
+const postStore = usePostStore()
+const currentUserStore = useCurrentUserStore()
 
 const uploadedVideo = ref(null)  // store the video file
 const videoFirstFrame = ref('') // store the preview image
@@ -79,6 +87,59 @@ const handleAddVideo = async (event) => {
 const handleRemoveVideo = () => {
   uploadedVideo.value = null
   videoFirstFrame.value = ''
+}
+
+const handleRelease = async () => {
+  // 1. 判断文案是否为空
+  if (!text.value.trim()) {
+    uiStore.showToast('Please fill in the post text.')
+    return
+  }
+
+  if (!uploadedVideo.value) {
+    uiStore.showToast('Please select a video.')
+    return
+  }
+
+  if (uiStore.loading) return
+  uiStore.showLoading()
+
+  try {
+    // 2. 上传视频
+    const videoUrl = await uploadVideo(uploadedVideo.value,'template_development')
+    console.log('视频 URL:', videoUrl)
+
+    // 3. 上传视频第一帧图片
+    const imageBlob = await (await fetch(videoFirstFrame.value)).blob()
+    const imageFile = new File([imageBlob], 'first_frame.png', { type: 'image/png' })
+    const imageUrl = await uploadSingleImage(imageFile,'template_development')
+    console.log('视频第一帧 URL:', imageUrl)
+
+    // 构造新帖子对象
+    const newPost = {
+      dynamicId: String(postStore.posts.length + 1), // 生成唯一ID
+      userId: currentUserStore.currentUser.userId, // 可以替换为当前用户ID
+      dynamicType: 1,
+      dynamicDesc: text.value,
+      dynamicTitleType: '',
+      dynamicPic: [imageUrl],
+      dynamicVideo: videoUrl, // 如果有视频可以赋值
+      dynamicLikeCount: 0,
+      dynamicCommentCount: 0
+    }
+
+    // 添加到帖子列表
+    postStore.addPost(newPost)
+
+    uiStore.showToast('Post released successfully')
+    goBackOrClose()
+
+  } catch (err) {
+    console.error('上传失败', err)
+    uiStore.showToast('Upload failed, please check your network.')
+  } finally {
+    uiStore.hideLoading()
+  }
 }
 </script>
 
