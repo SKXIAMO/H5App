@@ -31,7 +31,7 @@
       <div class="intro-chat">
         <div class="intro-text">{{ currentUser.about }}</div>
         <template v-if="userId !== currentUserStore.currentUser.userId">
-          <div class="chat-btn">
+          <div class="chat-btn" @click="handleChat">
               <div class="chat-icon"></div>
               <div class="chat-text">Chat</div>
           </div>
@@ -99,6 +99,7 @@ import { usePostStore } from '@/stores/post'
 import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useUIStore } from '@/stores/ui'
+import { useChatsStore } from '@/stores/chat'
 import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import ReportDialog from '@/components/reportChoose.vue'
@@ -122,6 +123,7 @@ const userPosts = computed(() => postStore.getPostsByUserId(userId))
 const otherStore =  useOtherStore()
 const currentUserStore = useCurrentUserStore()
 const uiStore = useUIStore()
+const chatStore = useChatsStore()
 const router = useRouter()
 
 const showReport = ref(false)
@@ -179,6 +181,49 @@ function handleFollow() {
   userStore.updateUser(userId, { fans: postUserFans })
   
   uiStore.showToast('Followed successfully')
+}
+
+function handleChat() {
+  if (uiStore.loading) return
+  uiStore.showLoading()
+  const currentUserId = currentUserStore.currentUser.userId
+
+  // 查找是否已有 chat
+  const existChat = chatStore.chat.find(chat => {
+    const ids = chat.chatUserIds || []
+    return ids.includes(currentUserId) && ids.includes(userId)
+  })
+
+  let chatId
+
+  if (existChat) {
+    chatId = existChat.chatId
+  } else {
+    // 创建新的 chat
+    const newChat = {
+      chatId: String(chatStore.chat.length + 1),
+      chatUserIds: [currentUserId, userId],
+      lastSendContent: '',
+      lastSendTime: new Date().toISOString(),
+      unreadMsgCount: 0,
+      lastSendUserId: currentUserId
+    }
+
+    chatStore.addChat?.(newChat)
+    chatId = newChat.chatId
+  }
+
+  const delay = Math.floor(Math.random() * 1500) + 500
+
+  setTimeout(() => {
+    uiStore.hideLoading()
+    // 跳转聊天页
+    router.push({
+      name: 'chat',
+      params: { chatId: chatId }
+    })
+
+  }, delay)
 }
 
 //详情
