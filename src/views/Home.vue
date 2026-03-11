@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <van-nav-bar title="首页" />
+  <div class="page">
+    <img class="bg-img" src="../assets/bg.webp" alt="" />
 
-    <van-button type="primary" block>
-      点击按钮
-    </van-button>
+    <div class="email-box">
+      <div class="email">
+        639293382@qq.com
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,4 +14,29 @@
 </script>
 
 <style scoped>
+.page {
+  position: relative;
+  min-height: 100vh;
+}
+
+.bg-img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.email-box {
+  position: absolute;
+  bottom: 5vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.email {
+  background: white;
+  color: black;
+  padding: 1.3vh 2vw;
+  border-radius: 1vw;
+  font-size: 2vw;
+}
 </style>
