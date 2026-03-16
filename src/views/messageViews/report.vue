@@ -31,6 +31,7 @@ import { ref } from 'vue'
 import BackButton from '@/components/back.vue'
 import { useOtherStore } from '@/stores/other'
 import { useUIStore } from '@/stores/ui'
+import { goBackOrClose } from '@/utils/iosBridge'
 
 const otherStore =  useOtherStore()
 
@@ -48,17 +49,7 @@ function handleSubmit() {
     uiStore.hideLoading()
     uiStore.showToast('Report successful')
 
-    // 判断是否可以返回上一页
-    if (window.history.length > 1) {
-      history.back()
-    } else {
-      // iOS WKWebView 回调原生
-      if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.close) {
-        window.webkit.messageHandlers.close.postMessage()
-      } else {
-        console.warn('WebKit close handler not found')
-      }
-    }
+    goBackOrClose()
 
   }, delay)
 }
