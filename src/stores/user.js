@@ -5,7 +5,7 @@ import { sendUsersToIOS } from '@/utils/iosBridge'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    users: usersData,  // 初始化为本地 JSON
+    users: window.userList || usersData,  // 初始化为本地 JSON
   }),
   actions: {
     getUserById(id) {

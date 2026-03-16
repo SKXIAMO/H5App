@@ -6,7 +6,9 @@ export function sendUsersToIOS(users) {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.userListUpdate
         ) {
-            window.webkit.messageHandlers.userListUpdate.postMessage(users)
+            // 解开 Vue Proxy，保证纯数组对象
+            const plainUsers = JSON.parse(JSON.stringify(users))
+            window.webkit.messageHandlers.userListUpdate.postMessage({ users: plainUsers })
         } else {
             console.warn('iOS handler userListUpdate not found')
         }
@@ -23,6 +25,9 @@ export function sendPostsToIOS(posts) {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.postsUpdate
         ) {
+            // 解开 Vue Proxy，保证纯数组对象
+            const plainPosts = JSON.parse(JSON.stringify(posts))
+            window.webkit.messageHandlers.postsUpdate.postMessage({ posts: plainPosts })
             window.webkit.messageHandlers.postsUpdate.postMessage(posts)
         } else {
             console.warn('iOS handler postsUpdate not found')
@@ -40,7 +45,9 @@ export function sendChatsToIOS(chats) {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.chatsUpdate
         ) {
-            window.webkit.messageHandlers.chatsUpdate.postMessage(chats)
+            // 解开 Vue Proxy，保证纯数组对象
+            const plainChats = JSON.parse(JSON.stringify(chats))
+            window.webkit.messageHandlers.chatsUpdate.postMessage({ chats: plainChats })
         } else {
             console.warn('iOS handler chatsUpdate not found')
         }
@@ -57,7 +64,9 @@ export function sendMessagesToIOS(messages) {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.messagesUpdate
         ) {
-            window.webkit.messageHandlers.messagesUpdate.postMessage(messages)
+            // 解开 Vue Proxy，保证纯数组对象
+            const plainMessages = JSON.parse(JSON.stringify(messages))
+            window.webkit.messageHandlers.messagesUpdate.postMessage({ messages: plainMessages })
         } else {
             console.warn('iOS handler messagesUpdate not found')
         }
@@ -74,7 +83,9 @@ export function sendCommentsToIOS(comments) {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.commentsUpdate
         ) {
-            window.webkit.messageHandlers.commentsUpdate.postMessage(comments)
+            // 解开 Vue Proxy，保证纯数组对象
+            const plainComments = JSON.parse(JSON.stringify(comments))
+            window.webkit.messageHandlers.commentsUpdate.postMessage({ comments: plainComments })
         } else {
             console.warn('iOS handler commentsUpdate not found')
         }
@@ -91,7 +102,7 @@ export function sendLogoutToIOS(isLogout) {
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.logout
         ) {
-            window.webkit.messageHandlers.logout.postMessage(isLogout)
+            window.webkit.messageHandlers.logout.postMessage({ isLogout: isLogout })
         } else {
             console.warn('iOS handler logout not found')
         }
@@ -102,7 +113,7 @@ export function sendLogoutToIOS(isLogout) {
 
 // Handle page back or close action
 export function goBackOrClose() {
-    if (window.history.length > 1) {
+    if (window.history.state.back) {
         history.back()
     } else {
         // iOS WKWebView callback to close the page
@@ -115,15 +126,18 @@ export function goBackOrClose() {
 }
 
 // Notify iOS to start in-app purchase
-export function sendPaymentToIOS(payKey, callbackName) {
+export function sendPaymentToIOS(payKey) {
     try {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
             window.webkit.messageHandlers.payment
         ) {
-            window.webkit.messageHandlers.payment.postMessage(payKey)
-            // iOS 端回调支付结果会通过 JS 调用 window[callbackName](success)
+            // 发送支付ID和回调函数名给 iOS
+            window.webkit.messageHandlers.payment.postMessage({
+                payKey: payKey
+            })
+            // iOS 完成异步支付后会通过 JS 调用 window[callbackName](success)
         } else {
             console.warn('iOS handler payment not found')
         }

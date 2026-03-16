@@ -5,7 +5,7 @@ import { sendCommentsToIOS } from '@/utils/iosBridge'
 
 export const useCommentsStore = defineStore('comment', {
     state: () => ({
-        comment: commentsData,  // 初始化为本地 JSON
+        comment: window.commentList || commentsData,  // 初始化为本地 JSON
     }),
     actions: {
         getCommentsById(postId) {

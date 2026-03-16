@@ -4,7 +4,7 @@ import { sendPostsToIOS } from '@/utils/iosBridge'
 
 export const usePostStore = defineStore('post', {
   state: () => ({
-    posts: postData  // 初始化帖子列表
+    posts: window.postList || postData  // 初始化帖子列表
   }),
   actions: {
     // 根据帖子 ID 查找帖子

@@ -140,6 +140,7 @@ function cancelFollow(userId) {
 }
 
 .follow-left {
+  width: calc(100% - calc(100vw * 140 / 375));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -154,6 +155,7 @@ function cancelFollow(userId) {
 }
 
 .avatar-box {
+  flex-shrink: 0; /* 禁止收缩 */
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;

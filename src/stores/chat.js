@@ -4,7 +4,7 @@ import { sendChatsToIOS } from '@/utils/iosBridge'
 
 export const useChatsStore = defineStore('chat', {
     state: () => ({
-        chat: chatsData,  // 初始化为本地 JSON
+        chat: window.chatList || chatsData,  // 初始化为本地 JSON
     }),
     actions: {
         getChatById(chatId) {

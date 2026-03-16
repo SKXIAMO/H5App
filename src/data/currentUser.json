@@ -6,7 +6,9 @@
     "name": "Genji",
     "about": "Nice to meet you all.",
     "coins": 0,
-    "follow": [],
+    "follow": [
+        "2"
+    ],
     "fans": [],
     "blockList": [
         "2",

@@ -48,7 +48,7 @@ const currentUserStore = useCurrentUserStore()
 const uiStore = useUIStore()
 const userStore =  useUserStore()
 function handlePurchaseClick() {
-  if (currentUserStore.currentUser.coins <= 100) {
+  if (currentUserStore.currentUser.coins >= 100) {
     if (uiStore.loading) return
     uiStore.showLoading()
 
