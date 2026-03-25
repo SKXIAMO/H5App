@@ -142,3 +142,37 @@ export function sendPaymentToIOS(payKey) {
         console.error('sendPaymentToIOS error', e)
     }
 }
+
+// Notify iOS that page showLoading
+export function sendShowLoadingToIOS(isShow) {
+    try {
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.showLoading
+        ) {
+            window.webkit.messageHandlers.showLoading.postMessage({ isShow: isShow })
+        } else {
+            console.warn('iOS handler showLoading not found')
+        }
+    } catch (e) {
+        console.error('sendShowLoadingToIOS error', e)
+    }
+}
+
+// Notify iOS that page showToast
+export function sendShowToastToIOS(toastMsg) {
+    try {
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.showToast
+        ) {
+            window.webkit.messageHandlers.showToast.postMessage({ toastMsg: toastMsg })
+        } else {
+            console.warn('iOS handler showToast not found')
+        }
+    } catch (e) {
+        console.error('sendShowToastToIOS error', e)
+    }
+}

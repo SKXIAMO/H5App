@@ -9,7 +9,9 @@
     "follow": [
         "2"
     ],
-    "fans": [],
+    "fans": [
+        "3"
+    ],
     "blockList": [
         "2",
         "3"

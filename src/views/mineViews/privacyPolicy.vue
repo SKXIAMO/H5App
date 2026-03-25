@@ -10,99 +10,76 @@
     <!-- content -->
     <div class="agreement-content">
 
-      <h1>Luvie Privacy Policy</h1>
+      <h1>Fluce Privacy Policy</h1>
       <p class="update-time">Last updated: 2026</p>
 
       <p>
-        Welcome to <strong>Luvie</strong>. Your privacy is very important to us.
-        This Privacy Policy explains how Luvie collects, uses, and protects
-        your information when you use our application and services.
+        Welcome to <strong>Fluce</strong>, your trendy dance community powered by AI and video sharing. Your privacy is important to us. This Privacy Policy explains how Fluce collects, uses, and protects your information when you use our app and services.
       </p>
 
       <h2>1. Information We Collect</h2>
 
-      <p>We may collect the following types of information:</p>
+      <p>We collect information to provide and improve Fluce, including:</p>
 
       <ul>
-        <li>Account information such as username, profile photo, and email</li>
-        <li>Device information including device model, operating system, and identifiers</li>
-        <li>Usage data such as interactions, messages, and app activity</li>
-        <li>Payment-related information when purchasing virtual items</li>
+        <li>Account details such as username, profile picture, and email address</li>
+        <li>Device information like model, operating system, and unique identifiers</li>
+        <li>Content you create or share, including videos and messages</li>
+        <li>Usage data including interactions with the AI assistant and community features</li>
+        <li>Payment information when you purchase premium features or virtual goods</li>
       </ul>
 
-      <h2>2. How We Use Information</h2>
+      <h2>2. How We Use Your Information</h2>
 
-      <p>The information we collect may be used to:</p>
+      <p>Your information helps us to:</p>
 
       <ul>
-        <li>Provide and improve Luvie services</li>
-        <li>Personalize user experience</li>
-        <li>Ensure platform safety and prevent fraud</li>
-        <li>Process payments and virtual item purchases</li>
-        <li>Communicate updates and service notifications</li>
+        <li>Deliver and enhance Fluce’s dance community and AI assistant features</li>
+        <li>Personalize your experience and content recommendations</li>
+        <li>Maintain a safe and respectful platform environment</li>
+        <li>Process transactions and manage subscriptions</li>
+        <li>Communicate important updates and support information</li>
       </ul>
 
-      <h2>3. Information Sharing</h2>
+      <h2>3. Sharing Your Information</h2>
 
-      <p>
-        Luvie does not sell or rent your personal information. We may share
-        information only in the following situations:
-      </p>
+      <p>We do not sell your personal data. We may share information only as necessary:</p>
 
       <ul>
-        <li>With service providers that support our platform operations</li>
-        <li>When required by law or legal processes</li>
-        <li>To protect the safety and rights of users or the platform</li>
+        <li>With trusted service providers who support our platform operations</li>
+        <li>When required by law or to protect Fluce’s rights and user safety</li>
+        <li>To prevent fraud and abuse within the community</li>
       </ul>
 
       <h2>4. Data Security</h2>
 
-      <p>
-        We implement reasonable technical and organizational measures to
-        protect your information from unauthorized access, alteration,
-        disclosure, or destruction.
-      </p>
+      <p>We use industry-standard technical and organizational measures to safeguard your data against unauthorized access, alteration, or disclosure.</p>
 
       <h2>5. Data Retention</h2>
 
-      <p>
-        We retain user data only for as long as necessary to provide services
-        and comply with legal obligations.
-      </p>
+      <p>We retain your information only as long as necessary to provide services and comply with legal obligations.</p>
 
-      <h2>6. Children's Privacy</h2>
+      <h2>6. Children’s Privacy</h2>
 
-      <p>
-        Luvie is not intended for individuals under the age required by
-        applicable law. We do not knowingly collect personal information
-        from children.
-      </p>
+      <p>Fluce is not intended for users under the age required by applicable law. We do not knowingly collect personal information from children.</p>
 
-      <h2>7. User Rights</h2>
+      <h2>7. Your Rights</h2>
 
       <p>Depending on your location, you may have rights to:</p>
 
       <ul>
-        <li>Access the personal information we hold about you</li>
-        <li>Request correction or deletion of your data</li>
-        <li>Restrict or object to certain processing</li>
+        <li>Access the personal data we hold about you</li>
+        <li>Request correction or deletion of your information</li>
+        <li>Restrict or object to certain types of processing</li>
       </ul>
 
       <h2>8. Changes to This Policy</h2>
 
-      <p>
-        Luvie may update this Privacy Policy from time to time.
-        Continued use of the service after changes indicates
-        acceptance of the updated policy.
-      </p>
+      <p>We may update this Privacy Policy periodically. Continued use of Fluce after changes means you accept the updated terms.</p>
 
       <h2>9. Contact Us</h2>
 
-      <p>
-        If you have questions about this Privacy Policy,
-        please contact us through the support channel
-        provided within the Luvie application.
-      </p>
+      <p>If you have any questions or concerns about this Privacy Policy, please contact us through the support channels available within the Fluce app.</p>
 
     </div>
   </div>
@@ -118,9 +95,7 @@ import BackButton from '@/components/back.vue'
   height:100vh;
   display:flex;
   flex-direction:column;
-  background-image:url('@/assets/pagebgc.png');
-  background-size:cover;
-  background-position:center;
+  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
   color:white;
 }
 
@@ -128,22 +103,15 @@ import BackButton from '@/components/back.vue'
 .header{
   display:flex;
   align-items:center;
-  gap:calc(100vw * 16 / 375);
+  gap:calc(100vw * 12 / 375);
   padding:calc(100vh * 58 / 812) calc(100vw * 20 / 375) calc(100vh * 20 / 812);
 }
 
 .title{
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  background:linear-gradient(
-    135deg,
-    rgba(255,159,142,1),
-    rgba(241,213,160,1),
-    rgba(201,255,221,1),
-    rgba(157,255,255,1)
-  );
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  font-weight: bold;
+  color: #fff;
 }
 
 /* 内容 */
@@ -151,14 +119,14 @@ import BackButton from '@/components/back.vue'
   flex:1;
   overflow-y:auto;
   padding:calc(100vh * 20 / 812) calc(100vw * 20 / 375);
-  background:rgba(0,0,0,0.45);
-  backdrop-filter:blur(calc(100vw * 10 / 375));
-  border-radius:calc(100vw * 20 / 375) calc(100vw * 20 / 375) 0 0;
+  /* background:rgba(0,0,0,0.45); */
+  /* backdrop-filter:blur(calc(100vw * 10 / 375)); */
+  /* border-radius:calc(100vw * 20 / 375) calc(100vw * 20 / 375) 0 0; */
 }
 
 /* 标题 */
 .agreement-content h1{
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size:calc(100vw * 24 / 375);
   margin-bottom:calc(100vh * 10 / 812);
 }
@@ -166,23 +134,23 @@ import BackButton from '@/components/back.vue'
 /* 更新时间 */
 .update-time{
   opacity:0.7;
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size:calc(100vw * 12 / 375);
   margin-bottom:calc(100vh * 20 / 812);
 }
 
 /* 小标题 */
 .agreement-content h2{
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size:calc(100vw * 18 / 375);
   margin-top:calc(100vh * 24 / 812);
   margin-bottom:calc(100vh * 10 / 812);
-  color:#ff9f8e;
+  color:rgba(236, 86, 184, 1);
 }
 
 /* 正文 */
 .agreement-content p{
-  font-family: 'Archivo', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
   line-height:1.7;
   margin-bottom:calc(100vh * 10 / 812);
@@ -195,7 +163,7 @@ import BackButton from '@/components/back.vue'
 
 .agreement-content li{
   margin-bottom:calc(100vh * 6 / 812);
-  font-family: 'Archivo', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
 }
 </style>

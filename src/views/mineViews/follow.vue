@@ -19,7 +19,7 @@
             </div>
             <div class="user-intro">{{ item.about }}</div>
           </div>
-          <div class="follow-right" @click="cancelFollow(item.userId)">Cancel</div>
+          <div class="follow-right" @click="cancelFollow(item.userId)"></div>
         </div>
       </div>
       <Empty class="empty" v-else />
@@ -31,13 +31,12 @@
 import { ref, computed } from 'vue'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useUserStore } from '@/stores/user'
-import { useUIStore } from '@/stores/ui'
 import BackButton from '@/components/back.vue'
 import Empty from '@/components/empty.vue'
+import { sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const currentUserStore = useCurrentUserStore()
 const userStore = useUserStore()
-const uiStore = useUIStore()
 
 const follows = computed(() => {
   return currentUserStore.currentUser?.follow?.map(userId => {
@@ -48,8 +47,7 @@ const follows = computed(() => {
 })
 
 function cancelFollow(userId) {
-  if (uiStore.loading) return
-  uiStore.showLoading()
+  sendShowLoadingToIOS(true)
   const currentUserId = currentUserStore.currentUser.userId
 
   // Remove userId from current user's follow list if it exists
@@ -74,8 +72,8 @@ function cancelFollow(userId) {
     userStore.updateUser(currentUserStore.currentUser.userId, { follow: currentUserFollow })
     userStore.updateUser(userId, { fans: otherUserFans })
 
-    uiStore.hideLoading()
-    uiStore.showToast('Unfollow successfully')
+    sendShowLoadingToIOS(false)
+    sendShowToastToIOS('Unfollow successfully')
   }, delay)
 }
 </script>
@@ -85,11 +83,7 @@ function cancelFollow(userId) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 1);
-  background-image: url('@/assets/pagebgc.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
-  background-repeat: no-repeat;
+  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -99,23 +93,21 @@ function cancelFollow(userId) {
 .top-header {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 16 / 375);
+  gap: calc(100vw * 12 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .edit-title {
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  color: #fff;
 }
 
 .container {
   flex: 1;
   overflow-y: auto;
-  margin: calc(100vh * 20 / 812) 0 0;
+  margin: calc(100vh * 26 / 812) 0 0;
   box-sizing: border-box;
 }
 
@@ -123,7 +115,7 @@ function cancelFollow(userId) {
   margin: 0 calc(100vw * 20 / 375) 0;
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 16 / 812);
+  gap: calc(100vh * 15 / 812);
   padding-bottom: calc(100vh * 34 / 812);
 }
 
@@ -131,26 +123,26 @@ function cancelFollow(userId) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: calc(100vh * 76 / 812);
+  height: calc(100vh * 82 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
-  padding: 0 calc(100vw * 16 / 375);
+  background: rgba(255, 255, 255, 0.1);
+  /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06); */
+  padding: 0 calc(100vw * 24 / 375) 0 calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
 .follow-left {
-  width: calc(100% - calc(100vw * 140 / 375));
+  width: calc(100% - calc(100vw * 50 / 375));
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  gap: calc(100vh * 7 / 812);
+  gap: calc(100vh * 8 / 812);
 }
 
 .user-info {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: calc(100vw * 12 / 375);
 }
 
@@ -159,8 +151,7 @@ function cancelFollow(userId) {
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  padding: calc(100vw * 1 / 375);
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,10 +167,10 @@ function cancelFollow(userId) {
 }
 
 .user-name {
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 18.48 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 23.17 / 375);
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
@@ -187,10 +178,10 @@ function cancelFollow(userId) {
 }
 
 .user-intro {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 20.27 / 375);
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
@@ -198,18 +189,12 @@ function cancelFollow(userId) {
 }
 
 .follow-right {
-  width: calc(100vw * 63 / 375);
-  height: calc(100vh * 28 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: #fff;
-  font-family: 'Archivo', sans-serif;
-  font-size: calc(100vw * 12 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 13.06 / 375);
-  color: rgba(105, 71, 65, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: calc(100vw * 24 / 375);
+  height: calc(100vh * 24 / 812);
+  background-image: url('@/assets/removefollow.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
 }
 
 .empty {

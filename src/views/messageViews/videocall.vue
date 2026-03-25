@@ -1,19 +1,17 @@
 <template>
-  <div class="video-call" :style="{ backgroundImage: `url(${userInfo.avator})` }">
-    <div class="bg-gradient"></div>
+  <div class="video-call">
+    <div class="bg-gradient" :style="{ backgroundImage: `url(${userInfo.avator})` }"></div>
     <!-- Top Avatar Container -->
     <div class="avatar-outer">
-      <div class="avatar-inner">
-        <img :src="userInfo.avator" alt="User Avatar" />
-      </div>
-    </div>
-
-    <!-- Bottom Control Panel -->
-    <div class="call-panel">
+      <img :src="userInfo.avator" alt="User Avatar" />
       <div class="call-left">
         <div class="user-name">{{ userInfo.name }}</div>
         <div class="calling-text">{{ callingText }}</div>
       </div>
+    </div>
+
+    <!-- Bottom Control Panel -->
+    <div class="hangup">
       <div class="hangup-btn" @click="hangup">
         <img src="@/assets/hangupicon.png" alt="hangup" />
       </div>
@@ -65,14 +63,17 @@ function hangup() {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(255, 159, 142, 1) 0%, rgba(255, 255, 255, 0) 99.84%);
-  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1;
 }
 
 .video-call {
   position: relative;
   width: 100%;
   height: 100vh;
+  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,17 +84,21 @@ function hangup() {
 }
 
 .avatar-outer {
-  margin-top: calc(100vh * 257 / 812);
-  width: calc(100vw * 166 / 375);
-  height: calc(100vw * 166 / 375);
-  border-radius: calc(100vw * 50 / 375);
-  background: rgba(255, 255, 255, 0.3);
+  margin-top: calc(100vh * 285 / 812);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: calc(100vh * 46 / 812);
 }
 
-.avatar-inner {
+.avatar-outer img{
+  width: calc(100vw * 80 / 375);
+  height: calc(100vw * 80 / 375);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+/* .avatar-inner {
   width: calc(100vw * 144 / 375);
   height: calc(100vw * 144 / 375);
   border-radius: calc(100vw * 40 / 375);
@@ -112,10 +117,10 @@ function hangup() {
   object-fit: cover;
   border-radius: calc(100vw * 37 / 375);
   display: block;
-}
+} */
 
 /* Bottom call panel */
-.call-panel {
+/* .call-panel {
   position: absolute;
   bottom: calc(100vh * 40 / 812);
   width: calc(100% - (calc(100vw * 50 / 375)));
@@ -127,38 +132,51 @@ function hangup() {
   justify-content: space-between;
   padding: 0 calc(100vw * 20 / 375);
   box-sizing: border-box;
-}
+} */
 
 .call-left {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: calc(100vh * 10 / 812);
+  align-items: center;
+  gap: calc(100vh * 12 / 812);
 }
 
 .user-name {
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 23.1 / 375);
-  color: rgba(74, 32, 25, 1);
+  line-height: calc(100vw * 21.2 / 375);
+  color: rgba(255, 255, 255, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .calling-text {
+  font-family: 'DosisRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
-  color: rgba(74, 32, 25, 1);
+  line-height: calc(100vw * 17.7 / 375);
+  color: rgb(255, 255, 255);
+}
+
+.hangup {
+  margin-bottom: calc(100vh * 79 / 812);
+  width: calc(100vw * 72 / 375);
+  height: calc(100vw * 72 / 375);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hangup-btn {
   width: calc(100vw * 60 / 375);
   height: calc(100vw * 60 / 375);
-  border-radius: calc(100vw * 214 / 375);
-  background: rgba(255, 28, 100, 1);
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;

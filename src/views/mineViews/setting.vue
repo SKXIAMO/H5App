@@ -22,11 +22,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUIStore } from '@/stores/ui'
 import { useUserStore } from '@/stores/user'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import BackButton from '@/components/back.vue'
-import { sendLogoutToIOS } from '@/utils/iosBridge'
+import { sendLogoutToIOS, sendShowLoadingToIOS } from '@/utils/iosBridge'
 
 const options = ref([
   { text: 'Privacy Policy' },
@@ -37,7 +36,6 @@ const options = ref([
 ])
 
 const router = useRouter()
-const uiStore = useUIStore()
 const userStore =  useUserStore()
 const currentUserStore = useCurrentUserStore()
 
@@ -64,8 +62,7 @@ function handleOption(index) {
 }
 
 function handleAction(isDelete) {
-  if (uiStore.loading) return
-  uiStore.showLoading()
+  sendShowLoadingToIOS(true)
 
   if (isDelete) {
     userStore.updateUser(currentUserStore.currentUser.userId, { isdelete: 1 })
@@ -74,7 +71,7 @@ function handleAction(isDelete) {
   const delay = Math.floor(Math.random() * 1500) + 500
 
   setTimeout(() => {
-    uiStore.hideLoading()
+    sendShowLoadingToIOS(false)
     sendLogoutToIOS(isDelete)
 
   }, delay)
@@ -86,11 +83,8 @@ function handleAction(isDelete) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 1);
-  background-image: url('@/assets/pagebgc.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
-  background-repeat: no-repeat;
+  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  color:white;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -101,23 +95,21 @@ function handleAction(isDelete) {
 .header {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 16 / 375);
+  gap: calc(100vw * 12 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .title {
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  color: #fff;
 }
 
 /* Options List */
 .options-list {
   flex: 1;
-  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 26 / 812) calc(100vw * 20 / 375) 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -125,20 +117,20 @@ function handleAction(isDelete) {
 }
 
 .option {
-  height: calc(100vh * 52 / 812);
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: calc(100vw * 20 / 375);
-  box-shadow: 0 calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
+  height: calc(100vh * 46 / 812);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: calc(100vw * 12 / 375);
+  /* box-shadow: 0 calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06); */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 calc(100vw * 10 / 375);
+  padding: 0 calc(100vw * 16 / 375);
 }
 
 .option-text {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   color: #fff;
-  font-size: calc(100vw * 14 / 375);
+  font-size: calc(100vw * 16 / 375);
   font-weight: 400;
 }
 
@@ -157,21 +149,22 @@ function handleAction(isDelete) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 20 / 812);
-  padding-bottom: calc(100vh * 83 / 812);
+  gap: calc(100vh * 16 / 812);
+  padding-bottom: calc(100vh * 73 / 812);
 }
 
 .btn {
-  width: calc(100vw * 229 / 375);
-  height: calc(100vh * 62 / 812);
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 40 / 375);
-  font-family: 'YesevaOne', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  box-shadow:inset calc(100vw * -2 / 375) calc(100vw * -2 / 375) calc(100vw * 2 / 375)  rgba(255, 255, 255, 0.6),inset calc(100vw * 2 / 375) calc(100vw * 2 / 375) calc(100vw * 2 / 375)  rgba(255, 255, 255, 0.5);
+  font-family: 'SourceHanSansBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: bold;
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  border: 0px solid #000;
 }
 
-.delete-btn {
+/* .delete-btn {
   background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
   color: rgba(74, 32, 25, 1);
 }
@@ -179,5 +172,5 @@ function handleAction(isDelete) {
 .logout-btn {
   background: rgba(74, 32, 25, 1);
   color: rgba(255, 255, 255, 1);
-}
+} */
 </style>

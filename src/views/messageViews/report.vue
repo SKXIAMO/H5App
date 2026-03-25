@@ -30,24 +30,21 @@
 import { ref } from 'vue'
 import BackButton from '@/components/back.vue'
 import { useOtherStore } from '@/stores/other'
-import { useUIStore } from '@/stores/ui'
-import { goBackOrClose } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const otherStore =  useOtherStore()
 
 const selectedIndex = ref(0)
 const inputText = ref('')
 
-const uiStore = useUIStore()
 function handleSubmit() {
-  if (uiStore.loading) return
-  uiStore.showLoading()
+  sendShowLoadingToIOS(true)
 
   const delay = Math.floor(Math.random() * 1500) + 500
 
   setTimeout(() => {
-    uiStore.hideLoading()
-    uiStore.showToast('Report successful')
+    sendShowLoadingToIOS(false)
+    sendShowToastToIOS('Report successful')
 
     goBackOrClose()
 
@@ -60,23 +57,19 @@ function handleSubmit() {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 1);
-  background-image: url('@/assets/pagebgc.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
-  background-repeat: no-repeat;
+  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
   overflow: hidden;
 }
 
 .back {
-  padding-top: calc(100vh * 56 / 812);
+  padding-top: calc(100vh * 58 / 812);
   padding-left: calc(100vw * 20 / 375);
 }
 
 .page-content {
   position: relative;
   width: 100vw;
-  height: calc(100vh - calc(100vh * 96 / 812));
+  height: calc(100vh - calc(100vh * 82 / 812));
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -87,13 +80,13 @@ function handleSubmit() {
   grid-template-columns: repeat(2, 1fr); /* 一行两条 */
   column-gap: calc(100vw * 7 / 375); /* 左右间距7 */
   row-gap: calc(100vh * 12 / 812); /* 上下间距12 */
-  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0; /* 可选左右内边距 */
+  padding: calc(100vh * 32 / 812) calc(100vw * 20 / 375) 0; /* 可选左右内边距 */
 }
 
 .grid-item {
   position: relative;
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.1);
   height: calc(100vw * 115 / 375);
   overflow: hidden;
 }
@@ -105,11 +98,11 @@ function handleSubmit() {
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: calc(100vw * 8 / 375) 0px calc(100vw * 20 / 375) 0px;
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .grid-item.selected .choose-box {
-  background: rgba(255, 159, 142, 1);
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
 }
 
 .check-icon {
@@ -127,31 +120,31 @@ function handleSubmit() {
 
 .report-content {
   padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375) 0;
-  color: rgba(74, 32, 25, 1);
-  font-family: 'Archivo', sans-serif;
+  color: rgb(255, 255, 255);
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 17.41 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 23.17 / 375);
 }
 
 .input-title {
-  padding-top: calc(100vh * 30 / 812);
+  padding-top: calc(100vh * 32 / 812);
   padding-left: calc(100vw * 20 / 375);
-  font-family: 'YesevaOne', sans-serif;
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 23.1 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 28.96 / 375);
   color: rgba(255, 255, 255, 1);
 }
 
 .input-box {
   position: relative;
-  margin: calc(100vh * 16 / 812) calc(100vw * 20 / 375) 0;
+  margin: calc(100vh * 9 / 812) calc(100vw * 20 / 375) 0;
   height: calc(100vh * 103 / 812);
   border-radius: calc(100vw * 16 / 375);
-  background: rgba(255, 255, 255, 1);
+  background: rgba(35, 30, 36, 1);
   backdrop-filter: blur(12px);
-  padding: calc(100vw * 12 / 375);
+  padding: calc(100vh * 18 / 812) calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
@@ -162,48 +155,48 @@ function handleSubmit() {
   resize: none;
   outline: none;
   background: transparent;
-  font-family: 'Archivo', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: normal;
-  color: rgba(0,0,0,1); /* 输入文本颜色 */
-  line-height: calc(100vw * 15.23 / 375);
+  color: rgb(255, 255, 255); /* 输入文本颜色 */
+  line-height: calc(100vw * 20.27 / 375);
 }
 
 .input-field::placeholder {
-  color: rgba(105, 71, 65, 1);
-  font-family: 'Archivo', sans-serif;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375); /* 提示文本大小 */
   font-weight: 400; /* 提示文本粗细 */
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 20.27 / 375);
 }
 
 .char-count {
   position: absolute;
-  right: calc(100vw * 8 / 375);
-  bottom: calc(100vh * 13 / 812);
-  font-family: 'Archivo', sans-serif;
-  font-size: calc(100vw * 12 / 375);
-  color: rgba(74, 32, 25, 0.6);
+  right: calc(100vw * 7 / 375);
+  bottom: calc(100vh * 9 / 812);
+  font-family: 'SourceHanSansRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .btn-box {
   margin: 0 auto; /* 新增：水平居中 */
-  margin-top: calc(100vh * 40 / 812);
+  margin-top: calc(100vh * 41 / 812);
   margin-bottom: calc(100vh * 34 / 812);
-  width: calc(100vw * 229 / 375);
-  height: calc(100vh * 62 / 812);
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
-  box-shadow: inset calc(100vw * -2 / 375) calc(100vw * -2 / 375) calc(100vw * 2 / 375) rgba(255, 255, 255, 0.6), inset calc(100vw * 2 / 375) calc(100vw * 2 / 375) calc(100vw * 2 / 375) rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: 'YesevaOne', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 23.1 / 375);
-  color: rgba(74, 32, 25, 1);
+  font-family: 'SourceHanSansBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 23.17 / 375);
+  color: rgb(255, 255, 255);
   text-align: center;
   vertical-align: top;
 }

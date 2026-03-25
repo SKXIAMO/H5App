@@ -1,21 +1,24 @@
 <template>
   <div class="page">
-    <div class="aiusermodel"></div>
-    <div class="aichatmodel"></div>
+    <!-- <div class="aiusermodel"></div>
+    <div class="aichatmodel"></div> -->
     <div class="page-container">
       <!-- top -->
-      <div class="top-section">
-        <BackButton />
-      </div>
-      <!-- center -->
-      <div class="center-section">
-        <div
-          v-for="(item, index) in messages"
-          :key="index"
-          class="message-box"
-          @click="handleMessageClick(item)"
-        >
-          <span>{{ item }}</span>
+      <div class="top-bgc">
+        <div class="top-section">
+          <BackButton />
+          <p>Fluce AI</p>
+        </div>
+        <!-- center -->
+        <div class="center-section">
+          <div
+            v-for="(item, index) in messages"
+            :key="index"
+            class="message-box"
+            @click="handleMessageClick(item)"
+          >
+            <span>{{ item }}</span>
+          </div>
         </div>
       </div>
       <!-- bottom -->
@@ -46,7 +49,9 @@
     <!-- bottom input box -->
     <div class="bottom-input">
       <input type="text" placeholder="Say something" v-model="chatInput" />
-      <img class="send-icon" src="@/assets/commentsend.png" alt="Send" @click="sendMessage" />
+      <div class="send-icon" @click="sendMessage" >
+        <img src="@/assets/commentsend.png" alt="Send" />
+      </div>
     </div>
   </div>
 </template>
@@ -55,18 +60,25 @@
 import { ref } from 'vue'
 import BackButton from '@/components/back.vue'
 import { useCurrentUserStore } from '@/stores/currentUser'
-import { useUIStore } from '@/stores/ui'
+import { sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 import { aiChat } from '@/utils/ai'
 import { decryptAES } from '@/utils/aes'
 
+const formatTime12 = (date) => {
+  let hours = date.getHours()
+  let minutes = date.getMinutes()
+  hours = hours % 12
+  if (hours === 0) hours = 12
+  return `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}`
+}
+
 const messages = ref([
-  "I'm feeling great today.",
-  "Do you like reading?",
-  "Can you comfort me?"
+  "How can I make a better dance video?",
+  "Where can I find popular dance BGM?",
+  "Which dance style is good for beginners to learn?"
 ])
 
 const currentUserStore = useCurrentUserStore()
-const uiStore = useUIStore()
 
 const getFirstTime = () => {
   const key = 'chat_first_time'
@@ -75,32 +87,30 @@ const getFirstTime = () => {
   if (saved) return saved
 
   const now = new Date()
-  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // 12:00
+  const time = formatTime12(now) // changed here
   localStorage.setItem(key, time)
 
   return time
 }
 
 const bottomItems = ref([
-  { sendId: '0', time: getFirstTime(), message: 'Hi there! I’m Kico, your AI buddy for all things fun and creative.' },
+  { sendId: '0', time: getFirstTime(), message: 'Hi there! I\'m Fluce, your AI buddy for all things fun and.'},
 ])
 
 async function handleMessageClick(message) {
-  const now = new Date()
-  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const time = formatTime12(new Date()) // changed here
   bottomItems.value.push({
     sendId: currentUserStore.currentUser.id,
     time,
     message: message
   })
 
-  if (uiStore.loading) return
-  uiStore.showLoading()
+  sendShowLoadingToIOS(true)
 
   try {
     const res = await aiChat(message)
 
-    uiStore.hideLoading()
+    sendShowLoadingToIOS(false)
 
     if (res.data.code === '0000') {
       // 1 解密
@@ -112,16 +122,16 @@ async function handleMessageClick(message) {
       // 然后 push 到聊天列表
       bottomItems.value.push({
         sendId: '0',           // AI
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        time: formatTime12(new Date()), // changed here
         message: aiMessage
       })
     } else {
-      uiStore.showToast(res.data.message)
+      sendShowToastToIOS(res.data.message)
     }
 
   } catch (err) {
-    uiStore.hideLoading()
-    uiStore.showToast('Network error')
+    sendShowLoadingToIOS(false)
+    sendShowToastToIOS('Network error')
   }
 }
 
@@ -131,8 +141,7 @@ async function sendMessage() {
   const text = chatInput.value.trim()
   if (!text) return
 
-  const now = new Date()
-  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  const time = formatTime12(new Date()) // changed here
 
   bottomItems.value.push({
     sendId: currentUserStore.currentUser.id,
@@ -140,12 +149,11 @@ async function sendMessage() {
     message: text
   })
 
-  if (uiStore.loading) return
-  uiStore.showLoading()
+  sendShowLoadingToIOS(true)
   try {
     const res = await aiChat(text)
 
-    uiStore.hideLoading()
+    sendShowLoadingToIOS(false)
 
     if (res.data.code === '0000') {
       // 1 解密
@@ -157,18 +165,18 @@ async function sendMessage() {
       // 然后 push 到聊天列表
       bottomItems.value.push({
         sendId: '0',           // AI
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        time: formatTime12(new Date()), // changed here
         message: aiMessage
       })
 
       chatInput.value = ""
     } else {
-      uiStore.showToast(res.data.message)
+      sendShowToastToIOS(res.data.message)
     }
 
   } catch (err) {
-    uiStore.hideLoading()
-    uiStore.showToast('Network error')
+    sendShowLoadingToIOS(false)
+    sendShowToastToIOS('Network error')
   }
 }
 </script>
@@ -178,17 +186,32 @@ async function sendMessage() {
   width: 100vw;
   height: 100vh;
   overflow: hidden; /* prevent scrolling */
-  background-color: #000; /* black background */
-  background-image: url('@/assets/aibgc.png'); /* replace with your asset filename */
+  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* justify-content: center; */
+}
+
+.top-bgc {
+  width: 100%;
+  height: calc(100vh * 281 / 812);
+  background-image: url('@/assets/aichattop.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.aiusermodel {
+/* .aiusermodel {
   position: absolute;
   left: calc(100vw * 20 / 375);
-  top: calc(100vh * 40 / 812); /* adapt top spacing */
+  top: calc(100vh * 40 / 812);
   width: calc(100vw * 179 / 375);
   height: calc(100vh * 314 / 812);
   opacity: 1;
@@ -211,71 +234,73 @@ async function sendMessage() {
   background-position: center;
   background-repeat: no-repeat;
   z-index: 1;
-}
+} */
 
 .top-section {
   position: relative;
-  margin-top: calc(100vh * 56 / 812);
+  margin-top: calc(100vh * 58 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: calc(100vh * 12 / 812);
+}
+
+.top-section p {
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
+  letter-spacing: 0;
+  color: rgb(255, 255, 255);
+  margin: 0;
 }
 
 .center-section {
-  margin-top: calc(100vh * 41 / 812);
-  margin-left: calc(100vw * 187 / 375);
-  margin-right: calc(100vw * 28 / 375);
+  margin-bottom: calc(100vh * 8 / 812);
+  margin-left: calc(100vw * 20 / 375);
+  margin-right: calc(100vw * 106 / 375);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 8 / 812);
 }
 
 .message-box {
   display: inline-flex;
   align-items: center;
-  height: calc(100vh * 36 / 812);
-  padding: 0 calc(100vw * 10 / 375);
-  border-radius: calc(100vw * 40 / 375);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(calc(100vw * 4 / 375));
-  font-family: 'Archivo', sans-serif;
-  font-size: calc(100vw * 14 / 375);
+  padding: calc(100vh * 9 / 812) calc(100vw * 10 / 375);
+  border-radius: calc(100vw * 32 / 375);
+  background: rgba(13, 8, 13, 0.2);
+  backdrop-filter: blur(calc(100vw * 8 / 375));
+  font-family: 'SourceHanSansRegular', sans-serif;
+  font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 17.38 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: fit-content; /* Wrap width to content */
   justify-content: flex-start; /* Align content to left */
 }
 
 .bottom-section {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: calc(100vh * 325 / 812); /* adjust top spacing as needed */
-  background: rgba(255, 255, 255, 1);
-  border-radius: calc(100vw * 40 / 375) calc(100vw * 40 / 375) 0 0;
-  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* ⚡ 关键 */
 }
 
 .bottom-scroll {
-  height: calc(100% - calc(100vh * 20 / 812));
+  flex: 1;
+  min-height: 0; /* ⚡ 关键 */
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  margin-top: calc(100vh * 20 / 812);
-  padding-bottom: calc(100vh * 90 / 812);
-  box-sizing: border-box;
-  gap: calc(100vh * 24 / 812);
+  padding: calc(100vh * 36 / 812) 0 calc(100vh * 90 / 812) 0;
 }
 
 /* Optional: hide scrollbar */
 .bottom-scroll::-webkit-scrollbar {
   display: none;
 }
+
 .bottom-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -289,17 +314,17 @@ async function sendMessage() {
 .chat-choose {
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 16 / 812);
+  gap: calc(100vh * 9 / 812);
 }
 
 .chat-time {
   text-align: center;
-  font-family: 'Archivo', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.41 / 375);
+  line-height: calc(100vw * 23.17 / 375);
   letter-spacing: 0;
-  color: rgba(105, 71, 65, 1);
+  color: rgb(255, 255, 255, 0.6);
 }
 
 .chat-content {
@@ -307,7 +332,7 @@ async function sendMessage() {
   align-items: flex-start;
   gap: calc(100vw * 12 / 375);
   margin-left: calc(100vw * 20 / 375);
-  margin-right: calc(100vw * 34 / 375);
+  margin-right: calc(100vw * 46 / 375);
 }
 
 .chat-content-rigth {
@@ -315,7 +340,7 @@ async function sendMessage() {
   align-items: flex-start;
   justify-content: end;
   gap: calc(100vw * 12 / 375);
-  margin-left: calc(100vw * 34 / 375);
+  margin-left: calc(100vw * 46 / 375);
   margin-right: calc(100vw * 20 / 375);
 }
 
@@ -330,8 +355,7 @@ async function sendMessage() {
   height: calc(100vw * 44 / 375);
   flex-shrink: 0;
   border-radius: 50%; /* fully circular */
-  padding: calc(100vw * 1 / 375); /* border thickness */
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
+  border: calc(100vw * 2 / 375) solid rgba(255, 255, 255, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -350,52 +374,51 @@ async function sendMessage() {
 }
 
 .chat-message {
-  border-radius: 0 calc(100vw * 10 / 375) calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(255, 159, 142, 1);
+  border-radius: calc(100vw * 20 / 375);
+  background: linear-gradient(270deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  font-family: 'Archivo', sans-serif;
+  padding: calc(100vh * 10 / 812) calc(100vw * 19 / 375);
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 20.27 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
 }
 
 .chat-message-rigth {
-  border-radius: calc(100vw * 10 / 375) 0 calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(201, 255, 221, 1);
+  border-radius: calc(100vw * 20 / 375);
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  font-family: 'Archivo', sans-serif;
+  padding: calc(100vh * 10 / 812) calc(100vw * 19 / 375);
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 20.27 / 375);
   letter-spacing: 0;
-  color: rgba(105, 71, 65, 1);
+  color: rgb(255, 255, 255);
 }
 
 .bottom-input {
   position: absolute;
   left: calc(100vw * 20 / 375);
   right: calc(100vw * 20 / 375);
-  bottom: calc(100vh * 29 / 812);
-  height: calc(100vh * 54 / 812);
+  bottom: calc(100vh * 37 / 812);
+  height: calc(100vh * 46 / 812);
+  border-radius: calc(100vw * 40 / 375);
+  background: rgba(62, 57, 63, 1);
+  backdrop-filter: blur(calc(100vw * 32 / 375));
   display: flex;
   align-items: center;
-  gap: calc(100vw * 10 / 375);
-  background: rgba(201, 255, 221, 1);
-  border-radius: calc(100vw * 40 / 375);
-  backdrop-filter: blur(calc(100vw * 32 / 375));
+  padding: 0 0 0 calc(100vw * 16 / 375);
+  gap: calc(100vw * 16 / 375);
   box-sizing: border-box;
-  padding: 0 calc(100vw * 16 / 375);
-  z-index: 200;
 }
 
 .bottom-input input {
@@ -403,26 +426,33 @@ async function sendMessage() {
   border: none;
   outline: none;
   background: transparent;
+  /* font-family: 'SourceHanSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 20.27 / 375);
   letter-spacing: 0;
-  font-family: 'Archivo', sans-serif;
-  color: rgba(0,0,0,1);
+  color: #fff;
 }
 
 .bottom-input input::placeholder {
-  font-size: calc(100vw * 14 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
-  letter-spacing: 0;
-  font-family: 'Archivo', sans-serif;
-  color: rgba(105, 71, 65, 1);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .send-icon {
-  width: calc(100vw * 30 / 375);
-  height: calc(100vw * 30 / 375);
-  cursor: pointer;
+  width: calc(100vw * 46 / 375);
+  height: calc(100vw * 46 / 375);
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  /* cursor: pointer; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.send-icon img {
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
-    <div class="aiusermodel"></div>
-    <div class="aichatmodel"></div>
+    <!-- <div class="aiusermodel"></div>
+    <div class="aichatmodel"></div> -->
 
     <!-- 页面内容 -->
     <div class="page-content">
@@ -10,13 +10,15 @@
       </div>
       <div class="bottom-section">
         <div class="bottom-container">
-          <div class="bottom-title">Luvie AI</div>
-          <div class="bottom-text">Hi! I’m Kico, your friendly AI companion here to chat about all your passions and interests. Whether you love fashion, art, music, or anything in between, I’m here to explore ideas, share tips, and keep the conversation fun and inspiring. Ready to dive into your favorite hobbies together? Let’s talk and discover something new every day!</div>
+          <div class="bottom-top">
+            <div class="bottom-title">Fluce AI</div>
+            <div class="bottom-text">Hey there! I'm Fluce AI, your ultimate dance sidekick here. Craving the latest viral dance routines? Need hacks to boost your practice game? Or just want to dive into awesome dance vibes? Hit me up, and I'll guide you every step of the way!</div>
+          </div>
         <!-- 购买 -->
         <div class="purchase-container" @click="handlePurchaseClick">
           <div class="purchase-info">
             <div class="purchase-icon"></div>
-            <div class="purchase-count">100</div>
+            <div class="purchase-count">x 200</div>
           </div>
           <div class="chat-box">Chat</div>
         </div>
@@ -38,19 +40,17 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useUserStore } from '@/stores/user'
-import { useUIStore } from '@/stores/ui'
 import BackButton from '@/components/back.vue'
 import CoinNotDialog from '@/views/aiViews/coinNot.vue'
+import { sendShowLoadingToIOS } from '@/utils/iosBridge'
 
 const showCoinNot = ref(false)
 
 const currentUserStore = useCurrentUserStore()
-const uiStore = useUIStore()
 const userStore =  useUserStore()
 function handlePurchaseClick() {
   if (currentUserStore.currentUser.coins >= 100) {
-    if (uiStore.loading) return
-    uiStore.showLoading()
+    sendShowLoadingToIOS(true)
 
     const currentCoins = currentUserStore.currentUser.coins - 100
     userStore.updateUser(currentUserStore.currentUser.userId, { coins: currentCoins })
@@ -58,7 +58,7 @@ function handlePurchaseClick() {
     const delay = Math.floor(Math.random() * 1500) + 500
 
     setTimeout(() => {
-      uiStore.hideLoading()
+      sendShowLoadingToIOS(false)
       router.push({ name: 'aiChat' })
     }, delay)
   } else {
@@ -80,34 +80,8 @@ function handleRechargeEvent(value) {
   width: 100vw;
   height: 100vh;
   overflow: hidden; /* prevent scrolling */
-  background-color: #000; /* black background */
+  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
   background-image: url('@/assets/aibgc.png'); /* replace with your asset filename */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.aiusermodel {
-  position: absolute;
-  left: 0;
-  top: calc(100vh * 68 / 812); /* adapt top spacing */
-  width: calc(100vw * 229 / 375);
-  height: calc(100vh * 402 / 812);
-  opacity: 1;
-  background-image: url('@/assets/aiusermodel.png'); 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.aichatmodel {
-  position: absolute;
-  left: calc(100vw * 197 / 375);
-  top: calc(100vh * 134 / 812);
-  width: calc(100vw * 104 / 375);
-  height: calc(100vh * 38 / 812);
-  opacity: 1;
-  background-image: url('@/assets/aichatmodel.png'); 
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -123,7 +97,7 @@ function handleRechargeEvent(value) {
 }
 
 .top-section {
-  margin-top: calc(100vh * 56 / 812);
+  margin-top: calc(100vh * 58 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
 }
@@ -136,62 +110,63 @@ function handleRechargeEvent(value) {
 
 .bottom-container { 
   width: 100%;
-  background: rgba(255, 255, 255, 1);
-  border-radius: calc(100vw * 40 / 375) calc(100vw * 40 / 375) 0 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: calc(100vh * 24 / 812); /* top spacing for first text */
+  gap: calc(100vh * 115 / 812);
   box-sizing: border-box;
 }
 
+.bottom-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 calc(100vw * 68 / 375);
+  gap: calc(100vh * 10 / 812);
+}
+
 .bottom-title {
-  font-family: 'YesevaOne', sans-serif;
-  font-size: calc(100vw * 24 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 27.72 / 375);
+  font-family: 'SourceHanSansBold', sans-serif;
+  font-size: calc(100vw * 25 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 36.2 / 375);
   letter-spacing: 0;
-  color: rgba(74, 32, 25, 1);
+  color: rgb(255, 255, 255);
   text-align: center;
-  margin-bottom: calc(100vh * 20 / 812); /* space before second text */
 }
 
 .bottom-text {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'SourceHanSansRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 24 / 375);
+  line-height: calc(100vw * 23.17 / 375);
   letter-spacing: 0;
-  color: rgba(74, 32, 25, 1);
+  color: rgba(255, 255, 255, 0.6);
   text-align: center;
-  margin: 0 calc(100vw * 28 / 375) 0 calc(100vw * 28 / 375); /* horizontal padding */
 }
 
 .purchase-container {
-  margin-top: calc(100vh * 15 / 812);
-  margin-bottom: calc(100vh * 25 / 812);
-  width: calc(100vw * 281 / 375);
-  height: calc(100vh * 62 / 812);
+  margin-bottom: calc(100vh * 62 / 812);
+  width: calc(100vw * 233 / 375);
+  height: calc(100vh * 56 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
-  box-shadow: inset calc(100vw * -2 / 375) calc(100vw * -2 / 375) calc(100vw * 2 / 375) rgba(255, 255, 255, 0.6), inset calc(100vw * 2 / 375) calc(100vw * 2 / 375) calc(100vw * 2 / 375) rgba(255, 255, 255, 0.5);
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: calc(100vw * 46 / 375);
-  padding-right: calc(100vw * 11 / 375);
+  gap: calc(100vw * 24 / 375);
   box-sizing: border-box;
 }
 
 .purchase-info {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 13 / 375);
+  gap: calc(100vw * 8 / 375);
 }
 
 .purchase-icon {
-  width: calc(100vw * 33 / 375);
-  height: calc(100vh * 39 / 812);
+  width: calc(100vw * 40 / 375);
+  height: calc(100vh * 40 / 812);
   background-image: url('@/assets/coin.png'); /* replace with your local image */
   background-size: cover;
   background-position: center;
@@ -199,26 +174,26 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-count {
-  font-family: 'YesevaOne', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 23.1 / 375);
+  font-family: 'SourceHanSansBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 23.17 / 375);
   letter-spacing: 0;
-  color: rgba(74, 32, 25, 1);
+  color: rgba(255, 235, 59, 1);
 }
 
 .chat-box {
-  width: calc(100vw * 73 / 375);
+  /* width: calc(100vw * 73 / 375);
   height: calc(100vh * 38 / 812);
   border-radius: calc(100vw * 40 / 375);
   background: rgba(74, 32, 25, 1);
   display: flex;
   justify-content: center;
-  align-items: center;
-  font-family: 'Archivo', sans-serif;
+  align-items: center; */
+  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 17.41 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 23.17 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
