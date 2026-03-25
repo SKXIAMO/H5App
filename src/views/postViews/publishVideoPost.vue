@@ -65,15 +65,19 @@ const handleAddVideo = async (event) => {
 
   const url = URL.createObjectURL(file);
   const video = document.createElement('video');
-
   video.src = url;
   video.muted = true;
   video.playsInline = true;
   video.crossOrigin = 'anonymous';
 
-  // 🔥关键：等 metadata
+  let frameCaptured = false; // track if frame was captured
+
   video.addEventListener('loadedmetadata', () => {
-    video.currentTime = 0.5; // 避免黑帧
+    try {
+      video.currentTime = 0.5; // avoid black frame
+    } catch (e) {
+      console.warn('set currentTime error', e);
+    }
   });
 
   video.addEventListener('seeked', () => {
@@ -81,17 +85,23 @@ const handleAddVideo = async (event) => {
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
       videoFirstFrame.value = canvas.toDataURL('image/jpeg', 0.7);
-
-      URL.revokeObjectURL(url); // 释放
-    } catch (e) {
-      console.error('截图失败', e);
+      frameCaptured = true;
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.warn('video frame capture failed', err);
     }
   });
+
+  // backup fallback in case seeked doesn't trigger (iOS issue)
+  setTimeout(() => {
+    if (!frameCaptured) {
+      videoFirstFrame.value = 'https://via.placeholder.com/108'; // fallback placeholder
+      URL.revokeObjectURL(url);
+    }
+  }, 1500);
 };
 
 const handleRemoveVideo = () => {
