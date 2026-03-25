@@ -72,8 +72,7 @@ const handleAddVideo = async (event) => {
 
   let captured = false;
 
-  // 尝试在 loadeddata 之后截帧
-  video.addEventListener('loadeddata', () => {
+  const captureFrame = () => {
     try {
       const canvas = document.createElement('canvas');
       canvas.width = video.videoWidth || 108; // fallback width
@@ -84,11 +83,23 @@ const handleAddVideo = async (event) => {
       captured = true;
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.warn('iOS canvas capture failed', err);
+      console.warn('Canvas capture failed', err);
+    }
+  };
+
+  // Use loadedmetadata and seeked to reliably capture frame on iOS and mobile
+  video.addEventListener('loadedmetadata', () => {
+    // Seek to 0.5 seconds to ensure frame is available
+    video.currentTime = 0.5;
+  });
+
+  video.addEventListener('seeked', () => {
+    if (!captured) {
+      captureFrame();
     }
   });
 
-  // 兜底，防止某些机型 loadeddata 不触发
+  // Fallback timeout in case events don't fire
   setTimeout(() => {
     if (!captured) {
       videoFirstFrame.value = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAH0lEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAA4E8BZwAAa8Fh/4AAAAASUVORK5CYII='; // 透明占位
