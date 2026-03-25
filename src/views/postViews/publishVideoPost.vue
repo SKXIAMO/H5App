@@ -62,43 +62,36 @@ const handleAddVideo = async (event) => {
   if (!file) return;
 
   uploadedVideo.value = file;
-
   const url = URL.createObjectURL(file);
+
   const video = document.createElement('video');
   video.src = url;
   video.muted = true;
   video.playsInline = true;
   video.crossOrigin = 'anonymous';
 
-  let frameCaptured = false; // track if frame was captured
+  let captured = false;
 
-  video.addEventListener('loadedmetadata', () => {
-    try {
-      video.currentTime = 0.5; // avoid black frame
-    } catch (e) {
-      console.warn('set currentTime error', e);
-    }
-  });
-
-  video.addEventListener('seeked', () => {
+  // 尝试在 loadeddata 之后截帧
+  video.addEventListener('loadeddata', () => {
     try {
       const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
+      canvas.width = video.videoWidth || 108; // fallback width
+      canvas.height = video.videoHeight || 108; // fallback height
       const ctx = canvas.getContext('2d');
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       videoFirstFrame.value = canvas.toDataURL('image/jpeg', 0.7);
-      frameCaptured = true;
+      captured = true;
       URL.revokeObjectURL(url);
     } catch (err) {
-      console.warn('video frame capture failed', err);
+      console.warn('iOS canvas capture failed', err);
     }
   });
 
-  // backup fallback in case seeked doesn't trigger (iOS issue)
+  // 兜底，防止某些机型 loadeddata 不触发
   setTimeout(() => {
-    if (!frameCaptured) {
-      videoFirstFrame.value = 'https://via.placeholder.com/108'; // fallback placeholder
+    if (!captured) {
+      videoFirstFrame.value = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAH0lEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAA4E8BZwAAa8Fh/4AAAAASUVORK5CYII='; // 透明占位
       URL.revokeObjectURL(url);
     }
   }, 1500);
