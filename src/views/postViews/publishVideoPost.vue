@@ -62,50 +62,16 @@ const handleAddVideo = async (event) => {
   if (!file) return;
 
   uploadedVideo.value = file;
-  const url = URL.createObjectURL(file);
 
-  const video = document.createElement('video');
-  video.src = url;
-  video.muted = true;
-  video.playsInline = true;
-  video.crossOrigin = 'anonymous';
+  // 使用 URL.createObjectURL(file) 创建临时 URL
+  const videoUrl = URL.createObjectURL(file);
 
-  let captured = false;
+  console.log(videoUrl);
+  // 获取首帧封面
+  videoFirstFrame.value = await getVideoInfo(videoUrl);
 
-  const captureFrame = () => {
-    try {
-      const canvas = document.createElement('canvas');
-      canvas.width = video.videoWidth || 108; // fallback width
-      canvas.height = video.videoHeight || 108; // fallback height
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      videoFirstFrame.value = canvas.toDataURL('image/jpeg', 0.7);
-      captured = true;
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      console.warn('Canvas capture failed', err);
-    }
-  };
-
-  // Use loadedmetadata and seeked to reliably capture frame on iOS and mobile
-  video.addEventListener('loadedmetadata', () => {
-    // Seek to 0.5 seconds to ensure frame is available
-    video.currentTime = 0.5;
-  });
-
-  video.addEventListener('seeked', () => {
-    if (!captured) {
-      captureFrame();
-    }
-  });
-
-  // Fallback timeout in case events don't fire
-  setTimeout(() => {
-    if (!captured) {
-      videoFirstFrame.value = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAH0lEQVR4nO3BMQEAAADCoPVPbQ0PoAAAAAAAAAAA4E8BZwAAa8Fh/4AAAAASUVORK5CYII='; // 透明占位
-      URL.revokeObjectURL(url);
-    }
-  }, 1500);
+  // 释放 URL，防止内存泄漏
+  // URL.revokeObjectURL(videoUrl); // 可在确认首帧生成后释放
 };
 
 const handleRemoveVideo = () => {
@@ -164,6 +130,42 @@ const handleRelease = async () => {
     sendShowLoadingToIOS(false)
   }
 }
+
+const getVideoInfo = async (videoUrl) => {
+  return new Promise((resolve) => {
+    let video = document.createElement("video");
+    video.src = videoUrl;
+    video.currentTime = 0.1; // 截取首帧
+    video.preload = "metadata";
+
+    video.addEventListener("loadeddata", async () => {
+      let canvas = document.createElement("canvas"),
+          width = video.videoWidth,
+          height = video.videoHeight;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // 等 100ms 渲染完成
+      await new Promise((r) => setTimeout(r, 100));
+
+      canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      const thumb = canvas.toDataURL("image/jpeg");
+
+      // 释放资源
+      canvas.width = 0;
+      canvas.height = 0;
+      video.src = "";
+      video.load();
+      video.remove();
+      video = null;
+      canvas = null;
+
+      resolve(thumb);
+    });
+  });
+};
 </script>
 
 <style scoped>
