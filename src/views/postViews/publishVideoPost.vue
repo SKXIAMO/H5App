@@ -60,27 +60,39 @@ const videoFirstFrame = ref('') // store the preview image
 const handleAddVideo = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
+
   uploadedVideo.value = file;
 
+  const url = URL.createObjectURL(file);
   const video = document.createElement('video');
-  video.src = URL.createObjectURL(file);
+
+  video.src = url;
   video.muted = true;
   video.playsInline = true;
+  video.crossOrigin = 'anonymous';
 
-  // Wait until the video can play to draw the first frame
-  video.addEventListener('loadeddata', () => {
-    video.currentTime = 0;
-  }, { once: true });
+  // 🔥关键：等 metadata
+  video.addEventListener('loadedmetadata', () => {
+    video.currentTime = 0.5; // 避免黑帧
+  });
 
   video.addEventListener('seeked', () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    videoFirstFrame.value = canvas.toDataURL('image/png');
-  }, { once: true });
-}
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      videoFirstFrame.value = canvas.toDataURL('image/jpeg', 0.7);
+
+      URL.revokeObjectURL(url); // 释放
+    } catch (e) {
+      console.error('截图失败', e);
+    }
+  });
+};
 
 const handleRemoveVideo = () => {
   uploadedVideo.value = null
