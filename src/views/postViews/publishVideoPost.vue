@@ -110,7 +110,7 @@ const handleRelease = async () => {
       userId: currentUserStore.currentUser.userId, // 可以替换为当前用户ID
       dynamicType: 1,
       dynamicDesc: text.value,
-      dynamicTitleType: '',
+      dynamicTitleType: 0,
       dynamicPic: [imageUrl],
       dynamicVideo: videoUrl, // 如果有视频可以赋值
       dynamicLikeCount: 0,
