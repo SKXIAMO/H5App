@@ -10,24 +10,24 @@
     <!-- Content -->
     <div class="agreement-content">
 
-      <h1>Fluce User Agreement</h1>
+      <h1>Glimd User Agreement</h1>
 
       <p class="update-time">Last updated: 2026</p>
 
       <p>
-        Welcome to <strong>Fluce</strong>! Before using Fluce’s social dance community, AI assistant, and video sharing features, please read this User Agreement carefully. By accessing or using Fluce, you agree to comply with this agreement and all applicable laws.
+        Welcome to <strong>Glimd</strong>! Before using Glimd’s social dance community, AI assistant, and video sharing features, please read this User Agreement carefully. By accessing or using Glimd, you agree to comply with this agreement and all applicable laws.
       </p>
 
       <h2>1. Acceptance of Terms</h2>
 
       <p>
-        By creating an account or using Fluce, you confirm that you have read, understood, and agreed to comply with this User Agreement and all applicable laws.
+        By creating an account or using Glimd, you confirm that you have read, understood, and agreed to comply with this User Agreement and all applicable laws.
       </p>
 
       <h2>2. Description of Services</h2>
 
       <p>
-        Fluce provides a platform for dancers worldwide, including but not limited to:
+        Glimd provides a platform for dancers worldwide, including but not limited to:
       </p>
 
       <ul>
@@ -37,7 +37,7 @@
       </ul>
 
       <p>
-        Fluce reserves the right to modify, suspend, or discontinue any part of the services at any time without prior notice.
+        Glimd reserves the right to modify, suspend, or discontinue any part of the services at any time without prior notice.
       </p>
 
       <h2>3. User Accounts</h2>
@@ -53,7 +53,7 @@
       <h2>4. User Conduct</h2>
 
       <p>
-        While using Fluce, you agree not to:
+        While using Glimd, you agree not to:
       </p>
 
       <ul>
@@ -66,7 +66,7 @@
       <h2>5. Virtual Content and Purchases</h2>
 
       <p>
-        Fluce may offer virtual items such as dance course credits or rewards for use within the platform. These items have no real-world monetary value and cannot be redeemed for cash.
+        Glimd may offer virtual items such as dance course credits or rewards for use within the platform. These items have no real-world monetary value and cannot be redeemed for cash.
       </p>
 
       <p>
@@ -86,25 +86,25 @@
       </p>
 
       <p>
-        All uploaded content must comply with this agreement and applicable laws. Fluce reserves the right to remove or restrict access to inappropriate content.
+        All uploaded content must comply with this agreement and applicable laws. Glimd reserves the right to remove or restrict access to inappropriate content.
       </p>
 
       <h2>8. Termination and Suspension</h2>
 
       <p>
-        Fluce reserves the right to suspend or terminate your account or access to services if you violate this agreement or engage in harmful activities.
+        Glimd reserves the right to suspend or terminate your account or access to services if you violate this agreement or engage in harmful activities.
       </p>
 
       <h2>9. Disclaimer</h2>
 
       <p>
-        Fluce services are provided “as is” and “as available.” We do not guarantee that the services will be uninterrupted, error-free, or meet all your expectations.
+        Glimd services are provided “as is” and “as available.” We do not guarantee that the services will be uninterrupted, error-free, or meet all your expectations.
       </p>
 
       <h2>10. Changes to This Agreement</h2>
 
       <p>
-        Fluce may update this agreement from time to time. Continued use of the service after changes constitutes acceptance of the updated terms.
+        Glimd may update this agreement from time to time. Continued use of the service after changes constitutes acceptance of the updated terms.
       </p>
 
       <h2>11. Contact Us</h2>

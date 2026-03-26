@@ -11,8 +11,8 @@
       <div class="bottom-section">
         <div class="bottom-container">
           <div class="bottom-top">
-            <div class="bottom-title">Fluce AI</div>
-            <div class="bottom-text">Hey there! I'm Fluce AI, your ultimate dance sidekick here. Craving the latest viral dance routines? Need hacks to boost your practice game? Or just want to dive into awesome dance vibes? Hit me up, and I'll guide you every step of the way!</div>
+            <div class="bottom-title">Glimd AI</div>
+            <div class="bottom-text">Hey there! I'm Glimd AI, your ultimate dance sidekick here. Craving the latest viral dance routines? Need hacks to boost your practice game? Or just want to dive into awesome dance vibes? Hit me up, and I'll guide you every step of the way!</div>
           </div>
         <!-- 购买 -->
         <div class="purchase-container" @click="handlePurchaseClick">

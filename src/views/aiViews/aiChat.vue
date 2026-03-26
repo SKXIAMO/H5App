@@ -7,7 +7,7 @@
       <div class="top-bgc">
         <div class="top-section">
           <BackButton />
-          <p>Fluce AI</p>
+          <p>Glimd AI</p>
         </div>
         <!-- center -->
         <div class="center-section">
@@ -94,7 +94,7 @@ const getFirstTime = () => {
 }
 
 const bottomItems = ref([
-  { sendId: '0', time: getFirstTime(), message: 'Hi there! I\'m Fluce, your AI buddy for all things fun and.'},
+  { sendId: '0', time: getFirstTime(), message: 'Hi there! I\'m Glimd, your AI buddy for all things fun and.'},
 ])
 
 async function handleMessageClick(message) {
