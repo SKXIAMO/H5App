@@ -83,33 +83,48 @@ function handleAction(isDelete) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
-  color:white;
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
 }
 
+h1 {
+  margin: 0;
+}
+
 /* Header */
 .header {
+  min-height: 0;
   display: flex;
   align-items: center;
-  gap: calc(100vw * 12 / 375);
+  gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .title {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PlayfairDisplayBlack', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  color: #fff;
+  font-weight: 900;
+  /* color: #fff; */
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
+  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
+  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
 }
 
 /* Options List */
 .options-list {
+  min-height: 0;
   flex: 1;
-  padding: calc(100vh * 26 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -117,19 +132,19 @@ function handleAction(isDelete) {
 }
 
 .option {
-  height: calc(100vh * 46 / 812);
-  background: rgba(255, 255, 255, 0.1);
+  height: calc(100vh * 52 / 812);
+  background: rgba(255, 255, 255, 1);
   border-radius: calc(100vw * 12 / 375);
-  /* box-shadow: 0 calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06); */
+  box-shadow: 0 calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 calc(100vw * 16 / 375);
+  padding: 0 calc(100vw * 10 / 375);
 }
 
 .option-text {
   font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  color: #fff;
+  color: rgba(51, 24, 13, 1);
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
 }
@@ -146,22 +161,25 @@ function handleAction(isDelete) {
 
 /* Footer */
 .footer {
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 16 / 812);
-  padding-bottom: calc(100vh * 73 / 812);
+  gap: calc(100vh * 23 / 812);
+  padding-bottom: calc(100vh * 80 / 812);
 }
 
 .btn {
-  width: calc(100vw * 190 / 375);
-  height: calc(100vh * 54 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: bold;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
-  border: 0px solid #000;
+  width: calc(100vw * 240 / 375);
+  height: calc(100vh * 59 / 812);
+  border-radius: calc(100vw * 87 / 375);
+  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  border: 0px solid;
 }
 
 /* .delete-btn {

@@ -30,14 +30,33 @@
       <!-- 顶部按钮 -->
       <div class="top-actions">
         <BackButton />
+        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
       </div>
 
       <!-- 底部信息 -->
       <div class="bottom-info">
+        <!-- 喜欢、评论数 -->
+        <div class="action-buttons">
+          <div class="action-box">
+            <div class="action-button" @click="toggleLike">
+              <img v-if="currentUserStore.currentUser.postLikeIds.includes(post.dynamicId)" src="@/assets/likepic.png" alt="like" />
+              <img v-else src="@/assets/dislikepic.png" alt="like" />
+              <span>{{post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(post.dynamicId) ? 1 : 0) }}</span>
+            </div>
+          </div>
+          <div class="action-box">
+            <div class="action-button" @click="uiStore.openComment()">
+              <img src="@/assets/chaticon.png" alt="comment" />
+              <span>{{ post.dynamicCommentCount }}</span>
+            </div>
+          </div>
+        </div>
         <div class="user-left"> 
           <div class="avatar-wrap">
-            <div class="avatar" @click="goOtherHome(post.userId)">
-              <img :src="postUser && postUser.avator" alt="avatar" />
+            <div class="avatar-border-box">
+              <div class="avatar" @click="goOtherHome(post.userId)">
+                <img :src="postUser && postUser.avator" alt="avatar" />
+              </div>
             </div>
             <div class="follow" v-if="post.userId !== currentUserStore.currentUser.userId && !currentUserStore.currentUser.follow.includes(post.userId)" @click="handleFollow" >
               <img src="@/assets/follow.png" alt="follow" />
@@ -47,25 +66,6 @@
           <div class="user-text">
             <div class="username"  @click="goOtherHome(post.userId)">{{ postUser && postUser.name }}</div>
             <div class="video-desc">{{ post && post.dynamicDesc }}</div>
-          </div>
-
-          <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
-        </div>
-
-        <!-- 喜欢、评论数 -->
-        <div class="action-buttons">
-          <div class="action-box">
-            <div class="action-button" @click="uiStore.openComment()">
-              <img src="@/assets/commenticon.png" alt="comment" />
-              <span>{{ post.dynamicCommentCount }}</span>
-            </div>
-          </div>
-          <div class="action-box">
-            <div class="action-button" @click="toggleLike">
-              <img v-if="currentUserStore.currentUser.postLikeIds.includes(post.dynamicId)" src="@/assets/likepic.png" alt="like" />
-              <img v-else src="@/assets/dislikepic.png" alt="like" />
-              <span>{{post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(post.dynamicId) ? 1 : 0) }}</span>
-            </div>
           </div>
         </div>
       </div>
@@ -280,8 +280,8 @@ function commentReportSelect(value) {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: calc(100vh * 170 / 812);
-  background: linear-gradient(180deg, rgba(14, 8, 15, 0.8) 0%, rgba(14, 8, 15, 0) 100%);
+  height: calc(100vh * 96 / 812);
+  background: linear-gradient(180deg, rgba(251, 226, 100, 1) 0%, rgba(255, 255, 255, 0) 100%);
   pointer-events: none;
   transform: rotate(180deg);
 }
@@ -295,7 +295,7 @@ function commentReportSelect(value) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) calc(100vh * 37 / 812);
+  padding: calc(100vh * 56 / 812) calc(100vw * 20 / 375) calc(100vh * 31 / 812);
   box-sizing: border-box;
   z-index: 3;
   pointer-events: none; /* allow clicks to pass through */
@@ -330,8 +330,6 @@ function commentReportSelect(value) {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  gap: calc(100vh * 2 / 812);
 }
 
 .user-left {
@@ -340,15 +338,22 @@ function commentReportSelect(value) {
   gap: calc(100vw * 16 / 375);
 }
 
+.avatar-border-box {
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: calc(100vw * 9 / 375);
+}
+
 .avatar {
   width: calc(100vw * 48 / 375);
   height: calc(100vw * 48 / 375);
   border-radius: 50%;
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 0.6);
+  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
-  margin-bottom: calc(100vw * 9 / 375);
 }
 
 .avatar img {
@@ -389,31 +394,31 @@ function commentReportSelect(value) {
 }
 
 .user-text {
+  min-width: 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 1 / 812);
-  max-width:calc(100vw * (375 - 145) / 375) ;
+  /* gap: calc(100vh * 1 / 812); */
 }
 
 .username {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PlayfairDisplayBlack', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-weight: 900;
+  line-height: calc(100vw * 21.33 / 375);
+  color: rgba(51, 24, 13, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .video-desc {
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'PlayfairDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
   letter-spacing: 0px;
-  line-height: calc(100vw * 20.27 / 375);
-  color: rgba(255, 255, 255, 1);
+  line-height: calc(100vw * 18.66 / 375);
+  color: rgba(94, 69, 58, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -425,41 +430,45 @@ function commentReportSelect(value) {
   right: calc(100vw * 20 / 375); */
   width: 100%;
   display: flex;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 6 / 812);
+  justify-content: end;
 }
 
 .action-box {
-  flex: 1;
-  height: calc(100vh * 53 / 812);
+  /* flex: 1; */
+  display: flex;
+  align-items: center;
+  height: calc(100vh * 34 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.2);
-  margin-top: calc(100vh * 13 / 812);
-  position: relative;
+  background: rgba(255, 255, 255);
+  /* margin-top: calc(100vh * 13 / 812);
+  position: relative; */
 }
 
 .action-button {
-  position: absolute;
+  /* position: absolute;
   top: calc(100vh * -13 / 812);
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, 0); */
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   align-items: center;
   justify-content: start;
-  /* gap: calc(100vw * 10 / 375); */
+  gap: calc(100vw * 5 / 375);
+  padding: 0 calc(100vw * 8 / 375);
 }
 
 .action-button img {
-  width: calc(100vw * 40 / 375);
-  height: calc(100vw * 40 / 375);
+  width: calc(100vw * 30 / 375);
+  height: calc(100vw * 30 / 375);
 }
 
 .action-button span {
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
+  font-family: 'OPPOSansBold', sans-serif;
+  font-size: calc(100vw * 12 / 375);
   font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: rgba(255, 255, 255, 1);
+  line-height: calc(100vw * 15.83 / 375);
+  color: rgb(0, 0, 0);
 }
 
 .comment-overlay {

@@ -9,6 +9,12 @@
           <BackButton />
           <p>Glimd AI</p>
         </div>
+        <div class="top-ai-out-drection">
+          <div class="top-ai-bg-contanier">
+            <div class="top-ai-bg-contanier-text">Glimd AI</div>
+            <div class="top-ai-bg-contanier-image"></div>
+          </div>
+        </div>
         <!-- center -->
         <div class="center-section">
           <div
@@ -36,8 +42,10 @@
                 <div class="chat-time">{{ item.time }}</div>
                     <div class="chat-content-rigth">
                     <div class="chat-message-rigth">{{ item.message }}</div>
-                    <div class="chat-avatar-rigth">
-                      <img :src="currentUserStore.currentUser.avator" alt="AI Avatar" />
+                    <div class="chat-avatar-rigth-border-box">
+                      <div class="chat-avatar-rigth"> 
+                        <img :src="currentUserStore.currentUser.avator" alt="AI Avatar" />
+                      </div>
                     </div>
                 </div>
             </div>
@@ -73,9 +81,9 @@ const formatTime12 = (date) => {
 }
 
 const messages = ref([
-  "How can I make a better dance video?",
-  "Where can I find popular dance BGM?",
-  "Which dance style is good for beginners to learn?"
+  'How to avoid smudging the eye makeup?',
+  'Which items are essential for a light makeup?',
+  'How to make the foundation last longer for oily skin?'
 ])
 
 const currentUserStore = useCurrentUserStore()
@@ -186,7 +194,8 @@ async function sendMessage() {
   width: 100vw;
   height: 100vh;
   overflow: hidden; /* prevent scrolling */
-  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
 }
 
 .page-container {
@@ -198,14 +207,13 @@ async function sendMessage() {
 
 .top-bgc {
   width: 100%;
-  height: calc(100vh * 281 / 812);
+  /* height: calc(100vh * 281 / 812);
   background-image: url('@/assets/aichattop.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 /* .aiusermodel {
@@ -238,46 +246,93 @@ async function sendMessage() {
 
 .top-section {
   position: relative;
-  margin-top: calc(100vh * 58 / 812);
+  margin-top: calc(100vh * 56 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 14 / 812);
 }
 
 .top-section p {
   font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  letter-spacing: 0;
-  color: rgb(255, 255, 255);
+  /* color: #fff; */
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
+  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
+  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
   margin: 0;
 }
 
+.top-ai-out-drection {
+  display: flex;
+  justify-content: center;
+  margin-top: calc(100vh * 22 / 812);
+}
+
+.top-ai-bg-contanier {
+  position: relative;
+  width: calc(100vw * 335 / 375);
+  height: calc(100vh * 84 / 812);
+  background-image: url('@/assets/aibgconteniii.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+}
+
+.top-ai-bg-contanier-text {
+  position: absolute;
+  top: calc(100vh * 33 / 812);
+  left: calc(100vw * 87 / 375);
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
+  color: rgba(255, 255, 255, 1);
+}
+
+.top-ai-bg-contanier-image {
+  position: absolute;
+  right: calc(100vw * 11 / 375);
+  top: calc(100vh * -74 / 812);
+  width: calc(100vw * 108 / 375);
+  height: calc(100vh * 138 / 812);
+  background-image: url('@/assets/aiuserpic.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+}
+
 .center-section {
-  margin-bottom: calc(100vh * 8 / 812);
+  margin-top: calc(100vh * 12 / 812);
+  margin-bottom: calc(100vh * 18 / 812);
   margin-left: calc(100vw * 20 / 375);
-  margin-right: calc(100vw * 106 / 375);
+  margin-right: calc(100vw * 36 / 375);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 8 / 812);
+  gap: calc(100vh * 5 / 812);
 }
 
 .message-box {
   display: inline-flex;
   align-items: center;
-  padding: calc(100vh * 9 / 812) calc(100vw * 10 / 375);
-  border-radius: calc(100vw * 32 / 375);
-  background: rgba(13, 8, 13, 0.2);
-  backdrop-filter: blur(calc(100vw * 8 / 375));
-  font-family: 'SourceHanSansRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  border-radius: 0px calc(100vw * 20 / 375) calc(100vw * 20 / 375) calc(100vw * 20 / 375);
+  background: rgba(253, 61, 104, 0.1);
+  /* backdrop-filter: blur(calc(100vw * 8 / 375)); */
+  font-family: 'OPPOSansRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.38 / 375);
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(94, 69, 58, 1);
   width: fit-content; /* Wrap width to content */
   justify-content: flex-start; /* Align content to left */
 }
@@ -287,13 +342,19 @@ async function sendMessage() {
   display: flex;
   flex-direction: column;
   min-height: 0; /* ⚡ 关键 */
+  border-radius: calc(100vw * 30 / 375) calc(100vw * 30 / 375) 0px 0px;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
 }
 
 .bottom-scroll {
   flex: 1;
   min-height: 0; /* ⚡ 关键 */
   overflow-y: auto;
-  padding: calc(100vh * 36 / 812) 0 calc(100vh * 90 / 812) 0;
+  padding: calc(100vh * 20 / 812) 0 calc(100vh * 90 / 812) 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(100vh * 15 / 812);
 }
 
 /* Optional: hide scrollbar */
@@ -314,17 +375,17 @@ async function sendMessage() {
 .chat-choose {
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 9 / 812);
+  gap: calc(100vh * 12 / 812);
 }
 
 .chat-time {
   text-align: center;
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'PlayfairDisplayRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 23.17 / 375);
+  line-height: calc(100vw * 21.33 / 375);
   letter-spacing: 0;
-  color: rgb(255, 255, 255, 0.6);
+  color: rgba(51, 24, 13, 1);
 }
 
 .chat-content {
@@ -332,7 +393,7 @@ async function sendMessage() {
   align-items: flex-start;
   gap: calc(100vw * 12 / 375);
   margin-left: calc(100vw * 20 / 375);
-  margin-right: calc(100vw * 46 / 375);
+  margin-right: calc(100vw * 59 / 375);
 }
 
 .chat-content-rigth {
@@ -340,7 +401,7 @@ async function sendMessage() {
   align-items: flex-start;
   justify-content: end;
   gap: calc(100vw * 12 / 375);
-  margin-left: calc(100vw * 46 / 375);
+  margin-left: calc(100vw * 59 / 375);
   margin-right: calc(100vw * 20 / 375);
 }
 
@@ -350,12 +411,19 @@ async function sendMessage() {
   border-radius: 50%;
 }
 
+.chat-avatar-rigth-border-box {
+  flex-shrink: 0;
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  border-radius: 50%; /* fully circular */
+  display: flex;
+  justify-content: center;
+}
+
 .chat-avatar-rigth {
   width: calc(100vw * 44 / 375);
   height: calc(100vw * 44 / 375);
-  flex-shrink: 0;
   border-radius: 50%; /* fully circular */
-  border: calc(100vw * 2 / 375) solid rgba(255, 255, 255, 0.6);
+  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -374,33 +442,33 @@ async function sendMessage() {
 }
 
 .chat-message {
-  border-radius: calc(100vw * 20 / 375);
-  background: linear-gradient(270deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  border-radius: 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375) calc(100vw * 10 / 375);
+  background: rgba(251, 226, 100, 1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: calc(100vh * 10 / 812) calc(100vw * 19 / 375);
-  font-family: 'SourceHanSansRegular', sans-serif;
+  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(94, 69, 58, 1);
 }
 
 .chat-message-rigth {
-  border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
+  border-radius: calc(100vw * 10 / 375) 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375);
+  background: rgba(255, 110, 50, 1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: calc(100vh * 10 / 812) calc(100vw * 19 / 375);
-  font-family: 'SourceHanSansRegular', sans-serif;
+  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
 }
@@ -409,14 +477,14 @@ async function sendMessage() {
   position: absolute;
   left: calc(100vw * 20 / 375);
   right: calc(100vw * 20 / 375);
-  bottom: calc(100vh * 37 / 812);
-  height: calc(100vh * 46 / 812);
+  bottom: calc(100vh * 29 / 812);
+  height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgba(62, 57, 63, 1);
+  background: rgb(0, 0, 0);
   backdrop-filter: blur(calc(100vw * 32 / 375));
   display: flex;
   align-items: center;
-  padding: 0 0 0 calc(100vw * 16 / 375);
+  padding: 0 calc(100vw * 10 / 375) 0 calc(100vw * 16 / 375);
   gap: calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
@@ -426,23 +494,23 @@ async function sendMessage() {
   border: none;
   outline: none;
   background: transparent;
-  /* font-family: 'SourceHanSansRegular', sans-serif; */
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
   color: #fff;
 }
 
 .bottom-input input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(102, 95, 103, 1);
 }
 
 .send-icon {
-  width: calc(100vw * 46 / 375);
-  height: calc(100vw * 46 / 375);
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
+  /* border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
   /* cursor: pointer; */
   display: flex;
   flex-direction: column;

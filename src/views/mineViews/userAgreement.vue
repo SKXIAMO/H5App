@@ -15,102 +15,75 @@
       <p class="update-time">Last updated: 2026</p>
 
       <p>
-        Welcome to <strong>Glimd</strong>! Before using Glimd’s social dance community, AI assistant, and video sharing features, please read this User Agreement carefully. By accessing or using Glimd, you agree to comply with this agreement and all applicable laws.
+        Welcome to <strong>Glimd</strong>! Glimd is a social platform designed for dance enthusiasts to connect, learn, and share their passion through innovative features including a vibrant community, AI-powered assistance, and engaging short video tutorials. Before using Glimd, please read this User Agreement carefully. By accessing or using Glimd, you agree to comply with this agreement and all applicable laws.
       </p>
 
-      <h2>1. Acceptance of Terms</h2>
+      <h2>1. Project Description</h2>
 
       <p>
-        By creating an account or using Glimd, you confirm that you have read, understood, and agreed to comply with this User Agreement and all applicable laws.
+        Glimd aims to create a global community where dancers of all levels can interact, inspire each other, and grow together. Our platform integrates social networking, AI technology, and multimedia content to enhance your dance experience.
       </p>
 
-      <h2>2. Description of Services</h2>
-
-      <p>
-        Glimd provides a platform for dancers worldwide, including but not limited to:
-      </p>
+      <h2>2. Core Functions</h2>
 
       <ul>
-        <li>A global trendy dance community for interaction and inspiration</li>
-        <li>AI-assisted guidance for dance practice and skill improvement</li>
-        <li>Video capture, upload, and sharing of daily practice, performances, and tutorials</li>
+        <li>Connect with dancers worldwide through community features</li>
+        <li>Access AI-powered tools for personalized dance guidance and feedback</li>
+        <li>Watch and create short video tutorials to learn and share dance techniques</li>
       </ul>
 
+      <h2>3. AI Assistant</h2>
+
       <p>
-        Glimd reserves the right to modify, suspend, or discontinue any part of the services at any time without prior notice.
+        Our AI assistant provides tailored recommendations, real-time feedback, and practice plans to help you improve your skills efficiently and enjoyably.
       </p>
 
-      <h2>3. User Accounts</h2>
+      <h2>4. Short Video Tutorials</h2>
 
       <p>
-        Some features may require you to create an account. You agree to provide accurate and complete information and to keep your account credentials secure.
+        Users can upload and view short dance tutorials, enabling quick learning and sharing of creative ideas within the community.
       </p>
 
+      <h2>5. User Responsibilities</h2>
+
       <p>
-        You are responsible for all activities conducted under your account.
+        By using Glimd, you agree to engage respectfully, provide accurate information, and adhere to all applicable laws and platform guidelines.
       </p>
 
-      <h2>4. User Conduct</h2>
+      <h2>6. Content Guidelines</h2>
 
       <p>
-        While using Glimd, you agree not to:
+        All shared content must be appropriate and lawful. Glimd reserves the right to remove content that violates these guidelines or the User Agreement.
       </p>
 
-      <ul>
-        <li>Violate any applicable laws or regulations</li>
-        <li>Harass, abuse, or harm other users</li>
-        <li>Upload illegal, harmful, or offensive content</li>
-        <li>Interfere with platform security or attempt unauthorized access</li>
-      </ul>
-
-      <h2>5. Virtual Content and Purchases</h2>
+      <h2>7. Account Security</h2>
 
       <p>
-        Glimd may offer virtual items such as dance course credits or rewards for use within the platform. These items have no real-world monetary value and cannot be redeemed for cash.
+        You are responsible for maintaining the confidentiality of your account credentials and for all activities conducted through your account.
       </p>
 
+      <h2>8. Termination</h2>
+
       <p>
-        All purchases are final unless otherwise required by law.
+        Glimd may suspend or terminate your account if you violate this agreement or engage in harmful behavior.
       </p>
 
-      <h2>6. Privacy and Data</h2>
+      <h2>9. Updates to Agreement</h2>
 
       <p>
-        Your privacy is important to us. Please review our Privacy Policy to understand how we collect, use, and protect your information.
+        We may update this User Agreement periodically. Continued use of the platform after changes indicates your acceptance of the updated terms.
       </p>
 
-      <h2>7. Content Upload</h2>
+      <h2>10. Contact Us</h2>
 
       <p>
-        You may upload videos of dance practice, performances, or tutorials to document your growth and share creativity.
+        For any questions or support, please reach out through the in-app support channels.
       </p>
 
-      <p>
-        All uploaded content must comply with this agreement and applicable laws. Glimd reserves the right to remove or restrict access to inappropriate content.
-      </p>
-
-      <h2>8. Termination and Suspension</h2>
+      <h2>11. Join Glimd Today!</h2>
 
       <p>
-        Glimd reserves the right to suspend or terminate your account or access to services if you violate this agreement or engage in harmful activities.
-      </p>
-
-      <h2>9. Disclaimer</h2>
-
-      <p>
-        Glimd services are provided “as is” and “as available.” We do not guarantee that the services will be uninterrupted, error-free, or meet all your expectations.
-      </p>
-
-      <h2>10. Changes to This Agreement</h2>
-
-      <p>
-        Glimd may update this agreement from time to time. Continued use of the service after changes constitutes acceptance of the updated terms.
-      </p>
-
-      <h2>11. Contact Us</h2>
-
-      <p>
-        If you have any questions about this agreement, please contact us through the in-app support channels.
+        Embrace your passion for dance and connect with a global community. Download Glimd and start your dance journey now!
       </p>
 
     </div>
@@ -124,13 +97,20 @@ import BackButton from '@/components/back.vue'
 
 <style scoped>
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .agreement-page{
-  width:100%;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  color:white;
-  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Use local background image */
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
+  color: #000;
 }
 
 /* Top Header */
@@ -142,17 +122,26 @@ import BackButton from '@/components/back.vue'
 }
 
 .title{
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PlayfairDisplayBlack', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: bold;
-  color: #fff;
+  font-weight: 900;
+  /* color: #fff; */
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
+  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
+  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
 }
 
 /* Content */
 .agreement-content{
   flex:1;
   overflow-y:auto;
-  padding:calc(100vh * 20 / 812) calc(100vw * 20 / 375);
+  padding: 0 calc(100vw * 20 / 375) calc(100vh * 20 / 812) calc(100vw * 20 / 375);
   /* background:rgba(0,0,0,0.45);
   backdrop-filter:blur(calc(100vw * 10 / 375));
   border-radius:calc(100vw * 20 / 375) calc(100vw * 20 / 375) 0 0; */
@@ -160,7 +149,7 @@ import BackButton from '@/components/back.vue'
 
 /* Main Title */
 .agreement-content h1{
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size:calc(100vw * 24 / 375);
   margin-bottom:calc(100vh * 10 / 812);
 }
@@ -168,23 +157,23 @@ import BackButton from '@/components/back.vue'
 /* Update Time */
 .update-time{
   opacity:0.7;
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size:calc(100vw * 12 / 375);
   margin-bottom:calc(100vh * 20 / 812);
 }
 
 /* Section Titles */
 .agreement-content h2{
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size:calc(100vw * 18 / 375);
   margin-top:calc(100vh * 24 / 812);
   margin-bottom:calc(100vh * 10 / 812);
-  color:rgba(236, 86, 184, 1);
+  color:rgba(255, 110, 50, 1);
 }
 
 /* Paragraphs */
 .agreement-content p{
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
   line-height:1.7;
   margin-bottom:calc(100vh * 10 / 812);
@@ -197,7 +186,7 @@ import BackButton from '@/components/back.vue'
 
 .agreement-content li{
   margin-bottom:calc(100vh * 6 / 812);
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
 }
 

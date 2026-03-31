@@ -1,9 +1,13 @@
 <template>
   <div class="video-call">
-    <div class="bg-gradient" :style="{ backgroundImage: `url(${userInfo.avator})` }"></div>
+    <div class="bg-gradient" :style="{ backgroundImage: `url(${userInfo.avator})` }">
+      <div class="bg-colors-111"></div>
+    </div>
     <!-- Top Avatar Container -->
     <div class="avatar-outer">
-      <img :src="userInfo.avator" alt="User Avatar" />
+      <div class="avator-border-box">
+        <img :src="userInfo.avator" alt="User Avatar" />
+      </div>
       <div class="call-left">
         <div class="user-name">{{ userInfo.name }}</div>
         <div class="calling-text">{{ callingText }}</div>
@@ -66,36 +70,52 @@ function hangup() {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.1;
+  display: flex;
+  /* opacity: 0.1; */
+}
+
+.bg-colors-111 {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(251, 226, 100, 1) 0.31%, rgba(255, 255, 255, 0) 99.84%);
 }
 
 .video-call {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: rgba(45, 33, 45, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  gap: calc(100vh * 52 / 812);
 }
 
 .avatar-outer {
-  margin-top: calc(100vh * 285 / 812);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 46 / 812);
+  gap: calc(100vh * 20 / 812);
 }
 
-.avatar-outer img{
-  width: calc(100vw * 80 / 375);
-  height: calc(100vw * 80 / 375);
+.avator-border-box {
+  display: flex;
+  justify-content: center;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+}
+
+.avator-border-box img{
+  width: calc(100vw * 100 / 375);
+  height: calc(100vw * 100 / 375);
+  padding: calc(100vh * 2 / 812) calc(100vw * 2 / 375);
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 /* .avatar-inner {
@@ -139,7 +159,7 @@ function hangup() {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 10 / 812);
 }
 
 .user-name {
@@ -147,43 +167,45 @@ function hangup() {
   font-size: calc(100vw * 20 / 375);
   font-weight: 400;
   line-height: calc(100vw * 21.2 / 375);
-  color: rgba(255, 255, 255, 1);
+  color: rgb(0, 0, 0);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .calling-text {
-  font-family: 'DosisRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.7 / 375);
-  color: rgb(255, 255, 255);
+  line-height: calc(100vw * 18.47 / 375);
+  color: rgba(94, 69, 58, 1);
 }
 
 .hangup {
-  margin-bottom: calc(100vh * 79 / 812);
-  width: calc(100vw * 72 / 375);
-  height: calc(100vw * 72 / 375);
-  border-radius: 50%;
+  margin-bottom: calc(100vh * 90 / 812);
+  width: calc(100vw * 91 / 375);
+  height: calc(100vw * 91 / 375);
+  /* border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.6);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .hangup-btn {
-  width: calc(100vw * 60 / 375);
+  /* width: calc(100vw * 60 / 375);
   height: calc(100vw * 60 / 375);
   border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hangup-btn img {
-  width: calc(100vw * 28 / 375);
-  height: calc(100vw * 28 / 375);
+  width: calc(100vw * 91 / 375);
+  height: calc(100vw * 91 / 375);
+  object-fit: cover;
+  overflow: hidden;
 }
 </style>

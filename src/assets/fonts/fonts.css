@@ -1,14 +1,38 @@
 @font-face {
-    font-family: 'SourceHanSansBold';
-    src: url('./SourceHanSansSC-Bold.otf') format('truetype');
+    font-family: 'PlayfairDisplayBlack';
+    src: url('./PlayfairDisplay-Black.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'SourceHanSansRegular';
-    src: url('./SourceHanSansSC-Regular.otf') format('truetype');
+    font-family: 'PlayfairDisplayRegular';
+    src: url('./PlayfairDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PoppinsRegular';
+    src: url('./Poppins-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OPPOSansRegular';
+    src: url('./OPPOSansRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OPPOSansBold';
+    src: url('./OPPOSansBold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -17,14 +41,6 @@
 @font-face {
     font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan';
     src: url('./PangMenZhengDaoBiaoTiTiMianFeiBan-2.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'DosisRegular';
-    src: url('./Dosis-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

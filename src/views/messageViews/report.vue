@@ -54,22 +54,22 @@ function handleSubmit() {
 
 <style scoped>
 .page {
-  position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
 .back {
-  padding-top: calc(100vh * 58 / 812);
+  padding-top: calc(100vh * 56 / 812);
   padding-left: calc(100vw * 20 / 375);
 }
 
 .page-content {
-  position: relative;
-  width: 100vw;
-  height: calc(100vh - calc(100vh * 82 / 812));
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -80,13 +80,14 @@ function handleSubmit() {
   grid-template-columns: repeat(2, 1fr); /* 一行两条 */
   column-gap: calc(100vw * 7 / 375); /* 左右间距7 */
   row-gap: calc(100vh * 12 / 812); /* 上下间距12 */
-  padding: calc(100vh * 32 / 812) calc(100vw * 20 / 375) 0; /* 可选左右内边距 */
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0; /* 可选左右内边距 */
 }
 
 .grid-item {
   position: relative;
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
+  background: rgb(255, 255, 255);
   height: calc(100vw * 115 / 375);
   overflow: hidden;
 }
@@ -98,11 +99,11 @@ function handleSubmit() {
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: calc(100vw * 8 / 375) 0px calc(100vw * 20 / 375) 0px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.12);
 }
 
 .grid-item.selected .choose-box {
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  background: rgba(253, 61, 104, 1);
 }
 
 .check-icon {
@@ -120,31 +121,31 @@ function handleSubmit() {
 
 .report-content {
   padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375) 0;
-  color: rgb(255, 255, 255);
-  font-family: 'SourceHanSansBold', sans-serif;
+  color: rgba(51, 24, 13, 1);
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 21.1 / 375);
 }
 
 .input-title {
-  padding-top: calc(100vh * 32 / 812);
+  padding-top: calc(100vh * 30 / 812);
   padding-left: calc(100vw * 20 / 375);
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 28.96 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
+  color: rgba(45, 33, 45, 1);
 }
 
 .input-box {
   position: relative;
-  margin: calc(100vh * 9 / 812) calc(100vw * 20 / 375) 0;
+  margin: calc(100vh * 16 / 812) calc(100vw * 20 / 375) 0;
   height: calc(100vh * 103 / 812);
   border-radius: calc(100vw * 16 / 375);
-  background: rgba(35, 30, 36, 1);
-  backdrop-filter: blur(12px);
-  padding: calc(100vh * 18 / 812) calc(100vw * 16 / 375);
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.06);
+  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
   box-sizing: border-box;
 }
 
@@ -155,47 +156,45 @@ function handleSubmit() {
   resize: none;
   outline: none;
   background: transparent;
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
-  font-weight: normal;
-  color: rgb(255, 255, 255); /* 输入文本颜色 */
-  line-height: calc(100vw * 20.27 / 375);
+  font-weight: 400;
+  color: rgb(0, 0, 0); /* 输入文本颜色 */
+  line-height: calc(100vw * 18.47 / 375);
 }
 
-.input-field::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-  font-family: 'SourceHanSansRegular', sans-serif;
-  font-size: calc(100vw * 14 / 375); /* 提示文本大小 */
-  font-weight: 400; /* 提示文本粗细 */
-  line-height: calc(100vw * 20.27 / 375);
+.input-field :placeholder {
+  color: rgba(94, 69, 58, 1);
 }
 
 .char-count {
   position: absolute;
-  right: calc(100vw * 7 / 375);
-  bottom: calc(100vh * 9 / 812);
-  font-family: 'SourceHanSansRegular', sans-serif;
+  right: calc(100vw * 8 / 375);
+  bottom: calc(100vh * 8 / 812);
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 18.47 / 375);
 }
 
 .btn-box {
   margin: 0 auto; /* 新增：水平居中 */
-  margin-top: calc(100vh * 41 / 812);
+  margin-top: calc(100vh * 35 / 812);
   margin-bottom: calc(100vh * 34 / 812);
-  width: calc(100vw * 190 / 375);
-  height: calc(100vh * 54 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  width: calc(100vw * 240 / 375);
+  height: calc(100vh * 59 / 812);
+  border-radius: calc(100vw * 87 / 375);
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
+  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 900;
+  line-height: calc(100vw * 26.66 / 375);
   color: rgb(255, 255, 255);
   text-align: center;
   vertical-align: top;

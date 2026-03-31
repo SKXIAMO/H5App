@@ -30,8 +30,10 @@
           <div class="post-content-row">
             <!-- 用户内容 -->
             <div class="user-box">
-            <div class="avatar" @click="goOtherHome(postUser.userId)">
-              <div class="avatar-img" :style="{ backgroundImage: postUser && `url(${postUser.avator})` }"></div>
+            <div class="avatar-border-box">
+              <div class="avatar" @click="goOtherHome(postUser.userId)">
+                <div class="avatar-img" :style="{ backgroundImage: postUser && `url(${postUser.avator})` }"></div>
+              </div>
             </div>
             <div class="user-name" @click="goOtherHome(postUser.userId)">
               {{ postUser && postUser.name }}
@@ -48,11 +50,11 @@
           </div>
           </div>
         </div>
-      </div>
-      <!-- 点赞内容 -->
-      <div class="like-box" @click="toggleLike">
-        <img :src="currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? likeImage : disLikeImage" alt="like" class="like-icon" />
-        <div class="like-count">{{ post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? 1 : 0) }}</div>
+        <!-- 点赞内容 -->
+        <div class="like-box" @click="toggleLike">
+          <img :src="currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? likeImage : disLikeImage" alt="like" class="like-icon" />
+          <div class="like-count">{{ post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? 1 : 0) }}</div>
+        </div>
       </div>
       <!-- Comments -->
       <div class="comments-title">
@@ -71,11 +73,9 @@
                 </div>
                 <div class="comment-user-name">{{ userStore.getUserById(comment.userId).name }}</div>
               </div>
-            </div>
-            <div class="comment-list-bottom">{{ comment.content }}</div>
-            <div class="comment-more">
               <div class="comments-list-more" :style="{ backgroundImage: `url(${commentMoreImage})` }" v-if="comment.userId !== currentUserStore.currentUser.userId" @click="handleCommentReport(comment.userId)"></div>
             </div>
+            <div class="comment-list-bottom">{{ comment.content }}</div>
           </div>
       </div>
         </template>
@@ -281,7 +281,8 @@ function sendComment() {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
   overflow: hidden;
 }
 
@@ -312,6 +313,7 @@ function sendComment() {
 .swipe-wrapper {
   position: relative;
   height: calc(100vh * 379 / 812);
+  border-radius: 0px 0px calc(100vw * 20 / 375) calc(100vw * 20 / 375);
   overflow: hidden;
 }
 
@@ -335,7 +337,7 @@ function sendComment() {
 
 .indicator-wrapper {
   position: absolute;
-  bottom: calc(100vh * 24 / 812);
+  bottom: calc(100vh * 17 / 812);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -347,7 +349,7 @@ function sendComment() {
   width: calc(100vw * 12 / 375);
   height: calc(100vh * 6 / 812);
   border-radius: calc(100vw * 45 / 375);
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.4);
   transition: all 0.3s;
 }
 
@@ -356,7 +358,7 @@ function sendComment() {
   width: calc(100vw * 32 / 375);
   height: calc(100vh * 6 / 812);
   border-radius: 45px;
-  background: linear-gradient(270deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  background: rgb(255, 255, 255);
 }
 
 .top-btn {
@@ -371,7 +373,8 @@ function sendComment() {
 }
 
 .post-content {
-  padding: calc(100vh * 24 / 812) calc(100vw * 64 / 375) 0 calc(100vw * 20 / 375);
+  display: flex;
+  padding: calc(100vh * 24 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .user-box {
@@ -379,11 +382,13 @@ function sendComment() {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(100vh * 6 / 812);
-  margin-right: calc(100vw * 14 / 375); /* 左间距15 */
+  gap: calc(100vh * 2 / 812);
+  margin-right: calc(100vw * 19 / 375); /* 左间距15 */
 }
 
 .post-row {
+  flex: 1;
+  min-width: 0;
   display: flex;
   align-items: flex-start; /* 改成顶部对齐 */
   justify-content: space-between;
@@ -402,51 +407,58 @@ function sendComment() {
 
 .post-desc {
   margin-right: auto; /* 第二个靠左 */
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'PoppinsRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
-  color: rgba(255, 255, 255, 0.8);
-  line-height: calc(100vw * 20.27 / 375);
+  font-weight: 400;
+  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 19.6 / 375);
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* 超过三行省略 */
+  -webkit-line-clamp: 2; /* 超过三行省略 */
   overflow: hidden;
   text-align: left;
 }
 
-/* .tag-box {
+.tag-box {
   display: inline-flex;
-  height: calc(100vh * 26 / 812);
+  height: calc(100vh * 28 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 159, 142, 1) 0%,
-    rgba(241, 213, 160, 1) 32.13%,
-    rgba(201, 255, 221, 1) 67.84%,
-    rgba(157, 255, 255, 1) 100%
-  );
+  background: rgba(51, 24, 13, 1);
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .tag-text {
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 12 / 375);
-  color: rgba(74, 32, 25, 1);
+  font-weight: 400;
+  flex-shrink: calc(100vw * 15.38 / 375);
+  color: rgb(255, 255, 255);
   padding: 0 calc(100vw * 10 / 375);
   text-align: center;
-} */
+}
 /* 
 .post-time {
   font-size: calc(100vw * 12 / 375);
   color: rgba(255,255,255,0.6);
 } */
 
-.avatar {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+.avatar-border-box {
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
   border-radius: 50%;
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
+  border-radius: 50%;
+  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   box-sizing: border-box;
+  object-fit: cover;
+  overflow: hidden;
 }
 
 .avatar-img {
@@ -459,45 +471,41 @@ function sendComment() {
 
 .user-name {
   width: calc(100vw * 50 / 375);
-  /* height: calc(100vw * 19 / 375); */
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  line-height: calc(100vw * 16.96 / 375);
+  color: rgba(51, 24, 13, 1);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .like-box {
-  position: absolute;
-  right: calc(100vw * 18 / 375);
-  top: calc(100vh * 357 / 812);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: calc(100vh * 4 / 812);
 }
 
 .like-icon {
-  width: calc(100vw * 40 / 375);
-  height: calc(100vw * 40 / 375);
+  width: calc(100vw * 34 / 375);
+  height: calc(100vw * 34 / 375);
 }
 
 .like-count {
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 28.96 / 375);
-  color: #fff;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 14 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 14.84 / 375);
+  color: rgba(51, 24, 13, 1);
   text-align: center;
 }
 
 .comments-title {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 6 / 375); /* 每条评论间距 */
-  padding: calc(100vh * 43 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .comments-box1 {
@@ -507,11 +515,15 @@ function sendComment() {
 }
 
 .comments-title-text {
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: rgba(252, 12, 136, 1);
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 18 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 19.08 / 375);
+  color: rgb(255, 255, 255);
+  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  border-radius: calc(100vw * 10 / 375);
+  background: rgba(0, 0, 0, 1);
+  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
 }
 
 .comments-box2 {
@@ -521,20 +533,20 @@ function sendComment() {
 }
 
 .comments-list {
-  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 两列，每列等分 */
-  column-gap: calc(100vw * 7 / 375);  /* 列间距 */
-  row-gap: calc(100vh * 10 / 812);    /* 行间距 */
+  padding: calc(100vh * 16 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
+  display: flex;
+  flex-direction: column;
+  gap: calc(100vh * 12 / 812);    /* 行间距 */
 }
 
 .comment-item {
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 8 / 812); /* 评论上下间隔10 */
-  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
+  gap: calc(100vh * 4 / 812); /* 评论上下间隔10 */
+  padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
 }
 
 .comment-list-top {
@@ -544,24 +556,29 @@ function sendComment() {
 }
 
 .comment-list-user {
+  min-width: 0;
+  flex: 1;
   display: flex;
+  justify-content: start;
+  align-items: center;
   gap: calc(100vw * 12 / 375);
 }
 
 .comment-list-bottom {
-  font-family: 'SourceHanSansRegular', sans-serif;
-  font-size: calc(100vw * 14 / 375);
-  width: 400;
-  line-height: calc(100vw * 20.27 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-family: 'OPPOSansRegular', sans-serif;
+  font-size: calc(100vw * 12 / 375);
+  font-weight: 400;
+  flex-shrink: calc(100vw * 15.38 / 375);
+  color: rgba(94, 69, 58, 1);
   text-align: left;
 }
 
 .comment-avatar {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  flex-shrink: 0;
+  width: calc(100vw * 33 / 375);
+  height: calc(100vw * 33 / 375);
   border-radius: 50%;
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 0.6);
+  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
   box-sizing: border-box;
   display: flex;
 }
@@ -575,14 +592,14 @@ function sendComment() {
 }
 
 .comment-user-name {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: rgba(255, 255, 255, 1);
-  text-align: left;
-  display: flex;
-  align-items: center;
+  font-weight: 400;
+  line-height: calc(100vw * 16.96 / 375);
+  color: rgba(51, 24, 13, 1);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .comment-more {
@@ -603,15 +620,16 @@ function sendComment() {
   position: fixed;
   left: calc(100vw * 20 / 375);
   right: calc(100vw * 20 / 375);
-  bottom: calc(100vh * 37 / 812);
+  bottom: calc(100vh * 29 / 812);
   width: auto;
-  height: calc(100vh * 46 / 812);
-  background: rgba(62, 57, 63, 1);
+  height: calc(100vh * 54 / 812);
+  background: rgba(0, 0, 0, 1);
+  backdrop-filter: blur(calc(100vw * 32 / 375));  
   border-radius: calc(100vw * 40 / 375);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 0 0 calc(100vw * 16 / 375);
+  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
   z-index: 20;
 }
 
@@ -621,22 +639,21 @@ function sendComment() {
   border: none;
   outline: none;
   background: transparent;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
-  color: #fff;
+  color: #fff;;
 }
 
 .input-field::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(94, 69, 58, 1);
 }
 
 .send-btn {
-  width: calc(100vw * 46 / 375);
-  height: calc(100vw * 46 / 375);
-  border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
   /* cursor: pointer; */
   display: flex;
   flex-direction: column;

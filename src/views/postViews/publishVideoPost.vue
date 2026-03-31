@@ -173,7 +173,8 @@ const getVideoInfo = async (videoUrl) => {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -181,7 +182,7 @@ const getVideoInfo = async (videoUrl) => {
 
 .back {
   min-width: 0;
-  padding-top: calc(100vh * 58 / 812);
+  padding-top: calc(100vh * 56 / 812);
   padding-left: calc(100vw * 20 / 375);
 }
 
@@ -201,9 +202,10 @@ const getVideoInfo = async (videoUrl) => {
   margin-top: calc(100vh * 18 / 812);
   margin-left: calc(100vw * 20 / 375);
   margin-right: calc(100vw * 20 / 375);
-  height: calc(100vh * 186 / 812);
-  /* border-radius: calc(100vw * 16 / 375);
-  background: rgba(255, 255, 255, 1); */
+  height: calc(100vh * 174 / 812);
+  border-radius: calc(100vw * 16 / 375);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
   padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
 }
 
@@ -213,47 +215,47 @@ const getVideoInfo = async (videoUrl) => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
+  line-height: calc(100vw * 18.47 / 375);
   background: transparent;
-  color: #ffffff;
+  color: #000000;
 }
 
 .post-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(94, 69, 58, 1);
 }
 
 .text-count {
   position: absolute;
-  right: calc(100vw * 12 / 375);
-  bottom: calc(100vh * 12 / 812);
-  font-family: 'SourceHanSansRegular', sans-serif;
+  right: calc(100vw * 13 / 375);
+  bottom: calc(100vh * 16 / 812);
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
-  color: rgba(255, 255, 255, 0.6);
+  line-height: calc(100vw * 18.47 / 375);
+  color: rgba(94, 69, 58, 1);
 }
 
 .theme-label {
   margin-top: calc(100vh * 24 / 812);
   margin-left: calc(100vw * 20 / 375);
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 28.96 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
+  color: rgba(51, 24, 13, 1);
   text-align: left;
 }
 
 .upload-list {
   display: flex;
   overflow-x: auto;
-  margin-top: calc(100vh * 9 / 812);
+  margin-top: calc(100vh * 20 / 812);
   padding-left: calc(100vw * 20 / 375);
   padding-right: calc(100vw * 20 / 375);
-  gap: calc(100vw * 10 / 375); /* 间距10，当有图片时 */
+  /* gap: calc(100vw * 10 / 375);  */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
@@ -267,8 +269,8 @@ const getVideoInfo = async (videoUrl) => {
   height: calc(100vw * 108 / 375);
   flex-shrink: 0;
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
-  /* backdrop-filter: blur(12px); */
+  background: rgba(0, 0, 0, 1);
+  backdrop-filter: blur(calc(100vw * 12 / 375));
   display: flex;
   justify-content: center;
   align-items: center;
@@ -284,8 +286,8 @@ const getVideoInfo = async (videoUrl) => {
 }
 
 .upload-add {
-  width: calc(100vw * 39 / 375);
-  height: calc(100vw * 39 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
   background-image: url('@/assets/uploadpic.png');
   background-size: cover;
   background-position: center;
@@ -295,10 +297,10 @@ const getVideoInfo = async (videoUrl) => {
 
 .upload-remove {
   position: absolute;
-  top: calc(100vh * 0 / 812);
-  right: calc(100vw * 0 / 375);
-  width: calc(100vw * 24 / 375);
-  height: calc(100vw * 24 / 375);
+  top: calc(100vh * 6 / 812);
+  right: calc(100vw * 6 / 375);
+  width: calc(100vw * 15 / 375);
+  height: calc(100vw * 15 / 375);
   background-image: url('@/assets/uploadremove.png');
   background-size: cover;
   background-position: center;
@@ -308,19 +310,18 @@ const getVideoInfo = async (videoUrl) => {
 
 /* Release Button Styles */
 .release-button {
-  width: calc(100vw * 190 / 375);
-  height: calc(100vh * 54 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  width: calc(100vw * 240 / 375);
+  height: calc(100vh * 59 / 812);
+  border-radius: calc(100vw * 87 / 375);
+  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-  margin: calc(100vh * 229 / 812) auto calc(100vh * 34 / 812) auto;
+  justify-content: center;
+  margin: calc(100vh * 167 / 812) auto calc(100vh * 34 / 812) auto;
 }
 </style>

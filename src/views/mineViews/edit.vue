@@ -143,8 +143,8 @@ onMounted(() => {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
-  color:white;
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -154,15 +154,24 @@ onMounted(() => {
 .top-header {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 12 / 375);
+  gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .edit-title {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PlayfairDisplayBlack', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: bold;
-  /* color: /; */
+  font-weight: 900;
+  /* color: #fff; */
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
+  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
+  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
 }
 
 .content {
@@ -197,41 +206,41 @@ onMounted(() => {
   width: calc(100vw * 28 / 375);
   height: calc(100vw * 28 / 375);
   border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  background: rgba(0, 0, 0, 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(calc(100vw * 4 / 375), calc(100vw * 4 / 812));
+  /* transform: translate(calc(100vw * 4 / 375), calc(100vw * 4 / 812)); */
 }
 
 .camera-corner img {
-  width: calc(100vw * 23 / 375);
-  height: calc(100vw * 23 / 375);
+  width: calc(100vw * 14 / 375);
+  height: calc(100vw * 14 / 375);
 }
 
 .second-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(100vh * 9 / 812);
+  gap: calc(100vh * 10 / 812);
   width: calc(100% - calc(100vh * 40 / 812));
-  margin: calc(100vh * 40 / 812) 0 0;
+  margin: calc(100vh * 44 / 812) 0 0;
 }
 
 .label {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  /* font-weight: 400; */
-  line-height: calc(100vw * 28.96 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
+  color: rgba(51, 24, 13, 1);
 }
 
 .input-box {
   width: 100%;
   height: calc(100vh * 54 / 812);
-  border-radius: calc(100vw * 12 / 375);
-  background: rgba(255, 255, 255, 0.1);
-  /* backdrop-filter: blur(calc(100vw * 12 / 375)); */
+  border-radius: calc(100vw * 16 / 375);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   padding: 0 calc(100vw * 16 / 375);
@@ -242,26 +251,26 @@ onMounted(() => {
   width: 100%;
   border: none;
   outline: none;
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
-  /* font-weight: 400; */
-  line-height: calc(100vw * 20.27 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
-  color: #fff;
+  color: #000000;
   background: transparent;
 }
 
 .input-box input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(94, 69, 58, 1);
 }
 
 .third-section {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(100vh * 9 / 812);
+  gap: calc(100vh * 10 / 812);
   width: calc(100% - calc(100vh * 40 / 812));
-  margin-top: calc(100vh * 24 / 812);
+  margin-top: calc(100vh * 30 / 812);
 }
 
 /* .about-me-box {
@@ -274,37 +283,36 @@ onMounted(() => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
-  /* font-weight: 400; */
-  line-height: calc(100vw * 20.27 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 18.47 / 375);
   letter-spacing: 0;
-  color: #fff;
+  color: #000000;
   background: transparent;
   padding: calc(100vh * 16 / 812) 0; /* top-left padding */
   box-sizing: border-box;
 }
 
 .fourth-section {
-  margin: calc(100vh * 241 / 812) 0 calc(100vh * 34 / 812);
+  margin: calc(100vh * 204 / 812) 0 calc(100vh * 34 / 812);
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .save-btn {
-  width: calc(100vw * 190 / 375);
-  height: calc(100vh * 54 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  width: calc(100vw * 240 / 375);
+  height: calc(100vh * 59 / 812);
+  border-radius: calc(100vw * 87 / 375);
+  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'SourceHanSansRegularBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: bold;
-  line-height: calc(100vw * 23.17 / 375);
-  letter-spacing: 0;
-  color: #fff,
 }
 </style>

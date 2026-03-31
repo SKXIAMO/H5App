@@ -6,13 +6,15 @@
     </div>
 
     <!-- 金币盒子UI -->
-    <div class="coin-box">
-      <div class="coin-box-header">
-        <img src="@/assets/coin.png" alt="coin" class="coin-icon" />
-      </div>
-      <div class="coin-box-content">
-        <div>My diamonds</div>
-        <span class="coin-number">{{ currentUserStore.currentUser.coins }}</span>
+    <div class="coin-container">
+      <div class="coin-box">
+        <div class="coin-bg-top"></div>
+        <div class="coin-bg-right"></div>
+        <div class="coin-bg-button"></div>
+        <div class="coin-box-content">
+          <div>My diamonds</div>
+          <span class="coin-number">{{ currentUserStore.currentUser.coins }}</span>
+        </div>
       </div>
     </div>
     <!-- <div class="coinbgc"></div> -->
@@ -26,17 +28,15 @@
           :class="{ 'coin-item-selected': selectedIndex === index }"
           @click="() => { selectedIndex = index; handleCoinClick(item) }"
         >
-          <div class="coin-item-box" :class="{ 'coin-item-box-selected': selectedIndex === index }">
-            <div class="coin-left">
+          <div class="coin-left">
               <img src="@/assets/coin.png" class="coin-item-icon" />
               <span class="coin-count" :class="{ 'coin-count-selected': selectedIndex === index }">{{ item.cions }}</span>
             </div>
 
             <div class="coin-right">
               <span class="coin-price" :class="{ 'coin-price-selected': selectedIndex === index }">{{ item.money }}$</span>
-              <!-- <div class="coin-radio" :class="{ 'coin-radio-selected': selectedIndex === index }"></div> -->
+              <div :class="{ 'coin-radio-selected': selectedIndex === index, 'coin-radio': selectedIndex!== index }"></div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -68,71 +68,108 @@ function handleCoinClick(item) {
 
 <style scoped>
 .page {
-  position: relative;
+  /* position: relative; */
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
   overflow: hidden;
-  /* display: flex;
-  flex-direction: column; */
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* box-sizing: border-box; */
 }
 
 .top-header {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 12 / 375);
+  gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .edit-title {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  color: #fff;
+  font-weight: 400;
+  /* color: #fff; */
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
+  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
+  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+}
+
+.coin-container {
+  display: flex;
+  justify-content: center;
+  margin: calc(100vh * 6 / 812) 0 0;
 }
 
 /* 金币盒子外层 */
 .coin-box {
-  width: auto;
-  height: calc(100vh * 103 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: linear-gradient(270deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  width: calc(100vw * 335 / 375);
+  height: calc(100vh * 116 / 812);
   background-image: url('@/assets/coinbgc.png');
   background-size: cover; /* 等比缩放覆盖 */
-  background-position: left; /* 居中显示 */
-  background-repeat: no-repeat;
-  overflow: hidden;
-  margin: calc(100vh * 22 / 812) calc(100vw * 20 / 375) 0;
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: start;
-  /* justify-self: center; */
-  align-items: center;
-  gap: calc(100vw * 32 / 375);
-  padding-left: calc(100vw * 32 / 375);
+  /* overflow: hidden; */
+  position: relative;
 }
 
+.coin-bg-top {
+  position: absolute;
+  top: calc(100vh * -21 / 812);
+  right: calc(100vw * 85 / 375);
+  width: calc(100vw * 67 / 375);
+  height: calc(100vh * 39 / 812);
+  background-image: url('@/assets/coinbgtop.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  overflow: hidden;
+  z-index: 1;
+}
 
-/* 上部分标题 */
-.coin-box-header {
-  width: calc(100vw * 78 / 375);
-  height: calc(100vw * 78 / 375);
-  overflow: hidden; /* 防止溢出 */
+.coin-bg-right {
+  position: absolute;
+  top: calc(100vh * -20 / 812);
+  right: calc(100vw * -6 / 375);
+  width: calc(100vw * 110 / 375);
+  height: calc(100vh * 110 / 812);
+  background-image: url('@/assets/coinbgright.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  overflow: hidden;
+  z-index: 2;
+}
+
+.coin-bg-button {
+  position: absolute;
+  bottom: calc(100vh * -21 / 812);
+  left: calc(100vw * 19 / 375);
+  width: calc(100vw * 82 / 375);
+  height: calc(100vh * 79 / 812);
+  background-image: url('@/assets/coinbgbutton.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  overflow: hidden;
+  z-index: 3;
 }
 
 /* 下部分盒子内容 */
 .coin-box-content {
+  position: absolute;
+  bottom: calc(100vh * 6 / 812);
+  left: calc(100vw * 113 / 375);
   display: flex;       /* 内部内容水平排列 */
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   gap: calc(100vh * 9 / 812);
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 23.17 / 375);
+  line-height: calc(100vw * 16.96 / 375);
   color: #fff;
+  z-index: 4;
 }
 
 /* coin 图标 */
@@ -145,82 +182,51 @@ function handleCoinClick(item) {
 
 /* 金币数量文字 */
 .coin-number {
-  font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 24 / 375);
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
-  /* line-height: calc(100vw * 34.75 / 375); */
-}
-
-.coinbgc {
-  position: absolute;
-  top: calc(100vh * 16 / 812);
-  right: calc(100vh * 27 / 812);
-  width: calc(100vw * 167 / 375);
-  height: calc(100vh * 297 / 812);
-  background-image: url('@/assets/coinsbgc.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
-  background-repeat: no-repeat;
-  overflow: hidden;
-  pointer-events: none; /* 点击穿透，不拦截点击事件 */
+  line-height: calc(100vw * 25.44 / 375);
 }
  
 .coins {
-  height: calc(100% - calc(100vh * 285 / 812));
-  margin-top: calc(100vh * 16 / 812);
-  padding: 0 calc(100vw * 16 / 375) calc(100vh * 34 / 812);
+  flex: 1;
+  margin-top: calc(100vh * 38 / 812);
+  padding: 0 calc(100vw * 20 / 375) calc(100vh * 34 / 812);
   overflow-y: auto;
 }
 
 .coin-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: calc(100vw * 2 / 375);
+  flex-direction: column;
+  gap: calc(100vh * 12 / 812);
 }
 
 .coin-item {
-  width: calc(100vw * 113 / 375);
-  height: calc(100vh * 108 / 812);
-  border-radius: calc(100vw * 24 / 375);
+  /* width: calc(100vw * 113 / 375); */
+  height: calc(100vh * 64 / 812);
+  border-radius: calc(100vw * 20 / 375);
+  background-color: #fff;
+  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
-  margin-bottom: calc(100vh * 6 / 812);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 calc(100vw * 10 / 375);
 }
 
 .coin-item-selected {
-  border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-.coin-item-box {
-  width: calc(100vw * 105 / 375);
-  height: calc(100vh * 100 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
-  /* margin: calc(100vh * 4 / 812) calc(100vw * 4 / 375); */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: calc(100vh * 8 / 812);
-  /* padding: 0 calc(100vw * 10 / 375); */
-}
-
-.coin-item-box-selected {
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  background: linear-gradient(135deg, rgba(250, 180, 150, 1) 0%, rgba(251, 226, 100, 1) 100%);
 }
 
 .coin-left {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 4 / 375);
+  gap: calc(100vw * 8 / 375);
 }
 
 .coin-item-icon {
-  width: calc(100vw * 24 / 375);
-  height: calc(100vh * 24 / 812);
+  width: calc(100vw * 30 / 375);
+  height: calc(100vh * 29 / 812);
 }
 
 .coin-count {
@@ -228,7 +234,7 @@ function handleCoinClick(item) {
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
   line-height: calc(100vw * 16.96 / 375);
-  color: rgba(255, 255, 255, 1);
+  color: rgb(0, 0, 0);
 }
 
 /* .coin-count-selected {
@@ -242,34 +248,30 @@ function handleCoinClick(item) {
 }
 
 .coin-price {
-  font-family: 'DosisRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.7 / 375);
-  color: rgba(255, 255, 255, 0.7);
+  line-height: calc(100vw * 18.47 / 375);
+  color: rgba(94, 69, 58, 1);
 }
-
-/* .coin-price-selected {
+/* 
+.coin-price-selected {
   color: #FFF;
 } */
 
-/* .coin-radio {
+.coin-radio {
   width: calc(100vw * 15 / 375);
   height: calc(100vw * 15 / 375);
   border-radius: 50%;
-  background: rgba(105, 71, 65, 1);
+  background: rgba(94, 69, 58, 1);
+  border: calc(100vw * 1 / 375) solid rgba(94, 69, 58, 1);
 }
 
 .coin-radio-selected {
-  width: calc(100vw * 14 / 375);
-  height: calc(100vw * 14 / 375);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 159, 142, 1) 0%,
-    rgba(241, 213, 160, 1) 32.13%,
-    rgba(201, 255, 221, 1) 67.84%,
-    rgba(157, 255, 255, 1) 100%
-  );
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
-} */
+  width: calc(100vw * 15 / 375);
+  height: calc(100vw * 15 / 375);
+  background-image: url('@/assets/coinradio.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  overflow: hidden;
+}
 </style>

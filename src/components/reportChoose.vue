@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import bgcImage from '@/assets/reportdialogbgc.png'
-import optionsBgImage from '@/assets/reportchoosebgc.png'
+// import bgcImage from '@/assets/reportdialogbgc.png'
+// import optionsBgImage from '@/assets/reportchoosebgc.png'
 </script>
 
 <style scoped>
@@ -42,8 +42,8 @@ import optionsBgImage from '@/assets/reportchoosebgc.png'
   /* background-size: cover;
   background-position: center;
   background-repeat: no-repeat; */
-  border-radius: calc(100vw * 24 / 375) calc(100vw * 24 / 375) 0px 0px;
-  background: rgba(14, 8, 15, 1);
+  border-radius: calc(100vw * 40 / 375) calc(100vw * 40 / 375) 0px 0px;
+  background: linear-gradient(135deg, rgba(251, 226, 100, 1) 0%, rgba(250, 196, 172, 1) 100%);
   z-index: 1000;
   display: flex;
   justify-self: flex-end;
@@ -58,8 +58,8 @@ import optionsBgImage from '@/assets/reportchoosebgc.png'
   /* height: 100%; */
   /* width: auto; */
   /* margin-right: calc(100vw * 28 / 375); */
-  padding-bottom: calc(100vh * 45 / 812); /* 底部间距 */
-  gap: calc(100vh * 28 / 812); /* 上下间距26 */
+  padding-bottom: calc(100vh * 55 / 812); /* 底部间距 */
+  gap: calc(100vh * 22 / 812); /* 上下间距26 */
 }
 
 .dialog-options {
@@ -69,20 +69,20 @@ import optionsBgImage from '@/assets/reportchoosebgc.png'
   flex-direction: column;
   justify-content: center;
   gap: calc(100vh * 16 / 812); /* 上下间距26 */
-  margin-top: calc(100vh * 32 / 812);
+  margin-top: calc(100vh * 34 / 812);
   align-items: center;
 }
 
 .option {
   width: calc(100vw * 260 / 375);
   height: calc(100vh * 46 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
+  border-radius: calc(100vw * 40 / 375);
+  background: rgb(255, 255, 255);
   /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.1); */
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  color: rgb(255, 255, 255);
+  font-weight: 400;
+  color: rgba(94, 69, 58, 1);
   text-align: center;
 
   display: flex; /* 新增 */
@@ -91,19 +91,17 @@ import optionsBgImage from '@/assets/reportchoosebgc.png'
 }
 
 .cancel {
-  width: calc(100vw * 190 / 375);
-  height: calc(100vh * 54 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
-  /* box-shadow: inset calc(100vw * -1 / 375) calc(100vw * -1 / 375) calc(100vw * 1 / 375) rgba(255, 255, 255, 0.6), inset calc(100vw * 1 / 375) calc(100vw * 1 / 375) calc(100vw * 1 / 375) rgba(255, 255, 255, 0.5); */
-  /* backdrop-filter: blur(calc(100vw * 10 / 375)); */
+  width: calc(100vw * 240 / 375);
+  height: calc(100vh * 59 / 812);
+  border-radius: calc(100vw * 87 / 375);
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 400;
+  color: #fff;
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  color: rgb(255, 255, 255);
-  text-align: center;
+  justify-content: center;
 }
 </style>

@@ -5,23 +5,37 @@
 
     <!-- 页面内容 -->
     <div class="page-content">
+      <div class="ai-user-container"></div>
       <div class="top-section">
         <BackButton />
       </div>
-      <div class="bottom-section">
-        <div class="bottom-container">
-          <div class="bottom-top">
-            <div class="bottom-title">Glimd AI</div>
-            <div class="bottom-text">Hey there! I'm Glimd AI, your ultimate dance sidekick here. Craving the latest viral dance routines? Need hacks to boost your practice game? Or just want to dive into awesome dance vibes? Hit me up, and I'll guide you every step of the way!</div>
+      <div class="bottom-scroll">
+        <div class="bottom-first">
+          <div class="ai-bgc-icon"></div>
+          <div class="ai-title-inter">
+            <div class="ai-title-inter-one">
+              Hi! In Glimd
+            </div>
+            <div class="ai-title-inter-two">
+              Discover more dazzling makeup looks and your beauty transformation plan. I'm here to assist you!
+            </div>
           </div>
-        <!-- 购买 -->
-        <div class="purchase-container" @click="handlePurchaseClick">
-          <div class="purchase-info">
-            <div class="purchase-icon"></div>
-            <div class="purchase-count">x 200</div>
-          </div>
-          <div class="chat-box">Chat</div>
         </div>
+        <div class="bottom-section">
+          <div class="bottom-container">
+            <div class="bottom-top">
+              <!-- <div class="bottom-title">Glimd AI</div> -->
+              <div class="bottom-text">Hi! I'm Glimd, your personal makeup buddy on this app. Looking for a certain beauty style? Want tricks to level up your routine? Or just want to discover new ideas? Let me know, and I'll point you in the right direction!</div>
+            </div>
+          <!-- 购买 -->
+          <div class="purchase-container" @click="handlePurchaseClick">
+            <div class="purchase-info">
+              <div class="purchase-icon"></div>
+              <div class="purchase-count">x 200</div>
+            </div>
+            <div class="chat-box">Chat</div>
+          </div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,14 +91,12 @@ function handleRechargeEvent(value) {
 
 <style scoped>
 .page {
+  position: absolute;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* prevent scrolling */
-  background: linear-gradient(0deg, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
-  background-image: url('@/assets/aibgc.png'); /* replace with your asset filename */
+  overflow: hidden;
+  background: url('@/assets/pagebgc.png') no-repeat center center;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .page-content {
@@ -92,39 +104,119 @@ function handleRechargeEvent(value) {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* top内容在上，bottom内容在下 */
+  justify-content: start;
   box-sizing: border-box;
 }
 
 .top-section {
-  margin-top: calc(100vh * 58 / 812);
+  margin-top: calc(100vh * 56 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
 }
 
+.bottom-scroll {
+  min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bottom-first {
+  position: relative;
+  margin: calc(100vh * 71 / 812) calc(100vw * 20 / 375) calc(100vh * 37 / 812);
+  height: calc(100vh * 143 / 812);
+  border-radius: calc(100vw * 20 / 375);
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  border: calc(100vw * 2 / 375) solid rgba(251, 226, 100, 1);
+}
+
+.ai-user-container {
+  position: absolute;
+  left: calc(100vw * 48 / 375);
+  top: calc(100vh * 48 / 812);
+  width: calc(100vw * 158 / 375);
+  height: calc(100vh * 202 / 812);
+  background-image: url('@/assets/aiuserpic.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.ai-bgc-icon {
+  position: absolute;
+  right: calc(100vw * 2 / 375);
+  top: calc(100vh * -12 / 812);
+  width: calc(100vw * 66 / 375);
+  height: calc(100vh * 66 / 812);
+  background-image: url('@/assets/aibgcicon.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.ai-title-inter {
+  position: absolute;
+  bottom: calc(100vh * 13 / 812);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(100vh * 14 / 812);
+  padding: 0 calc(100vw * 22 / 375);
+  z-index: 3;
+}
+
+.ai-title-inter-one {
+  padding-right: calc(100vw * 7 / 375);
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
+  color: rgba(255, 255, 255, 1);
+}
+
+.ai-title-inter-two {
+  font-family: 'OPPOSansRegular', sans-serif;
+  font-size: calc(100vw * 12 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 15.83 / 375);
+  color: rgba(255, 255, 255, 1);
+}
+
 .bottom-section {
+  flex: 1;
+  min-height: 0;
   display: flex;
   justify-content: flex-start;
   z-index: 99;
 }
 
 .bottom-container { 
+  flex: 1;
+  min-height: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 115 / 812);
+  gap: calc(100vh * 85 / 812);
   box-sizing: border-box;
 }
 
 .bottom-top {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 calc(100vw * 68 / 375);
-  gap: calc(100vh * 10 / 812);
+  margin: 0 calc(100vw * 30 / 375);
+  border-radius: calc(100vw * 20 / 375);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px calc(100vw * 10 / 375)  rgba(0, 0, 0, 0.06);
+  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
 }
-
+/* 
 .bottom-title {
   font-family: 'SourceHanSansBold', sans-serif;
   font-size: calc(100vw * 25 / 375);
@@ -133,40 +225,42 @@ function handleRechargeEvent(value) {
   letter-spacing: 0;
   color: rgb(255, 255, 255);
   text-align: center;
-}
+} */
 
 .bottom-text {
-  font-family: 'SourceHanSansRegular', sans-serif;
-  font-size: calc(100vw * 16 / 375);
+  font-family: 'OPPOSansRegular', sans-serif;
+  font-size: calc(100vw * 20 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 23.17 / 375);
+  line-height: calc(100vw * 30 / 375);
   letter-spacing: 0;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(94, 69, 58, 1);
   text-align: center;
+  overflow-y: auto;
 }
 
 .purchase-container {
-  margin-bottom: calc(100vh * 62 / 812);
-  width: calc(100vw * 233 / 375);
-  height: calc(100vh * 56 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
+  margin-bottom: calc(100vh * 34 / 812);
+  width: calc(100vw * 240 / 375);
+  height: calc(100vh * 59 / 812);
+  border-radius: calc(100vw * 87 / 375);
+  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(100vw * 24 / 375);
+  gap: calc(100vw * 18 / 375);
   box-sizing: border-box;
 }
 
 .purchase-info {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 8 / 375);
+  gap: calc(100vw * 3 / 375);
 }
 
 .purchase-icon {
-  width: calc(100vw * 40 / 375);
-  height: calc(100vh * 40 / 812);
+  width: calc(100vw * 38 / 375);
+  height: calc(100vh * 37 / 812);
   background-image: url('@/assets/coin.png'); /* replace with your local image */
   background-size: cover;
   background-position: center;
@@ -174,12 +268,12 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-count {
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 21.2 / 375);
   letter-spacing: 0;
-  color: rgba(255, 235, 59, 1);
+  color: rgb(255, 255, 255);
 }
 
 .chat-box {
@@ -190,10 +284,10 @@ function handleRechargeEvent(value) {
   display: flex;
   justify-content: center;
   align-items: center; */
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 16.96 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
@@ -205,7 +299,7 @@ function handleRechargeEvent(value) {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

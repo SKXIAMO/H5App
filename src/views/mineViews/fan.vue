@@ -10,12 +10,14 @@
             <div v-for="(item, index) in fans" :key="index" class="fan-item">
                 <div class="fan-left">
                     <div class="user-info">
+                      <div class="avator-box-border">
                         <div class="avatar-box">
                             <div class="avatar-inner">
                                 <img :src="item.avator" alt="avatar" />
                             </div>
                         </div>
-                        <div class="user-name">{{ item.name }}</div>
+                      </div>
+                      <div class="user-name">{{ item.name }}</div>
                     </div>
                     <div class="user-intro">{{ item.about }}</div>
                 </div>
@@ -86,7 +88,8 @@ function addFollow(userId) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: linear-gradient(0, rgba(24, 24, 24, 1) 0%, rgba(53, 35, 50, 1) 100%);
+  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background-size: cover;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -96,21 +99,30 @@ function addFollow(userId) {
 .top-header {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 12 / 375);
+  gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .edit-title {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  color: #fff;
+  font-weight: 400;
+  /* color: #fff; */
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
+  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
+  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
 }
 
 .container {
   flex: 1;
   overflow-y: auto;
-  margin: calc(100vh * 26 / 812) 0 0;
+  margin: calc(100vh * 20 / 812) 0 0;
   box-sizing: border-box;
 }
 
@@ -118,7 +130,7 @@ function addFollow(userId) {
   margin: 0 calc(100vw * 20 / 375) 0;
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 15 / 812);
+  gap: calc(100vh * 16 / 812);
   padding-bottom: calc(100vh * 34 / 812);
 }
 
@@ -126,11 +138,11 @@ function addFollow(userId) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: calc(100vh * 82 / 812);
+  height: calc(100vh * 79 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.1);
-  /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06); */
-  padding: 0 calc(100vw * 24 / 375) 0 calc(100vw * 16 / 375);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
+  padding: 0 calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
@@ -145,8 +157,22 @@ function addFollow(userId) {
 
 .user-info {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: calc(100vw * 12 / 375);
+}
+
+.avator-box-border {
+  flex-shrink: 0; /* 禁止收缩 */
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
+  border-radius: 50%;
+  background: linear-gradient(
+    141.29deg,
+    rgba(255, 110, 50, 1) 0%,
+    rgba(253, 61, 104, 1) 44.94%,
+    rgba(251, 226, 100, 1) 100%
+  );
+  padding: calc(100vw * 1 / 375);
 }
 
 .avatar-box {
@@ -170,30 +196,30 @@ function addFollow(userId) {
 }
 
 .user-name {
-  font-family: 'SourceHanSansBold', sans-serif;
+  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 23.17 / 375);
-  color: #fff;
+  font-weight: 400;
+  line-height: calc(100vw * 16.96 / 375);
+  color: rgba(45, 33, 45, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .user-intro {
-  font-family: 'SourceHanSansRegular', sans-serif;
+  font-family: 'OPPOSansRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 20.27 / 375);
-  color: #fff;
+  line-height: calc(100vw * 18.47 / 375);
+  color: rgba(102, 95, 103, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .fan-right {
-  width: calc(100vw * 24 / 375);
-  height: calc(100vh * 24 / 812);
+  width: calc(100vw * 50 / 375);
+  height: calc(100vh * 28 / 812);
   background-image: url('@/assets/addfollow.png');
   background-size: cover; /* 等比缩放覆盖 */
   background-position: center; /* 居中显示 */
