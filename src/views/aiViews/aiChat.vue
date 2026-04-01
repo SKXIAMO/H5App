@@ -494,7 +494,7 @@ async function sendMessage() {
   border: none;
   outline: none;
   background: transparent;
-  font-family: 'OPPOSansRegular', sans-serif;
+  /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
   line-height: calc(100vw * 18.47 / 375);
