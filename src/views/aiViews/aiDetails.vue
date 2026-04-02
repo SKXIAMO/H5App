@@ -63,10 +63,10 @@ const showCoinNot = ref(false)
 const currentUserStore = useCurrentUserStore()
 const userStore =  useUserStore()
 function handlePurchaseClick() {
-  if (currentUserStore.currentUser.coins >= 100) {
+  if (currentUserStore.currentUser.coins >= 200) {
     sendShowLoadingToIOS(true)
 
-    const currentCoins = currentUserStore.currentUser.coins - 100
+    const currentCoins = currentUserStore.currentUser.coins - 200
     userStore.updateUser(currentUserStore.currentUser.userId, { coins: currentCoins })
 
     const delay = Math.floor(Math.random() * 1500) + 500
