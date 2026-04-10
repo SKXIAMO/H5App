@@ -10,7 +10,10 @@
     "fans": [
         "3"
     ],
-    "blockList": [],
+    "blockList": [
+        "2",
+        "3"
+    ],
     "postLikeIds": [],
     "isdelete": 0
 }

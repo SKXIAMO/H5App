@@ -104,19 +104,20 @@ function addFollow(userId) {
 }
 
 .edit-title {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  /* color: #fff; */
-  background: linear-gradient(
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
+  /* background: linear-gradient(
     141.29deg,
     rgba(255, 110, 50, 1) 0%,
     rgba(253, 61, 104, 1) 44.94%,
     rgba(251, 226, 100, 1) 100%
   );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text;  */
 }
 
 .container {
@@ -140,14 +141,14 @@ function addFollow(userId) {
   align-items: center;
   height: calc(100vh * 79 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.2);
   box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
   padding: 0 calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
 .fan-left {
-  width: calc(100% - calc(100vw * 50 / 375));
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -160,9 +161,9 @@ function addFollow(userId) {
   align-items: center;
   gap: calc(100vw * 12 / 375);
 }
-
+/* 
 .avator-box-border {
-  flex-shrink: 0; /* 禁止收缩 */
+  flex-shrink: 0; 
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;
@@ -173,14 +174,14 @@ function addFollow(userId) {
     rgba(251, 226, 100, 1) 100%
   );
   padding: calc(100vw * 1 / 375);
-}
+} */
 
 .avatar-box {
   flex-shrink: 0; /* 禁止收缩 */
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: calc(100vw * 1 / 375) solid rgba(142, 108, 219, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,29 +197,30 @@ function addFollow(userId) {
 }
 
 .user-name {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
-  color: rgba(45, 33, 45, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .user-intro {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(102, 95, 103, 1);
+  line-height: calc(100vw * 18.86 / 375);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .fan-right {
-  width: calc(100vw * 50 / 375);
+  min-width: 0;
+  width: calc(100vw * 63 / 375);
   height: calc(100vh * 28 / 812);
   background-image: url('@/assets/addfollow.png');
   background-size: cover; /* 等比缩放覆盖 */

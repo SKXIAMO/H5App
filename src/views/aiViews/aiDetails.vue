@@ -5,27 +5,28 @@
 
     <!-- 页面内容 -->
     <div class="page-content">
-      <div class="ai-user-container"></div>
       <div class="top-section">
         <BackButton />
       </div>
       <div class="bottom-scroll">
-        <div class="bottom-first">
-          <div class="ai-bgc-icon"></div>
-          <div class="ai-title-inter">
-            <div class="ai-title-inter-one">
-              Hi! In Tiga
-            </div>
-            <div class="ai-title-inter-two">
-              Discover more dazzling makeup looks and your beauty transformation plan. I'm here to assist you!
+        <div class="bottom-first-box">
+          <div class="bottom-first">
+            <div class="ai-user-container"></div>
+            <!-- <div class="ai-bgc-icon"></div> -->
+            <div class="ai-content">
+              <div class="ai-title-inter">
+                <div class="ai-title-inter-one">Tiga Ai</div>
+                <div class="ai-title-inter-two">Hello, I'm your smart AI assistant. Feel free to ask me any questions you may have.</div>
+              </div>
+              <div class="ai-prop-box">Welcome toTiga Ai</div>
             </div>
           </div>
         </div>
         <div class="bottom-section">
           <div class="bottom-container">
             <div class="bottom-top">
-              <!-- <div class="bottom-title">Tiga AI</div> -->
-              <div class="bottom-text">Hi! I'm Tiga, your personal makeup buddy on this app. Looking for a certain beauty style? Want tricks to level up your routine? Or just want to discover new ideas? Let me know, and I'll point you in the right direction!</div>
+              <div class="bottom-title">Tiga AI</div>
+              <div class="bottom-text">Hi! I’m Tiga, your friendly AI companion, here to help you create and explore the world of vlogging! Whether you’re into travel vlogs, lifestyle, tech reviews, or anything in between, I’m here to brainstorm ideas, share tips, and keep the creativity flowing. Ready to start your next vlog adventure together? Let’s chat, inspire each other, and create something amazing every day!</div>
             </div>
           <!-- 购买 -->
           <div class="purchase-container" @click="handlePurchaseClick">
@@ -122,20 +123,27 @@ function handleRechargeEvent(value) {
   overflow: hidden;
 }
 
+.bottom-first-box {
+  display: flex;
+  justify-content: center;
+}
+
 .bottom-first {
   position: relative;
-  margin: calc(100vh * 71 / 812) calc(100vw * 20 / 375) calc(100vh * 37 / 812);
-  height: calc(100vh * 143 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  border: calc(100vw * 2 / 375) solid rgba(251, 226, 100, 1);
+  margin: calc(100vh * 42 / 812) calc(100vw * 0 / 375) calc(100vh * 0 / 812);
+  background-image: url('@/assets/bottomfirstbgi.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+  width: calc(100vw * 335 / 375);
+  height: calc(100vh * 149 / 812);
 }
 
 .ai-user-container {
   position: absolute;
-  left: calc(100vw * 48 / 375);
-  top: calc(100vh * 48 / 812);
-  width: calc(100vw * 158 / 375);
+  right: calc(100vw * 0 / 375);
+  bottom: calc(100vh * 0 / 812);
+  width: calc(100vw * 145 / 375);
   height: calc(100vh * 202 / 812);
   background-image: url('@/assets/aiuserpic.png');
   background-size: cover; /* 等比缩放覆盖 */
@@ -157,32 +165,51 @@ function handleRechargeEvent(value) {
   z-index: 2;
 }
 
-.ai-title-inter {
-  position: absolute;
-  bottom: calc(100vh * 13 / 812);
+.ai-content {
+  box-sizing: border-box;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: calc(100vh * 14 / 812);
-  padding: 0 calc(100vw * 22 / 375);
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: calc(100vh * 10 / 812) calc(100vw * 156 / 375) calc(100vh * 14 / 812) calc(100vw * 18 / 375);
+}
+
+.ai-title-inter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(100vh * 5 / 812);
+  /* padding: 0 calc(100vw * 22 / 375); */
   z-index: 3;
 }
 
 .ai-title-inter-one {
-  padding-right: calc(100vw * 7 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
+  /* padding-right: calc(100vw * 7 / 375); */
+  font-family: 'ArchivoNarrowBold', sans-serif;
+  font-size: calc(100vw * 24 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 32.33 / 375);
   color: rgba(255, 255, 255, 1);
 }
 
 .ai-title-inter-two {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  font-family: 'ArchivoNarrowRegular', sans-serif;
+  font-size: calc(100vw * 11 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.83 / 375);
+  line-height: calc(100vw * 14.82 / 375);
   color: rgba(255, 255, 255, 1);
+}
+
+.ai-prop-box {
+  font-family: 'ArchivoNarrowRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 21.55 / 375);
+  color: rgb(0, 0, 0);
+  padding: calc(100vh * 5 / 812) calc(100vw * 14 / 375);
+  border-radius: calc(100vw * 16 / 375);
+  background: rgba(255, 255, 255, 1);
 }
 
 .bottom-section {
@@ -200,7 +227,7 @@ function handleRechargeEvent(value) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 85 / 812);
+  gap: calc(100vh * 28 / 812);
   box-sizing: border-box;
 }
 
@@ -210,41 +237,44 @@ function handleRechargeEvent(value) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 calc(100vw * 30 / 375);
+  margin: calc(100vh * 40 / 812) calc(100vw * 30 / 375) 0;
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 0px calc(100vw * 10 / 375)  rgba(0, 0, 0, 0.06);
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: calc(100vw * 4 / 375);
+  /* box-shadow: 0px 0px calc(100vw * 10 / 375)  rgba(0, 0, 0, 0.06); */
+  padding: calc(100vh * 16 / 812) calc(100vw * 16 / 375);
+  gap: calc(100vw * 16 / 375);
 }
-/* 
+
 .bottom-title {
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 25 / 375);
+  font-family: 'DDINBold', sans-serif;
+  font-size: calc(100vw * 24 / 375);
   font-weight: 700;
-  line-height: calc(100vw * 36.2 / 375);
+  line-height: calc(100vw * 24 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
   text-align: center;
-} */
+}
 
 .bottom-text {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 20 / 375);
+  font-family: 'ArchivoNarrowRegular', sans-serif;
+  font-size: calc(100vw * 18 / 375);
   font-weight: 400;
   line-height: calc(100vw * 30 / 375);
   letter-spacing: 0;
-  color: rgba(94, 69, 58, 1);
+  color: rgba(255, 255, 255, 0.8);
   text-align: center;
   overflow-y: auto;
 }
 
 .purchase-container {
   margin-bottom: calc(100vh * 34 / 812);
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  width: calc(100vw * 264 / 375);
+  height: calc(100vh * 60 / 812);
+  background-image: url('@/assets/zhubtnbgi.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -259,8 +289,8 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-icon {
-  width: calc(100vw * 38 / 375);
-  height: calc(100vh * 37 / 812);
+  width: calc(100vw * 44 / 375);
+  height: calc(100vh * 31 / 812);
   background-image: url('@/assets/coin.png'); /* replace with your local image */
   background-size: cover;
   background-position: center;
@@ -268,10 +298,10 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-count {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
 }
@@ -284,10 +314,10 @@ function handleRechargeEvent(value) {
   display: flex;
   justify-content: center;
   align-items: center; */
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
   box-sizing: border-box;

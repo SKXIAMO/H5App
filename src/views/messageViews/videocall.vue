@@ -8,14 +8,14 @@
       <div class="avator-border-box">
         <img :src="userInfo.avator" alt="User Avatar" />
       </div>
-      <div class="call-left">
-        <div class="user-name">{{ userInfo.name }}</div>
-        <div class="calling-text">{{ callingText }}</div>
-      </div>
     </div>
 
     <!-- Bottom Control Panel -->
     <div class="hangup">
+      <div class="call-left">
+        <div class="user-name">{{ userInfo.name }}</div>
+        <div class="calling-text">{{ callingText }}</div>
+      </div>
       <div class="hangup-btn" @click="hangup">
         <img src="@/assets/hangupicon.png" alt="hangup" />
       </div>
@@ -77,14 +77,14 @@ function hangup() {
 .bg-colors-111 {
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(251, 226, 100, 1) 0.31%, rgba(255, 255, 255, 0) 99.84%);
+  background: linear-gradient(0deg, rgba(142, 108, 219, 1) 0%, rgba(255, 255, 255, 0) 99.84%);
 }
 
 .video-call {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(45, 33, 45, 1);
+  background: rgba(16, 18, 19, 1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,7 +92,7 @@ function hangup() {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  gap: calc(100vh * 52 / 812);
+  gap: calc(100vh * 311 / 812);
 }
 
 .avatar-outer {
@@ -106,13 +106,13 @@ function hangup() {
   display: flex;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: rgba(142, 108, 219, 1);
 }
 
 .avator-border-box img{
-  width: calc(100vw * 100 / 375);
-  height: calc(100vw * 100 / 375);
-  padding: calc(100vh * 2 / 812) calc(100vw * 2 / 375);
+  width: calc(100vw * 104 / 375);
+  height: calc(100vw * 104 / 375);
+  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   border-radius: 50%;
   object-fit: cover;
   overflow: hidden;
@@ -158,15 +158,15 @@ function hangup() {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: calc(100vh * 10 / 812);
 }
 
 .user-name {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
   color: rgb(0, 0, 0);
   white-space: nowrap;
   overflow: hidden;
@@ -174,37 +174,39 @@ function hangup() {
 }
 
 .calling-text {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 18.86 / 375);
+  color: rgb(0, 0, 0);
 }
 
 .hangup {
-  margin-bottom: calc(100vh * 90 / 812);
-  width: calc(100vw * 91 / 375);
-  height: calc(100vw * 91 / 375);
-  /* border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  margin-bottom: calc(100vh * 40 / 812);
+  width: calc(100vw * 313 / 375);
+  /* height: calc(100vw * 91 / 375); */
+  border-radius: calc(100vw * 40 / 375);
+  /* border: 1px solid rgba(255, 255, 255, 0.6); */
+  background: #fff;
   display: flex;
   align-items: center;
-  justify-content: center; */
+  justify-content: space-between;
+  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375) calc(100vh * 10 / 812) calc(100vw * 20 / 375);
 }
 
 .hangup-btn {
-  /* width: calc(100vw * 60 / 375);
+  width: calc(100vw * 60 / 375);
   height: calc(100vw * 60 / 375);
   border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
+  background: rgba(255, 28, 100, 1);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .hangup-btn img {
-  width: calc(100vw * 91 / 375);
-  height: calc(100vw * 91 / 375);
+  width: calc(100vw * 28 / 375);
+  height: calc(100vw * 28 / 375);
   object-fit: cover;
   overflow: hidden;
 }

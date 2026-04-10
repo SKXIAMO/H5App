@@ -13,8 +13,8 @@
       </div>
     </main>
     <div class="footer">
-      <button class="btn delete-btn" @click="handleAction(true)">Delete account</button>
-      <button class="btn logout-btn" @click="handleAction(false)">Log out</button>
+      <div class="footer-btn delete-btn" @click="handleAction(true)">Delete account</div>
+      <div class="footer-btn logout-btn" @click="handleAction(false)">Log out</div>
     </div>
   </div>
 </template>
@@ -105,19 +105,20 @@ h1 {
 }
 
 .title {
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  /* color: #fff; */
-  background: linear-gradient(
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
+  /* background: linear-gradient(
     141.29deg,
     rgba(255, 110, 50, 1) 0%,
     rgba(253, 61, 104, 1) 44.94%,
     rgba(251, 226, 100, 1) 100%
   );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text; */
 }
 
 /* Options List */
@@ -133,8 +134,8 @@ h1 {
 
 .option {
   height: calc(100vh * 52 / 812);
-  background: rgba(255, 255, 255, 1);
-  border-radius: calc(100vw * 12 / 375);
+  background: rgba(142, 108, 219, 1);
+  border-radius: calc(100vw * 20 / 375);
   box-shadow: 0 calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
   display: flex;
   justify-content: space-between;
@@ -143,10 +144,11 @@ h1 {
 }
 
 .option-text {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  color: rgba(51, 24, 13, 1);
+  font-family: 'ArchivoNarrowRegular', sans-serif;
+  color: rgb(255, 255, 255);
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
+  line-height: calc(100vw * 21.55 / 375);
 }
 
 .option-right .arrow-placeholder {
@@ -165,30 +167,33 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 23 / 812);
-  padding-bottom: calc(100vh * 80 / 812);
+  gap: calc(100vh * 20 / 812);
+  padding-bottom: calc(100vh * 96 / 812);
 }
 
-.btn {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+.footer-btn {
+  width: calc(100vw * 264 / 375);
+  height: calc(100vh * 60 / 812);
+  background-image: url('@/assets/zhubtnbgi.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
-  border: 0px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .delete-btn {
   background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
   color: rgba(74, 32, 25, 1);
-}
+} */
 
 .logout-btn {
-  background: rgba(74, 32, 25, 1);
-  color: rgba(255, 255, 255, 1);
-} */
+  background-image: url('@/assets/logoutbtnbgi.png');
+}
 </style>

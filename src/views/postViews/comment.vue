@@ -3,9 +3,9 @@
     <div class="comment-container">
       <!-- 标题部分 -->
       <div class="comment-header">
-        <!-- <div class="header-line" style="max-width: calc(100vw * 31 / 375);"></div> -->
+        <div class="header-line" style="max-width: calc(100vw * 31 / 375);"></div>
         <div class="header-title">Comments</div>
-        <!-- <div class="header-line"></div> -->
+        <div class="header-line"></div>
       </div>
 
       <!-- 评论列表 -->
@@ -148,9 +148,9 @@ watch(
 .comment {
   position: relative;
   /* width: 100%; */
-  height: calc(100vh * 495 / 812);
-  border-radius: calc(100vh * 40 / 812) calc(100vh * 40 / 812) 0 0;
-  background: linear-gradient(135deg, rgba(251, 226, 100, 1) 0%, rgba(250, 196, 172, 1) 100%);
+  height: calc(100vh * 490 / 812);
+  border-radius: calc(100vh * 20 / 812) calc(100vh * 20 / 812) 0 0;
+  background: rgba(142, 108, 219, 1);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -168,25 +168,25 @@ watch(
   min-height: 0;
   display: flex;
   align-items: center;
-  /* gap: calc(100vw * 6 / 375); */
-  padding: calc(100vh * 30 / 812) calc(100vw * 20 / 375) 0;
+  gap: calc(100vw * 6 / 375);
+  padding: calc(100vh * 20 / 812) calc(100vw * 34 / 375) 0 calc(100vw * 20 / 375);
 }
 
-/* .header-line {
+.header-line {
   flex: 1;
   height: 1px;
   background-color: #fff;
-} */
+}
 
 .header-title {
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  /* padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
   border-radius: calc(100vw * 10 / 375);
   background: rgba(0, 0, 0, 1);
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 18 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 19.08 / 375);
+  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1); */
+  font-family: 'ArchivoNarrowBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
   white-space: nowrap;
@@ -203,7 +203,7 @@ watch(
   padding: calc(100vh * 16 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 10 / 812);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -217,9 +217,9 @@ watch(
   display: flex;
   flex-direction: column;
   gap: calc(100vh * 4 / 812);
-  padding: calc(100vh * 14 / 812) calc(100vw * 14 / 375) calc(100vh * 16 / 812) calc(100vw * 16 / 375);
+  padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375) calc(100vh * 15 / 812) calc(100vw * 16 / 375);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(calc(100vw * 12 / 375));
 }
 
@@ -242,7 +242,7 @@ watch(
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
+  border: calc(100vw * 1 / 375) solid rgba(142, 108, 219, 1);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -257,12 +257,12 @@ watch(
 }
 
 .username {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
   letter-spacing: 0;
-  color: rgba(51, 24, 13, 1);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -274,12 +274,12 @@ watch(
 }
 
 .comment-text {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  flex-shrink: calc(100vw * 15.38 / 375);
+  flex-shrink: calc(100vw * 16.16 / 375);
   letter-spacing: 0;
-  color: rgba(94, 69, 58, 1);
+  color: rgb(255, 255, 255);
   text-align: left;
 }
 
@@ -290,11 +290,11 @@ watch(
   bottom: calc(100vh * 29 / 812);
   height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgba(45, 33, 45, 1);
+  background: rgba(244, 142, 90, 1);
   backdrop-filter: blur(calc(100vw * 32 / 375));
   display: flex;
   align-items: center;
-  padding: 0 calc(100vw * 10 / 375) 0 calc(100vw * 16 / 375);
+  padding: 0 calc(100vw * 5 / 375) 0 calc(100vw * 16 / 375);
   gap: calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
@@ -307,20 +307,20 @@ watch(
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 18.86 / 375);
   letter-spacing: 0;
   color: #fff;
 }
 
 .bottom-input input::placeholder {
-  color: rgba(102, 95, 103, 1);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .send-btn {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
-  /* border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
+  width: calc(100vw * 44 / 375);
+  height: calc(100vw * 44 / 375);
+  border-radius: 50%;
+  background: #fff;
   /* cursor: pointer; */
   display: flex;
   flex-direction: column;
@@ -330,8 +330,8 @@ watch(
 }
 
 .send-btn img {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 22 / 375);
+  height: calc(100vw * 22 / 375);
 }
 
 .empty {

@@ -140,7 +140,6 @@ onMounted(() => {
 
 <style scoped>
 .page {
-  position: relative;
   width: 100%;
   height: 100vh;
   background: url('@/assets/pagebgc.png') no-repeat center center;
@@ -152,6 +151,7 @@ onMounted(() => {
 }
 
 .top-header {
+  min-height: 0;
   display: flex;
   align-items: center;
   gap: calc(100vw * 16 / 375);
@@ -159,33 +159,33 @@ onMounted(() => {
 }
 
 .edit-title {
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  /* color: #fff; */
-  background: linear-gradient(
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
+  /* background: linear-gradient(
     141.29deg,
     rgba(255, 110, 50, 1) 0%,
     rgba(253, 61, 104, 1) 44.94%,
     rgba(251, 226, 100, 1) 100%
   );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
+  background-clip: text;  */
 }
 
 .content {
-  position: relative;
-  width: 100vw;
-  height: calc(100% - calc(100vh * 98 / 812));
+  min-height: 0;
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
 
 .top, .second, .third {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .top-block {
@@ -194,19 +194,19 @@ onMounted(() => {
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  /* border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1); */
+  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
   position: relative;
   margin-top: calc(100vh * 20 / 812);
 }
 
 .camera-corner {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
   width: calc(100vw * 28 / 375);
   height: calc(100vw * 28 / 375);
   border-radius: 50%;
-  background: rgba(0, 0, 0, 1);
+  background: rgba(255, 255, 255, 1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,11 +228,11 @@ onMounted(() => {
 }
 
 .label {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
 }
 
 .input-box {
@@ -240,7 +240,8 @@ onMounted(() => {
   height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 16 / 375);
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1); */
+  backdrop-filter: calc(100vw * 12 / 375);
   display: flex;
   align-items: center;
   padding: 0 calc(100vw * 16 / 375);
@@ -251,17 +252,17 @@ onMounted(() => {
   width: 100%;
   border: none;
   outline: none;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 18.86 / 375);
   letter-spacing: 0;
   color: #000000;
   background: transparent;
 }
 
 .input-box input::placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .third-section {
@@ -273,9 +274,9 @@ onMounted(() => {
   margin-top: calc(100vh * 30 / 812);
 }
 
-/* .about-me-box {
+.about-me-box {
   height: calc(100vh * 111 / 812);
-} */
+}
 
 .about-me-box textarea {
   width: 100%;
@@ -283,10 +284,10 @@ onMounted(() => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 18.86 / 375);
   letter-spacing: 0;
   color: #000000;
   background: transparent;
@@ -295,22 +296,24 @@ onMounted(() => {
 }
 
 .fourth-section {
-  margin: calc(100vh * 204 / 812) 0 calc(100vh * 34 / 812);
+  margin: calc(100vh * 170 / 812) 0 calc(100vh * 34 / 812);
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .save-btn {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PlayfairDisplayBlack', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
+  width: calc(100vw * 264 / 375);
+  height: calc(100vh * 60 / 812);
+  background-image: url('@/assets/zhubtnbgi.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'ArchivoNarrowBold', sans-serif;
+  font-size: calc(100vw * 24 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 32.33 / 375);
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;

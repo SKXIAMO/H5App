@@ -44,9 +44,9 @@
             <div class="post-desc">
               {{ post.dynamicDesc }}
             </div>
-            <!-- <div class="tag-box">
+            <div class="tag-box">
               <div class="tag-text"># {{ postTag }}</div>
-            </div> -->
+            </div>
           </div>
           </div>
         </div>
@@ -58,9 +58,9 @@
       </div>
       <!-- Comments -->
       <div class="comments-title">
-        <!-- <div class="comments-box1"></div> -->
+        <div class="comments-box1"></div>
         <div class="comments-title-text">Comments</div>
-        <!-- <div class="comments-box2"></div> -->
+        <div class="comments-box2"></div>
       </div>
       <!-- 评论列表 -->
         <template v-if="comments.length">
@@ -337,7 +337,7 @@ function sendComment() {
 
 .indicator-wrapper {
   position: absolute;
-  bottom: calc(100vh * 17 / 812);
+  bottom: calc(100vh * 16 / 812);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -363,7 +363,7 @@ function sendComment() {
 
 .top-btn {
   position: absolute;
-  top: calc(100vh * 58 / 812);
+  top: calc(100vh * 56 / 812);
   left: calc(100vw * 20 / 375);
   right: calc(100vw * 20 / 375);
   display: flex;
@@ -407,11 +407,11 @@ function sendComment() {
 
 .post-desc {
   margin-right: auto; /* 第二个靠左 */
-  font-family: 'PoppinsRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  color: rgba(94, 69, 58, 1);
-  line-height: calc(100vw * 19.6 / 375);
+  color: rgb(255, 255, 255);
+  line-height: calc(100vw * 18.86 / 375);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* 超过三行省略 */
@@ -421,19 +421,19 @@ function sendComment() {
 
 .tag-box {
   display: inline-flex;
-  height: calc(100vh * 28 / 812);
+  height: calc(100vh * 29 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgba(51, 24, 13, 1);
+  background: rgba(142, 108, 219, 1);
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .tag-text {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  flex-shrink: calc(100vw * 15.38 / 375);
+  flex-shrink: calc(100vw * 16.16 / 375);
   color: rgb(255, 255, 255);
   padding: 0 calc(100vw * 10 / 375);
   text-align: center;
@@ -445,7 +445,7 @@ function sendComment() {
 } */
 
 .avatar-border-box {
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: rgba(142, 108, 219, 1);
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -471,11 +471,11 @@ function sendComment() {
 
 .user-name {
   width: calc(100vw * 50 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
+  color: rgb(255, 255, 255);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -489,23 +489,24 @@ function sendComment() {
 }
 
 .like-icon {
-  width: calc(100vw * 34 / 375);
-  height: calc(100vw * 34 / 375);
+  width: calc(100vw * 28 / 375);
+  height: calc(100vw * 28 / 375);
 }
 
 .like-count {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
   line-height: calc(100vw * 14.84 / 375);
-  color: rgba(51, 24, 13, 1);
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 
 .comments-title {
   display: flex;
   align-items: center;
-  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 20 / 812) calc(100vw * 34 / 375) 0 calc(100vw * 20 / 375);
+  gap: calc(100vw * 6 / 375);
 }
 
 .comments-box1 {
@@ -515,15 +516,11 @@ function sendComment() {
 }
 
 .comments-title-text {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 18 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 19.08 / 375);
+  font-family: 'ArchivoNarrowBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
   color: rgb(255, 255, 255);
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  border-radius: calc(100vw * 10 / 375);
-  background: rgba(0, 0, 0, 1);
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
 }
 
 .comments-box2 {
@@ -533,20 +530,20 @@ function sendComment() {
 }
 
 .comments-list {
-  padding: calc(100vh * 16 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 12 / 812);    /* 行间距 */
+  gap: calc(100vh * 10 / 812);    /* 行间距 */
 }
 
 .comment-item {
   display: flex;
   flex-direction: column;
   gap: calc(100vh * 4 / 812); /* 评论上下间隔10 */
-  padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375);
+  padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375) calc(100vh * 15 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
+  background:rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(calc(100vw * 12 / 375));
 }
 
 .comment-list-top {
@@ -565,11 +562,11 @@ function sendComment() {
 }
 
 .comment-list-bottom {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  flex-shrink: calc(100vw * 15.38 / 375);
-  color: rgba(94, 69, 58, 1);
+  flex-shrink: calc(100vw * 16.16 / 375);
+  color: rgb(255, 255, 255);
   text-align: left;
 }
 
@@ -578,7 +575,7 @@ function sendComment() {
   width: calc(100vw * 33 / 375);
   height: calc(100vw * 33 / 375);
   border-radius: 50%;
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
+  border: calc(100vw * 1 / 375) solid rgba(142, 108, 219, 1);
   box-sizing: border-box;
   display: flex;
 }
@@ -592,11 +589,11 @@ function sendComment() {
 }
 
 .comment-user-name {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 21.55 / 375);
+  color: rgb(255, 255, 255);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -623,13 +620,13 @@ function sendComment() {
   bottom: calc(100vh * 29 / 812);
   width: auto;
   height: calc(100vh * 54 / 812);
-  background: rgba(0, 0, 0, 1);
+  background: rgba(244, 142, 90, 1);
   backdrop-filter: blur(calc(100vw * 32 / 375));  
   border-radius: calc(100vw * 40 / 375);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
+  padding: 0 calc(100vw * 5 / 375) 0 calc(100vw * 16 / 375);
   z-index: 20;
 }
 
@@ -642,18 +639,20 @@ function sendComment() {
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 18.86 / 375);
   letter-spacing: 0;
   color: #fff;;
 }
 
 .input-field::placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .send-btn {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 44 / 375);
+  height: calc(100vw * 44 / 375);
+  background: #fff;
+  border-radius: 50%;
   /* cursor: pointer; */
   display: flex;
   flex-direction: column;
@@ -663,7 +662,7 @@ function sendComment() {
 }
 
 .send-btn img {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 22 / 375);
+  height: calc(100vw * 22 / 375);
 }
 </style>

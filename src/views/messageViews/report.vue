@@ -86,7 +86,7 @@ function handleSubmit() {
 .grid-item {
   position: relative;
   border-radius: calc(100vw * 20 / 375);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06); */
   background: rgb(255, 255, 255);
   height: calc(100vw * 115 / 375);
   overflow: hidden;
@@ -103,7 +103,7 @@ function handleSubmit() {
 }
 
 .grid-item.selected .choose-box {
-  background: rgba(253, 61, 104, 1);
+  background: rgba(244, 142, 90, 1);
 }
 
 .check-icon {
@@ -121,21 +121,21 @@ function handleSubmit() {
 
 .report-content {
   padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375) 0;
-  color: rgba(51, 24, 13, 1);
-  font-family: 'OPPOSansRegular', sans-serif;
+  color: rgb(0, 0, 0);
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 21.1 / 375);
+  line-height: calc(100vw * 21.55 / 375);
 }
 
 .input-title {
   padding-top: calc(100vh * 30 / 812);
   padding-left: calc(100vw * 20 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(45, 33, 45, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
 }
 
 .input-box {
@@ -144,7 +144,8 @@ function handleSubmit() {
   height: calc(100vh * 103 / 812);
   border-radius: calc(100vw * 16 / 375);
   background: rgb(255, 255, 255);
-  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.06);
+  /* box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.06); */
+  backdrop-filter: calc(100vw * 12 / 375);
   padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
   box-sizing: border-box;
 }
@@ -156,46 +157,47 @@ function handleSubmit() {
   resize: none;
   outline: none;
   background: transparent;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
   color: rgb(0, 0, 0); /* 输入文本颜色 */
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 18.86 / 375);
 }
 
 .input-field :placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .char-count {
   position: absolute;
   right: calc(100vw * 8 / 375);
   bottom: calc(100vh * 8 / 812);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  color: rgba(94, 69, 58, 1);
-  line-height: calc(100vw * 18.47 / 375);
+  color: rgba(0, 0, 0, 0.5);
+  line-height: calc(100vw * 18.86 / 375);
 }
 
 .btn-box {
   margin: 0 auto; /* 新增：水平居中 */
-  margin-top: calc(100vh * 35 / 812);
+  margin-top: calc(100vh * 37 / 812);
   margin-bottom: calc(100vh * 34 / 812);
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  width: calc(100vw * 264 / 375);
+  height: calc(100vh * 60 / 812);
+  background-image: url('@/assets/zhubtnbgi.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'ArchivoNarrowBold', sans-serif;
+  font-size: calc(100vw * 24 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 32.33 / 375);
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: 'PlayfairDisplayBlack', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  line-height: calc(100vw * 26.66 / 375);
-  color: rgb(255, 255, 255);
   text-align: center;
   vertical-align: top;
 }

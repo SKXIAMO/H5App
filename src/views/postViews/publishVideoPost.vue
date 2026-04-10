@@ -199,14 +199,14 @@ const getVideoInfo = async (videoUrl) => {
 
 .input-box {
   position: relative;
-  margin-top: calc(100vh * 18 / 812);
+  margin-top: calc(100vh * 20 / 812);
   margin-left: calc(100vw * 20 / 375);
   margin-right: calc(100vw * 20 / 375);
   height: calc(100vh * 174 / 812);
   border-radius: calc(100vw * 16 / 375);
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
-  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
+  /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1); */
+  padding: calc(100vh * 16 / 812) calc(100vw * 16 / 375);
 }
 
 .post-textarea {
@@ -215,37 +215,37 @@ const getVideoInfo = async (videoUrl) => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 18.86 / 375);
   background: transparent;
   color: #000000;
 }
 
 .post-textarea::placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .text-count {
   position: absolute;
-  right: calc(100vw * 13 / 375);
+  right: calc(100vw * 16 / 375);
   bottom: calc(100vh * 16 / 812);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 18.86 / 375);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .theme-label {
   margin-top: calc(100vh * 24 / 812);
   margin-left: calc(100vw * 20 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
   text-align: left;
 }
 
@@ -266,10 +266,10 @@ const getVideoInfo = async (videoUrl) => {
 
 .upload-item {
   width: calc(100vw * 108 / 375);
-  height: calc(100vw * 108 / 375);
+  height: calc(100vw * 106 / 375);
   flex-shrink: 0;
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(0, 0, 0, 1);
+  background:rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(calc(100vw * 12 / 375));
   display: flex;
   justify-content: center;
@@ -286,8 +286,8 @@ const getVideoInfo = async (videoUrl) => {
 }
 
 .upload-add {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 26 / 375);
+  height: calc(100vw * 26 / 375);
   background-image: url('@/assets/uploadpic.png');
   background-size: cover;
   background-position: center;
@@ -310,18 +310,20 @@ const getVideoInfo = async (videoUrl) => {
 
 /* Release Button Styles */
 .release-button {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PlayfairDisplayBlack', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
+  width: calc(100vw * 264 / 375);
+  height: calc(100vh * 60 / 812);
+  background-image: url('@/assets/zhubtnbgi.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'ArchivoNarrowBold', sans-serif;
+  font-size: calc(100vw * 24 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 32.33 / 375);
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: calc(100vh * 167 / 812) auto calc(100vh * 34 / 812) auto;
+  margin: calc(100vh * 162 / 812) auto calc(100vh * 34 / 812) auto;
 }
 </style>

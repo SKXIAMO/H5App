@@ -1,46 +1,22 @@
 @font-face {
-    font-family: 'PlayfairDisplayBlack';
-    src: url('./PlayfairDisplay-Black.ttf') format('truetype');
+    font-family: 'ArchivoNarrowRegular';
+    src: url('./ArchivoNarrow-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'PlayfairDisplayRegular';
-    src: url('./PlayfairDisplay-Regular.ttf') format('truetype');
+    font-family: 'ArchivoNarrowBold';
+    src: url('./ArchivoNarrow-Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'PoppinsRegular';
-    src: url('./Poppins-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'OPPOSansRegular';
-    src: url('./OPPOSansRegular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'OPPOSansBold';
-    src: url('./OPPOSansBold.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan';
-    src: url('./PangMenZhengDaoBiaoTiTiMianFeiBan-2.ttf') format('truetype');
+    font-family: 'DDINBold';
+    src: url('./D-DIN-Bold.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
