@@ -11,7 +11,8 @@
         "fans": [],
         "blockList": [],
         "postLikeIds": [],
-        "isdelete": 0
+        "isdelete": 0,
+        "isguest": 0
     },
     {
         "userId": "2",
@@ -25,7 +26,8 @@
         "fans": [],
         "blockList": [],
         "postLikeIds": [],
-        "isdelete": 0
+        "isdelete": 0,
+        "isguest": 0
     },
     {
         "userId": "3",
@@ -39,6 +41,7 @@
         "fans": [],
         "blockList": [],
         "postLikeIds": [],
-        "isdelete": 0
+        "isdelete": 0,
+        "isguest": 0
     }
 ]

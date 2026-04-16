@@ -20,7 +20,7 @@
         <!-- 顶部按钮 -->
         <div class="top-btn">
           <BackButton/>
-          <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
+          <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReportFunc()" />
         </div>
       </div>
       <!-- 帖子内容 -->
@@ -117,7 +117,7 @@ import commentMoreImage from '@/assets/postpiccommentreport.png'
 import commentSendImage from '@/assets/commentsend.png'
 import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, sendShowToLoginToIOS } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -150,6 +150,15 @@ const router = useRouter()
 
 //帖子举报、拉黑
 const showPostReport = ref(false)
+
+function showPostReportFunc() {
+  if (currentUserStore.currentUser.isguest == 1){
+    sendShowToLoginToIOS()
+    return
+  }
+  showPostReport.value = true
+}
+
 function postReportSelect(value) {
   showPostReport.value = false
   if (value === 0) {
@@ -193,6 +202,11 @@ function goOtherHome(userId) {
 
 // 点赞逻辑
 function toggleLike() {
+  if (currentUserStore.currentUser.isguest == 1){
+    sendShowToLoginToIOS()
+    return
+  }
+
   const postLikeIds = currentUserStore.currentUser.postLikeIds
   // 判断当前用户是否已经点赞
   const likedIndex = postLikeIds.indexOf(postId)
@@ -215,6 +229,10 @@ const reportCommentUserId = ref(null)
 const showCommentReport = ref(false)
 
 function handleCommentReport(userId) {
+  if (currentUserStore.currentUser.isguest == 1){
+    sendShowToLoginToIOS()
+    return
+  }
   reportCommentUserId.value = userId
   showCommentReport.value = true
 }
@@ -251,6 +269,10 @@ function commentReportSelect(value) {
 
 // 发送评论逻辑
 function sendComment() {
+  if (currentUserStore.currentUser.isguest == 1){
+    sendShowToLoginToIOS()
+    return
+  }
   const content = commentInput.value.trim()
   if (!content) return // 输入为空直接返回
 

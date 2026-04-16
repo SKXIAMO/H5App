@@ -30,7 +30,7 @@
       <!-- 顶部按钮 -->
       <div class="top-actions">
         <BackButton />
-        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
+        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReportFunc()" />
       </div>
 
       <!-- 底部信息 -->
@@ -97,7 +97,7 @@ import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import Comment from '@/views/postViews/comment.vue'
 import ReportDialog from '@/components/reportChoose.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, sendShowToLoginToIOS } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -152,6 +152,15 @@ onBeforeUnmount(() => {
 
 //帖子举报、拉黑
 const showPostReport = ref(false)
+
+function showPostReportFunc() {
+  if (currentUserStore.currentUser.isguest == 1){
+    sendShowToLoginToIOS()
+    return
+  }
+  showPostReport.value = true
+}
+
 function postReportSelect(value) {
   showPostReport.value = false
   if (value === 0) {
@@ -189,6 +198,10 @@ function postReportSelect(value) {
 
 // Handle follow action
 function handleFollow() {
+  if (currentUserStore.currentUser.isguest == 1) {
+    sendShowToLoginToIOS()
+    return
+  }
   const currentUserId = currentUserStore.currentUser.userId
   const postUserId = post.userId
 
@@ -220,6 +233,10 @@ function goOtherHome(userId) {
 
 // 点赞逻辑
 function toggleLike() {
+  if (currentUserStore.currentUser.isguest == 1){
+    sendShowToLoginToIOS()
+    return
+  }
   const postLikeIds = currentUserStore.currentUser.postLikeIds
   // 判断当前用户是否已经点赞
   const likedIndex = postLikeIds.indexOf(postId)
