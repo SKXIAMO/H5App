@@ -127,29 +127,29 @@ function handleCoinClick(item) {
   justify-content: center;
 }
 
-.coin-bg-top {
+/* .coin-bg-top {
   position: absolute;
   top: calc(100vh * -21 / 812);
   right: calc(100vw * 85 / 375);
   width: calc(100vw * 67 / 375);
   height: calc(100vh * 39 / 812);
   background-image: url('@/assets/coinbgtop.png');
-  background-size: cover; /* 等比缩放覆盖 */
+  background-size: cover; 
   overflow: hidden;
   z-index: 1;
-}
+} */
 
-.coin-bg-right {
+/* .coin-bg-right {
   position: absolute;
   top: calc(100vh * -20 / 812);
   right: calc(100vw * -6 / 375);
   width: calc(100vw * 110 / 375);
   height: calc(100vh * 110 / 812);
   background-image: url('@/assets/coinbgright.png');
-  background-size: cover; /* 等比缩放覆盖 */
+  background-size: cover;
   overflow: hidden;
   z-index: 2;
-}
+} */
 
 .coin-bg-button {
   position: absolute;
