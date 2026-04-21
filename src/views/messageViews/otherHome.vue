@@ -115,11 +115,12 @@ import { usePostStore } from '@/stores/post'
 import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useChatsStore } from '@/stores/chat'
+import { useUIStore } from '@/stores/ui'
 import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, sendShowToLoginToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const { userId } = defineProps({
   userId: {
@@ -141,10 +142,11 @@ const chatStore = useChatsStore()
 const router = useRouter()
 
 const showReport = ref(false)
+const uiStore = useUIStore()
 
 function showReportFunc() {
   if (currentUserStore.currentUser.isguest == 1) {
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   showReport.value = true
@@ -184,7 +186,7 @@ function reportSelect(value) {
 // Handle follow action
 function handleFollow() {
   if (currentUserStore.currentUser.isguest == 1) {
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   const currentUserId = currentUserStore.currentUser.userId
@@ -211,7 +213,7 @@ function handleFollow() {
 
 function handleChat() {
   if (currentUserStore.currentUser.isguest == 1) {
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   const currentUserFollow = Array.isArray(currentUserStore.currentUser.follow)

@@ -117,24 +117,16 @@ p {
 .header{
   display:flex;
   align-items:center;
-  gap:calc(100vw * 12 / 375);
+  gap:calc(100vw * 16 / 375);
   padding:calc(100vh * 58 / 812) calc(100vw * 20 / 375) calc(100vh * 20 / 812);
 }
 
 .title{
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'ArchivoNarrowBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  /* color: #fff; */
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  font-weight: 700;
+  line-height: calc(100vw * 26.94 / 375);
+  color: rgb(255, 255, 255);
 }
 
 /* Content */
@@ -149,45 +141,50 @@ p {
 
 /* Main Title */
 .agreement-content h1{
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size:calc(100vw * 24 / 375);
+  color: #fff;
   margin-bottom:calc(100vh * 10 / 812);
 }
 
 /* Update Time */
 .update-time{
   opacity:0.7;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size:calc(100vw * 12 / 375);
   margin-bottom:calc(100vh * 20 / 812);
+  color: #fff;
 }
 
 /* Section Titles */
 .agreement-content h2{
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size:calc(100vw * 18 / 375);
   margin-top:calc(100vh * 24 / 812);
   margin-bottom:calc(100vh * 10 / 812);
-  color:rgba(255, 110, 50, 1);
+  color:rgba(142, 108, 219, 1);
 }
 
 /* Paragraphs */
 .agreement-content p{
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
   line-height:1.7;
   margin-bottom:calc(100vh * 10 / 812);
+  color: #fff;
 }
 
 /* Lists */
 .agreement-content ul{
   padding-left:calc(100vw * 18 / 375);
+  color: #fff;
 }
 
 .agreement-content li{
   margin-bottom:calc(100vh * 6 / 812);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'ArchivoNarrowRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
+  color: #fff;
 }
 
 </style>

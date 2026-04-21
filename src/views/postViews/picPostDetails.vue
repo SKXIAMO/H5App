@@ -109,15 +109,16 @@ import { useUserStore } from '@/stores/user'
 import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useCommentsStore } from '@/stores/comment'
+import { useUIStore } from '@/stores/ui'
 import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
+import ReportDialog from '@/components/reportChoose.vue'
 import likeImage from '@/assets/likepic.png'
 import disLikeImage from '@/assets/dislikepic.png'
 import commentMoreImage from '@/assets/postpiccommentreport.png'
 import commentSendImage from '@/assets/commentsend.png'
-import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, sendShowToLoginToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -150,10 +151,11 @@ const router = useRouter()
 
 //帖子举报、拉黑
 const showPostReport = ref(false)
+const uiStore = useUIStore()
 
 function showPostReportFunc() {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   showPostReport.value = true
@@ -203,7 +205,7 @@ function goOtherHome(userId) {
 // 点赞逻辑
 function toggleLike() {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
 
@@ -230,7 +232,7 @@ const showCommentReport = ref(false)
 
 function handleCommentReport(userId) {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   reportCommentUserId.value = userId
@@ -270,7 +272,7 @@ function commentReportSelect(value) {
 // 发送评论逻辑
 function sendComment() {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   const content = commentInput.value.trim()

@@ -97,7 +97,7 @@ import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import Comment from '@/views/postViews/comment.vue'
 import ReportDialog from '@/components/reportChoose.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, sendShowToLoginToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -155,7 +155,7 @@ const showPostReport = ref(false)
 
 function showPostReportFunc() {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   showPostReport.value = true
@@ -199,7 +199,7 @@ function postReportSelect(value) {
 // Handle follow action
 function handleFollow() {
   if (currentUserStore.currentUser.isguest == 1) {
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   const currentUserId = currentUserStore.currentUser.userId
@@ -234,7 +234,7 @@ function goOtherHome(userId) {
 // 点赞逻辑
 function toggleLike() {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   const postLikeIds = currentUserStore.currentUser.postLikeIds

@@ -44,9 +44,10 @@ import { useCommentsStore } from '@/stores/comment'
 import { useUserStore } from '@/stores/user'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { usePostStore } from '@/stores/post'
+import { useUIStore } from '@/stores/ui'
 import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
-import { sendShowLoadingToIOS, sendShowToastToIOS, sendShowToLoginToIOS } from '@/utils/iosBridge'
+import { sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const props = defineProps({
   postId: {
@@ -76,10 +77,11 @@ function goOtherHome(userId) {
 }
 
 const inputText = ref('')
+const uiStore = useUIStore()
 
 function sendComment() {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   const content = inputText.value.trim()
@@ -112,7 +114,7 @@ const emit = defineEmits(['openCommentReport'])
 // 打开帖子举报
 function openComment(userId) {
   if (currentUserStore.currentUser.isguest == 1){
-    sendShowToLoginToIOS()
+    uiStore.openToLogin()
     return
   }
   reportCommentUserId.value = userId

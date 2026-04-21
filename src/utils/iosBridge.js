@@ -195,7 +195,7 @@ export function sendNewUserDataToIOS(newUserData) {
 }
 
 // Handle page back or close action
-export function sendShowToLoginToIOS() {
+export function sendToLoginToIOS() {
     try {
         if (
             window.webkit &&
@@ -207,6 +207,6 @@ export function sendShowToLoginToIOS() {
             console.warn('iOS handler showToLogin not found')
         }
     } catch (e) {
-        console.error('sendShowToLoginToIOS error', e)
+        console.error('sendToLoginToIOS error', e)
     }
 }
