@@ -200,11 +200,11 @@ export function sendToLoginToIOS() {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.showToLogin
+            window.webkit.messageHandlers.toLogin
         ) {
-            window.webkit.messageHandlers.showToLogin.postMessage()
+            window.webkit.messageHandlers.toLogin.postMessage({})
         } else {
-            console.warn('iOS handler showToLogin not found')
+            console.warn('iOS handler toLogin not found')
         }
     } catch (e) {
         console.error('sendToLoginToIOS error', e)
