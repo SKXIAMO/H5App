@@ -7,7 +7,7 @@ export const useOtherStore = defineStore('other', {
     }),
     actions: {
         getTagByIndex(index) {
-            return otherData.postTheme[index]
+            return other.postTheme[index]
         }
     }
 })

@@ -18,7 +18,7 @@
         <div class="theme-label">Theme</div>
         <!-- ThemeList -->
         <div class="theme-list">
-          <div v-for="(theme, index) in otherStore.other.postTheme" :key="index" class="theme-item" :class="{ selected: selectedTheme === index }" @click="selectedTheme = index"># {{ theme }}</div>
+          <div v-for="(theme, index) in otherStore.other.postTheme" :key="index" class="theme-item" :class="{ selected: selectedTheme === index }" @click="selectedTheme = index">{{ theme }}</div>
         </div>
         <!-- Upload（Pic） -->
         <div class="theme-label">Upload（Pic）</div>
