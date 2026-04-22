@@ -12,78 +12,79 @@
 
       <h1>Tiga User Agreement</h1>
 
-      <p class="update-time">Last updated: 2026</p>
+      <p class="update-time">Last updated: April, 2026</p>
 
       <p>
-        Welcome to <strong>Tiga</strong>! Tiga is a social platform designed for dance enthusiasts to connect, learn, and share their passion through innovative features including a vibrant community, AI-powered assistance, and engaging short video tutorials. Before using Tiga, please read this User Agreement carefully. By accessing or using Tiga, you agree to comply with this agreement and all applicable laws.
+        Welcome to <strong>Tiga</strong>. This User Agreement governs your access to and use of the Tiga application, website, features, content, and related services. Tiga is a platform for vloggers and creators to share life moments, passions, and stories, discover other creators, and interact through community features and AI-powered chat. By creating an account, accessing, or using Tiga, you agree to be bound by this User Agreement and all applicable laws and regulations.
       </p>
 
       <h2>1. Project Description</h2>
 
       <p>
-        Tiga aims to create a global community where dancers of all levels can interact, inspire each other, and grow together. Our platform integrates social networking, AI technology, and multimedia content to enhance your dance experience.
+        Tiga provides tools and services that allow users to create, upload, publish, browse, and interact with vlog content. The platform is designed for creators and viewers who want to connect through lifestyle, travel, beauty, gaming, technology, and other creator-focused content categories. Tiga may also offer AI chat and other interactive features as part of the user experience.
       </p>
 
       <h2>2. Core Functions</h2>
 
       <ul>
-        <li>Connect with dancers worldwide through community features</li>
-        <li>Access AI-powered tools for personalized dance guidance and feedback</li>
-        <li>Watch and create short video tutorials to learn and share dance techniques</li>
+        <li>Upload, publish, and manage vlog and creator content</li>
+        <li>Browse, follow, and interact with creators and community content</li>
+        <li>Use AI-powered chat features made available within the platform</li>
+        <li>Engage through likes, comments, shares, messages, and similar social features</li>
       </ul>
 
       <h2>3. AI Assistant</h2>
 
       <p>
-        Our AI assistant provides tailored recommendations, real-time feedback, and practice plans to help you improve your skills efficiently and enjoyably.
+        Tiga may provide AI-generated features, including chat, suggestions, and other automated outputs. AI responses are generated automatically and may be inaccurate, incomplete, or inappropriate in some cases. You are responsible for reviewing any AI-generated content before relying on or sharing it. Tiga does not guarantee the accuracy, availability, or suitability of AI-generated outputs for any specific purpose.
       </p>
 
-      <h2>4. Short Video Tutorials</h2>
+      <h2>4. Vlog Sharing & Discovery</h2>
 
       <p>
-        Users can upload and view short dance tutorials, enabling quick learning and sharing of creative ideas within the community.
+        You may use Tiga to upload, view, and discover vlogs and related creator content. You retain ownership of content you create and submit, but you grant Tiga the rights necessary to host, store, display, reproduce, distribute, and promote that content for the operation, improvement, and promotion of the service, subject to applicable law and our policies.
       </p>
 
       <h2>5. User Responsibilities</h2>
 
       <p>
-        By using Tiga, you agree to engage respectfully, provide accurate information, and adhere to all applicable laws and platform guidelines.
+        You agree to use Tiga in a lawful and respectful manner. You must provide accurate information where required, maintain the security of your account, and comply with this User Agreement, community rules, and all applicable laws. You may not use Tiga to harass others, infringe intellectual property rights, distribute unlawful content, attempt unauthorized access, or interfere with the normal operation of the platform.
       </p>
 
       <h2>6. Content Guidelines</h2>
 
       <p>
-        All shared content must be appropriate and lawful. Tiga reserves the right to remove content that violates these guidelines or the User Agreement.
+        All videos, comments, messages, profile information, and other user content must be lawful, non-infringing, and appropriate for the Tiga community. Tiga may review, restrict, remove, disable access to, or refuse to publish content that violates this User Agreement, applicable law, intellectual property rights, or platform safety requirements.
       </p>
 
       <h2>7. Account Security</h2>
 
       <p>
-        You are responsible for maintaining the confidentiality of your account credentials and for all activities conducted through your account.
+        You are responsible for maintaining the confidentiality of your login credentials and for activities that occur under your account. If you believe your account has been accessed without authorization, you should promptly update your credentials and contact support through the available in-app channels.
       </p>
 
       <h2>8. Termination</h2>
 
       <p>
-        Tiga may suspend or terminate your account if you violate this agreement or engage in harmful behavior.
+        Tiga may suspend, restrict, or terminate access to your account or to certain features at any time if we reasonably believe you have violated this User Agreement, created risk for other users, exposed Tiga to legal or security issues, or otherwise used the platform in an abusive or harmful manner.
       </p>
 
       <h2>9. Updates to Agreement</h2>
 
       <p>
-        We may update this User Agreement periodically. Continued use of the platform after changes indicates your acceptance of the updated terms.
+        We may revise this User Agreement from time to time to reflect changes to the service, legal requirements, or business operations. When updates become effective, your continued use of Tiga after the updated version is published will constitute your acceptance of the revised terms, unless applicable law requires additional notice or consent.
       </p>
 
       <h2>10. Contact Us</h2>
 
       <p>
-        For any questions or support, please reach out through the in-app support channels.
+        If you have questions about this User Agreement or need assistance regarding your account or use of the service, please contact us through the support channel or contact method made available within the app.
       </p>
 
-      <h2>11. Join Tiga Today!</h2>
+      <h2>11. Additional Terms</h2>
 
       <p>
-        Embrace your passion for dance and connect with a global community. Download Tiga and start your dance journey now!
+        Certain features of Tiga, including paid services, virtual items, subscriptions, promotions, or region-specific functions, may be subject to additional terms, policies, or disclosures. In the event of a conflict between those specific terms and this User Agreement, the additional terms will control for the relevant feature to the extent permitted by law.
       </p>
 
     </div>
