@@ -29,19 +29,19 @@
       <div class="third">
         <div class="third-section">
             <div class="label">Birthday</div>
-            <div class="input-box birthday-content" @click="openBirthdayPicker">
+            <div class="input-box birthday-content">
                 <div class="birthday-input">{{ birthday }}</div>
                 <div class="birthday-icon"></div>
+                <input
+                  ref="birthdayInput"
+                  v-model="birthday"
+                  :max="maxBirthday"
+                  class="birthday-native-input"
+                  type="date"
+                  lang="en-US"
+                  @change="normalizeBirthday"
+                />
             </div>
-            <input
-              ref="birthdayInput"
-              v-model="birthday"
-              :max="maxBirthday"
-              class="birthday-native-input"
-              type="date"
-              lang="en-US"
-              @click.stop
-            />
         </div>
       </div>
       <div class="third">
@@ -108,24 +108,15 @@ const fileInput = ref(null)
 const birthdayInput = ref(null)
 const avatarFile = ref(null)
 
-const chooseAvatar = () => {
-  if (fileInput.value) {
-    fileInput.value.click()
-  }
-}
-
-const openBirthdayPicker = () => {
-  const input = birthdayInput.value
-  if (!input) return
-
+const normalizeBirthday = () => {
   if (birthday.value > maxBirthday) {
     birthday.value = maxBirthday
   }
+}
 
-  if (typeof input.showPicker === 'function') {
-    input.showPicker()
-  } else {
-    input.click()
+const chooseAvatar = () => {
+  if (fileInput.value) {
+    fileInput.value.click()
   }
 }
 
@@ -157,15 +148,20 @@ const saveProfile = async () => {
     if (avatarFile.value) {
       avatarUrl = await uploadSingleImage(avatarFile.value, 'template_development')
     }
+    
+    const delay = Math.floor(Math.random() * 1500) + 500
 
-    let newUserData = {
-        'avator':avatarUrl,
-        'name':name.value,
+    setTimeout(() => {
+      let newUserData = {
+        'avator': avatarUrl && avatarUrl.includes('template_development') ? avatarUrl : '',
+        'name': name.value,
       }
 
       sendShowLoadingToIOS(false)
 
       sendNewUserDataToIOS(newUserData)
+
+    }, delay)
 
   } catch (e) {
     console.error(e)
@@ -282,14 +278,17 @@ const saveProfile = async () => {
 
 .birthday-input {
   flex: 1;
+  pointer-events: none;
 }
 
 .birthday-native-input {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  pointer-events: none;
-  width: 0;
-  height: 0;
+  cursor: pointer;
+  z-index: 3;
 }
 
 .birthday-icon {
@@ -299,6 +298,7 @@ const saveProfile = async () => {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  pointer-events: none;
 }
 
 .input-box input {
