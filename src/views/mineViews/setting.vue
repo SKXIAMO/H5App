@@ -23,9 +23,10 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import BackButton from '@/components/back.vue'
-import { sendLogoutToIOS, sendShowLoadingToIOS } from '@/utils/iosBridge'
+import { sendLogoutToIOS, sendShowLoadingToIOS, showToLogin } from '@/utils/iosBridge'
 
 const options = ref([
   { text: 'Privacy Policy' },
@@ -37,6 +38,7 @@ const options = ref([
 
 const router = useRouter()
 const userStore =  useUserStore()
+const otherStore =  useOtherStore()
 const currentUserStore = useCurrentUserStore()
 
 function handleOption(index) {
@@ -48,12 +50,24 @@ function handleOption(index) {
       router.push({ name: 'userAgreement' })
       break
     case 2:
+      if (otherStore.getIsShowToLogin()) {
+        showToLogin()
+        return
+      }
       router.push({ name: 'block' })
       break
     case 3:
+      if (otherStore.getIsShowToLogin()) {
+        showToLogin()
+        return
+      }
       router.push({ name: 'coins' })
       break
     case 4:
+      if (otherStore.getIsShowToLogin()) {
+        showToLogin()
+        return
+      }
       router.push({ name: 'edit' })
       break
     default:

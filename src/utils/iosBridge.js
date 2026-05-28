@@ -176,3 +176,20 @@ export function sendShowToastToIOS(toastMsg) {
         console.error('sendShowToastToIOS error', e)
     }
 }
+
+// Handle page back or close action
+export function showToLogin() {
+    try {
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.showToLogin
+        ) {
+            window.webkit.messageHandlers.showToLogin.postMessage({})
+        } else {
+            console.warn('iOS handler showToLogin not found')
+        }
+    } catch (e) {
+        console.error('sendShowToLoginToIOS error', e)
+    }
+}

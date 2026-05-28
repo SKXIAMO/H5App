@@ -30,7 +30,7 @@
       <!-- 顶部按钮 -->
       <div class="top-actions">
         <BackButton />
-        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showPostReport = true" />
+        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showVideoPostReport" />
       </div>
 
       <!-- 底部信息 -->
@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="action-box">
-            <div class="action-button" @click="uiStore.openComment()">
+            <div class="action-button" @click="openComment">
               <img src="@/assets/chaticon.png" alt="comment" />
               <span>{{ post.dynamicCommentCount }}</span>
             </div>
@@ -90,6 +90,7 @@ import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePostStore } from '@/stores/post'
 import { useUserStore } from '@/stores/user'
+import { useOtherStore } from '@/stores/other'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useUIStore } from '@/stores/ui'
 import { onMounted, onBeforeUnmount } from 'vue'
@@ -97,7 +98,7 @@ import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import Comment from '@/views/postViews/comment.vue'
 import ReportDialog from '@/components/reportChoose.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, showToLogin } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
   postId: {
@@ -115,6 +116,7 @@ const postUser = userStore.getUserById(post.userId)
 const videoRef = ref(null)
 const isPaused = ref(false)
 
+const otherStore =  useOtherStore()
 const currentUserStore = useCurrentUserStore()
 const router = useRouter()
 const uiStore = useUIStore()
@@ -152,6 +154,15 @@ onBeforeUnmount(() => {
 
 //帖子举报、拉黑
 const showPostReport = ref(false)
+
+function showVideoPostReport() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
+  showPostReport.value = true
+}
+
 function postReportSelect(value) {
   showPostReport.value = false
   if (value === 0) {
@@ -189,6 +200,10 @@ function postReportSelect(value) {
 
 // Handle follow action
 function handleFollow() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
   const currentUserId = currentUserStore.currentUser.userId
   const postUserId = post.userId
 
@@ -218,8 +233,20 @@ function goOtherHome(userId) {
   router.push({ name: 'otherHome', params: { userId } })
 }
 
+function openComment() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
+  uiStore.openComment()
+}
+
 // 点赞逻辑
 function toggleLike() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
   const postLikeIds = currentUserStore.currentUser.postLikeIds
   // 判断当前用户是否已经点赞
   const likedIndex = postLikeIds.indexOf(postId)

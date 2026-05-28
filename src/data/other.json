@@ -62,5 +62,6 @@
             "cions": 49000,
             "money": 99.99
         }
-    ]
+    ],
+    "isGuestLogin": 0
 }

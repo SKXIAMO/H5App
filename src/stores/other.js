@@ -7,7 +7,11 @@ export const useOtherStore = defineStore('other', {
     }),
     actions: {
         getTagByIndex(index) {
-            return otherData.postTheme[index]
+            return this.other.postTheme[index]
+        },
+
+        getIsShowToLogin() {
+            return this.other.isGuestLogin === 1
         }
     }
 })

@@ -61,7 +61,7 @@
                     </div>
                     <div class="post-username" :title="currentUser.name">{{ currentUser.name }}</div>
                   </div>
-                  <div class="post-report" v-if="userId !== currentUserStore.currentUser.userId" @click.stop="showReport = true"></div>
+                  <div class="post-report" v-if="userId !== currentUserStore.currentUser.userId" @click.stop="showOtherHomeReport"></div>
               </div>
               <!-- Middle image -->
               <div class="post-image" :style="{ backgroundImage: `url(${post.dynamicPic[0]})` }">
@@ -99,7 +99,7 @@
     <!-- 顶部按钮 -->
     <div class="top-btn">
         <BackButton/>
-        <MoreButton v-if="userId !== currentUserStore.currentUser.userId" @click="showReport = true" />
+        <MoreButton v-if="userId !== currentUserStore.currentUser.userId" @click="showOtherHomeReport" />
     </div>
     <ReportDialog v-if="showReport" @close="showReport = false" @select="reportSelect" >
     </ReportDialog>
@@ -119,7 +119,7 @@ import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
-import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
+import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, showToLogin } from '@/utils/iosBridge'
 
 const { userId } = defineProps({
   userId: {
@@ -141,6 +141,15 @@ const chatStore = useChatsStore()
 const router = useRouter()
 
 const showReport = ref(false)
+
+function showOtherHomeReport() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
+  showReport.value = true
+}
+
 function reportSelect(value) {
   showReport.value = false
   if (value === 0) {
@@ -174,6 +183,10 @@ function reportSelect(value) {
 
 // Handle follow action
 function handleFollow() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
   const currentUserId = currentUserStore.currentUser.userId
 
   // Update current user's follow list
@@ -197,6 +210,10 @@ function handleFollow() {
 }
 
 function handleChat() {
+  if (otherStore.getIsShowToLogin()) {
+    showToLogin()
+    return
+  }
   sendShowLoadingToIOS(true)
   const currentUserId = currentUserStore.currentUser.userId
 
