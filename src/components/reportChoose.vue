@@ -4,7 +4,7 @@
       <div class="dialog-content">
         <div class="dialog-options">
           <div class="option" @click="$emit('select', 0)">Report</div>
-          <div class="option" @click="$emit('select', 1)">Shield</div>
+          <div class="option" @click="$emit('select', 1)">Block</div>
         </div>
         <div class="cancel" @click.self="$emit('close')">Cancel</div>
       </div>
