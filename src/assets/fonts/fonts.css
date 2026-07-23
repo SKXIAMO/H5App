@@ -1,4 +1,28 @@
 @font-face {
+    font-family: 'JetBrainsMonoRegular';
+    src: url('./JetBrainsMono-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrainsMonoBold';
+    src: url('./JetBrainsMono-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CinzelBlack';
+    src: url('./Cinzel-Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'PlayfairDisplayBlack';
     src: url('./PlayfairDisplay-Black.ttf') format('truetype');
     font-weight: normal;

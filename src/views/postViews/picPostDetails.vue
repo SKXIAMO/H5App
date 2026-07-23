@@ -3,6 +3,7 @@
     <div v-if="post" class="page-content">
       <!-- 顶部轮播图 -->
       <div class="swipe-wrapper">
+        <div class="swipe-wrapper">
         <van-swipe lazy-render :loop="false" class="swipe-container">
           <van-swipe-item v-for="image in images" :key="image" class="swipe-item">
             <img :src="image" class="swipe-img" />
@@ -22,6 +23,12 @@
           <BackButton/>
           <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showreport" />
         </div>
+        <!-- 点赞内容 -->
+        <div class="like-box" @click="toggleLike">
+          <img :src="currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? likeImage : disLikeImage" alt="like" class="like-icon" />
+          <div class="like-count">{{ post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? 1 : 0) }}</div>
+        </div>
+      </div>
       </div>
       <!-- 帖子内容 -->
       <div class="post-content">
@@ -44,18 +51,14 @@
             <div class="post-desc">
               {{ post.dynamicDesc }}
             </div>
-            <!-- <div class="tag-box">
-              <div class="tag-text"># {{ postTag }}</div>
-            </div> -->
+            <div class="tag-box">
+              <div class="tag-text">{{ postTag }}</div>
+            </div>
           </div>
           </div>
-        </div>
-        <!-- 点赞内容 -->
-        <div class="like-box" @click="toggleLike">
-          <img :src="currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? likeImage : disLikeImage" alt="like" class="like-icon" />
-          <div class="like-count">{{ post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? 1 : 0) }}</div>
         </div>
       </div>
+      <div class="comment-top-line"></div>
       <!-- Comments -->
       <div class="comments-title">
         <!-- <div class="comments-box1"></div> -->
@@ -302,7 +305,7 @@ function sendComment() {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
   overflow: hidden;
 }
@@ -334,7 +337,6 @@ function sendComment() {
 .swipe-wrapper {
   position: relative;
   height: calc(100vh * 379 / 812);
-  border-radius: 0px 0px calc(100vw * 20 / 375) calc(100vw * 20 / 375);
   overflow: hidden;
 }
 
@@ -384,7 +386,7 @@ function sendComment() {
 
 .top-btn {
   position: absolute;
-  top: calc(100vh * 58 / 812);
+  top: calc(100vh * 56 / 812);
   left: calc(100vw * 20 / 375);
   right: calc(100vw * 20 / 375);
   display: flex;
@@ -395,7 +397,7 @@ function sendComment() {
 
 .post-content {
   display: flex;
-  padding: calc(100vh * 24 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .user-box {
@@ -428,11 +430,11 @@ function sendComment() {
 
 .post-desc {
   margin-right: auto; /* 第二个靠左 */
-  font-family: 'PoppinsRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  color: rgba(94, 69, 58, 1);
-  line-height: calc(100vw * 19.6 / 375);
+  color: rgba(102, 102, 102, 1);
+  line-height: calc(100vw * 17.36 / 375);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* 超过三行省略 */
@@ -442,21 +444,21 @@ function sendComment() {
 
 .tag-box {
   display: inline-flex;
-  height: calc(100vh * 28 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: rgba(51, 24, 13, 1);
+  height: calc(100vh * 34 / 812);
+  border-radius: calc(100vw * 20 / 375);
+  background: rgba(165, 237, 57, 1);
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .tag-text {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  flex-shrink: calc(100vw * 15.38 / 375);
-  color: rgb(255, 255, 255);
-  padding: 0 calc(100vw * 10 / 375);
+  flex-shrink: calc(100vw * 19.84 / 375);
+  color: rgba(0, 0, 0, 1);
+  padding: 0 calc(100vw * 15 / 375);
   text-align: center;
 }
 /* 
@@ -466,7 +468,7 @@ function sendComment() {
 } */
 
 .avatar-border-box {
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: #000;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -492,35 +494,46 @@ function sendComment() {
 
 .user-name {
   width: calc(100vw * 50 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(0, 0, 0);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .like-box {
-  display: flex;
-  flex-direction: column;
+  position: absolute;
+  bottom: calc(100vh * 10 / 812); 
+  right: calc(100vw * 10 / 375);
+  display: inline-flex;
   align-items: center;
-  gap: calc(100vh * 4 / 812);
+  gap: calc(100vh * 6 / 812);
+  padding: calc(100vh * 6 / 812) calc(100vw * 10 / 375);
+  border-radius: calc(100vw * 12 / 375);
+  background-color: #000;
 }
 
 .like-icon {
-  width: calc(100vw * 34 / 375);
-  height: calc(100vw * 34 / 375);
+  width: calc(100vw * 20 / 375);
+  height: calc(100vw * 20 / 375);
 }
 
 .like-count {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 14 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 14.84 / 375);
-  color: rgba(51, 24, 13, 1);
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(255, 255, 255);
   text-align: center;
+}
+
+.comment-top-line {
+  height: calc(100vh * 1 / 812);
+  margin: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
+  border-top: 1px dashed rgba(102, 102, 102, 1);
 }
 
 .comments-title {
@@ -536,15 +549,15 @@ function sendComment() {
 }
 
 .comments-title-text {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 18 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 19.08 / 375);
-  color: rgb(255, 255, 255);
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  border-radius: calc(100vw * 10 / 375);
-  background: rgba(0, 0, 0, 1);
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(0, 0, 0);
+  padding: calc(100vh * 8 / 812) calc(100vw * 16 / 375);
+  border-radius: calc(100vw * 14 / 375);
+  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
+  border: calc(100vw * 1 / 375) solid rgba(48, 234, 255, 1);
 }
 
 .comments-box2 {
@@ -566,8 +579,7 @@ function sendComment() {
   gap: calc(100vh * 4 / 812); /* 评论上下间隔10 */
   padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 1);
 }
 
 .comment-list-top {
@@ -586,20 +598,20 @@ function sendComment() {
 }
 
 .comment-list-bottom {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  flex-shrink: calc(100vw * 15.38 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 14.88 / 375);
+  color: rgb(255, 255, 255);
   text-align: left;
 }
 
 .comment-avatar {
   flex-shrink: 0;
-  width: calc(100vw * 33 / 375);
-  height: calc(100vw * 33 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
+  /* border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1); */
   box-sizing: border-box;
   display: flex;
 }
@@ -613,11 +625,11 @@ function sendComment() {
 }
 
 .comment-user-name {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(255, 255, 255);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -644,8 +656,8 @@ function sendComment() {
   bottom: calc(100vh * 29 / 812);
   width: auto;
   height: calc(100vh * 54 / 812);
-  background: rgba(0, 0, 0, 1);
-  backdrop-filter: blur(calc(100vw * 32 / 375));  
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1);
   border-radius: calc(100vw * 40 / 375);
   display: flex;
   align-items: center;
@@ -663,18 +675,18 @@ function sendComment() {
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
-  color: #fff;;
+  color: #000000;;
 }
 
 .input-field::placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(153, 153, 153, 1);
 }
 
 .send-btn {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
   /* cursor: pointer; */
   display: flex;
   flex-direction: column;
@@ -684,7 +696,7 @@ function sendComment() {
 }
 
 .send-btn img {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
 }
 </style>

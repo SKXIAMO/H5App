@@ -16,17 +16,16 @@
 }
 
 .empty-image {
-  width: calc(100vw * 111 / 375);
-  height: calc(100vw * 111 / 375);
+  width: calc(100vw * 149 / 375);
+  height: calc(100vw * 149 / 375);
 }
 
 .empty-text {
-  margin-top: calc(100vh * 5 / 812); /* 上下间距 */
-  font-family: 'PlayfairDisplayRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 18 / 375);
   font-weight: 400;
   letter-spacing: 0px;
-  line-height: calc(100vw * 23.99 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 22.32 / 375);
+  color: rgba(102, 102, 102, 1);
 }
 </style>

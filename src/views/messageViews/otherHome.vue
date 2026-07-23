@@ -1,7 +1,8 @@
 <template>
   <div class="page">
+    <div class="page-top-background"></div>
     <!-- 头像背景 -->
-    <div class="avatar-bg" :style="{ '--avatar-url': `url(${currentUser.avator})` }"></div>
+    <!-- <div class="avatar-bg" :style="{ '--avatar-url': `url(${currentUser.avator})` }"></div> -->
     <!-- 可滑动内容 -->
     <div class="scroll-content">
       <div class="top">
@@ -72,23 +73,23 @@
                       <div class="overlay-icon overlay-like"></div>
                       <div class="overlay-count">{{ post.dynamicLikeCount || 0 }}</div>
                     </div>
-                    <!-- <div class="overlay-item">
+                    <div class="overlay-item">
                       <div class="overlay-icon overlay-comment"></div>
                       <div class="overlay-count">{{ post.dynamicCommentCount || 0 }}</div>
-                    </div> -->
+                    </div>
                   </div>
-                  <div class="post_details">
+                  <!-- <div class="post_details">
                     <div>{{ post.dynamicDesc }}</div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <!-- Bottom: post type -->
               <!-- <div class="post-type"># {{ otherStore.getTagByIndex(post.dynamicTitleType) }}</div> -->
             <!-- </div> -->
             <!-- 详情 -->
-            <!-- <div class="post_details">
+            <div class="post_details">
               <div>{{ post.dynamicDesc }}</div>
-            </div> -->
+            </div>
           </div>
         </template>
         <template v-else>
@@ -277,9 +278,21 @@ function toPostDetail(dynamicId, dynamicType) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 .avatar-bg {
@@ -296,9 +309,9 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .scroll-content {
   position: relative;
-  padding-top: calc(100vh * 72 / 812); /* 自适应顶部间距 */
+  padding-top: calc(100vh * 92 / 812); /* 自适应顶部间距 */
   width: 100vw;
-  height: calc(100vh - calc(100vh * 72 / 812));
+  height: calc(100vh - calc(100vh * 92 / 812));
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
@@ -311,14 +324,14 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .top-avatar-border {
   border-radius: 50%;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
   display: flex;
   justify-content: center;
 }
 
 .top-avatar {
-  width: calc(100vw * 80 / 375); /* 可以根据需要调整 */
-  height: calc(100vw * 80 / 375);
+  width: calc(100vw * 68 / 375); /* 可以根据需要调整 */
+  height: calc(100vw * 68 / 375);
   border-radius: 50%;
   padding: calc(100vh * 2 / 812) calc(100vw * 2 / 375);
   box-sizing: border-box;
@@ -340,10 +353,9 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .follow-btn {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: calc(100vw * 24 / 375);
-  height: calc(100vh * 24 / 812);
+  bottom: calc(100vh * -7 / 812);
+  width: calc(100vw * 16 / 375);
+  height: calc(100vh * 16 / 812);
   background-image: url('@/assets/follow.png');
   background-size: cover; /* 等比缩放覆盖 */
   background-position: center; /* 居中显示 */
@@ -353,11 +365,11 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .top-name {
   padding: calc(100vh * 12 / 812) calc(100vw * 20 / 375) 0;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  color: rgba(51, 24, 13, 1);
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-size: calc(100vw * 18 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 22.32 / 375);
+  color: rgb(0, 0, 0);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -382,26 +394,26 @@ function toPostDetail(dynamicId, dynamicType) {
 }
 
 .stat-number {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgb(0, 0, 0);
 }
 
 .stat-label {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 17.36 / 375);
+  color: rgba(51, 51, 51, 1);
 }
 
 .intro-chat {
   display: flex;
   justify-content: space-between; /* 左右对齐 */
   align-items: center;
-  margin-top: calc(100vh * 24 / 812); /* 顶部间距 */
+  margin-top: calc(100vh * 12 / 812); /* 顶部间距 */
   padding-left: calc(100vw * 20 / 375);
   padding-right: calc(100vw * 20 / 375);
   width: 100%;
@@ -411,11 +423,11 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .intro-text {
   flex: 1;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(51, 24, 13, 1);
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgba(36, 24, 24, 1);
   word-break: break-word;
 }
 
@@ -424,51 +436,51 @@ function toPostDetail(dynamicId, dynamicType) {
   justify-content: center;
   align-items: center;
   gap: calc(100vw * 10 / 375); /* 两个元素间距10 */
-  width: calc(100vw * 142 / 375);
-  height: calc(100vh * 53 / 812);
+  width: calc(100vw * 122 / 375);
+  height: calc(100vh * 46 / 812);
   background: rgba(0, 0, 0, 1);
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
-  border-radius: calc(100vw * 10 / 375);
+  border: calc(100vw * 1 / 375) solid rgb(0, 0, 0);
+  border-radius: calc(100vw * 16 / 375);
   cursor: pointer;
 }
 
 .chat-btn-hidden {
-  width: calc(100vw * 142 / 375);
-  height: calc(100vh * 53 / 812);
+  width: calc(100vw * 122 / 375);
+  height: calc(100vh * 46 / 812);
 }
 
 .chat-icon {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 24 / 375);
+  height: calc(100vw * 24 / 375);
   background-image: url('@/assets/chaticon.png');
   background-size: cover;
   background-position: center;
 }
 
 .chat-text {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
   color: rgba(255, 255, 255, 1);
 }
 
 .post-title-container {
-  margin: calc(100vh * 25 / 812) calc(100vw * 20 / 375) 0;
+  margin: calc(100vh * 18 / 812) calc(100vw * 20 / 375) 0;
   display: flex;
   justify-content: start;
 }
 
 .post-title {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(255, 255, 255, 1);
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  background: #000;
-  border: calc(100vw * 1 / 375) solid rgba(251, 226, 100, 1);
-  border-radius: calc(100vw * 10 / 375);
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(0, 0, 0);
+  padding: calc(100vh * 8 / 812) calc(100vw * 16 / 375);
+  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
+  border: calc(100vw * 1 / 375) solid rgba(48, 234, 255, 1);
+  border-radius: calc(100vw * 14 / 375);
   box-sizing: border-box;
 }
 
@@ -484,16 +496,15 @@ function toPostDetail(dynamicId, dynamicType) {
 
 /* Post Item new layout */
 .post-item {
-  height: calc(100vh * 261 / 812);
+  height: calc(100vh * 374 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.06);
+  background: rgb(0, 0, 0);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: calc(100vh * 10 / 812) calc(100vw * 12 / 375);
-  gap: calc(100vh * 14 / 812);
+  padding: calc(100vh * 8 / 812) calc(100vw * 8 / 375);
+  gap: calc(100vh * 6 / 812);
 }
 
 /* Post item new sections */
@@ -518,21 +529,21 @@ function toPostDetail(dynamicId, dynamicType) {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: calc(100vw * 12 / 375);
+  gap: calc(100vw * 4 / 375);
 }
 
 .post-avatar-border {
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  /* background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%); */
   border-radius: 50%;
   display: flex;
   justify-content: center;
 }
 
 .post-avatar {
-  width: calc(100vw * 34 / 375);
-  height: calc(100vw * 34 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
   border-radius: 50%;
-  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
+  /* padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375); */
   box-sizing: border-box;
   display: flex;
 }
@@ -548,19 +559,20 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .post-username {
   flex: 1;
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 12.72 / 375);
-  color: rgba(51, 24, 13, 1);
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .post-report {
-  width: calc(100vw * 24 / 375);
-  height: calc(100vw * 24 / 375);
+  width: calc(100vw * 20 / 375);
+  height: calc(100vw * 20 / 375);
+  margin-right: calc(100vw * 2 / 375);
   background-image: url('@/assets/postpiccommentreport.png');
   background-size: cover;
   background-position: center;
@@ -576,6 +588,7 @@ function toPostDetail(dynamicId, dynamicType) {
   background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
+  margin-top: calc(100vh * 6 / 812);
 }
 
 .post-isvideo-icon {
@@ -583,8 +596,8 @@ function toPostDetail(dynamicId, dynamicType) {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 30 / 375);
+  height: calc(100vw * 30 / 375);
   background-image: url('@/assets/postvideopulasicon.png');
   background-size: cover;
   background-position: center;
@@ -605,23 +618,28 @@ function toPostDetail(dynamicId, dynamicType) {
 
 .post-image-overlay {
   display: flex;
+  flex-direction: column;
+  gap: calc(100vh * 13 / 812);
+  margin: 0 calc(100vw * 10 / 375) calc(100vh * 10 / 812) 0;
   justify-content: end;
 }
 
 .overlay-item {
-  border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 1);
+  width: calc(100vw * 32 / 375);
+  border-radius: calc(100vw * 12 / 375);
+  background: rgb(0, 0, 0);
+  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: calc(100vh * 2 / 812) calc(100vw * 8 / 375);
-  gap: calc(100vw * 5 / 375);
-  margin-right: calc(100vw * 10 / 375);
+  padding: calc(100vh * 6 / 812) 0;
+  gap: calc(100vw * 6 / 375);
 }
 
 .overlay-icon {
-  width: calc(100vw * 24 / 375);
-  height: calc(100vw * 24 / 375);
+  width: calc(100vw * 20 / 375);
+  height: calc(100vw * 20 / 375);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -636,34 +654,38 @@ function toPostDetail(dynamicId, dynamicType) {
 }
 
 .overlay-count {
-  font-family: 'OPPOSansBold', sans-serif;
-  font-size: calc(100vw * 12 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 15.83 / 375);
-  color: rgb(0, 0, 0);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(255, 255, 255);
 }
 
 .post_details {
   width: 100%;
-  height: calc(100vh * 41 / 812);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(calc(100vw * 4 / 375));
-  border-radius: 0px 0px calc(100vw * 16 / 375) calc(100vw * 16 / 375);
+  /* height: calc(100vh * 41 / 812); */
+  /* background: rgba(255, 255, 255, 0.2); */
+  /* backdrop-filter: blur(calc(100vw * 4 / 375)); */
+  /* border-radius: 0px 0px calc(100vw * 16 / 375) calc(100vw * 16 / 375); */
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  /* flex-direction: column;
+  justify-content: center; */
 }
 
 .post_details div {
-  padding: 0 calc(100vw * 10 / 375);
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 14 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 14.88 / 375);
   color: rgba(255, 255, 255, 1);
-  white-space: nowrap;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
-  text-overflow: ellipsis;
+
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 /* .post-type {

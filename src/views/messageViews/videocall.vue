@@ -77,7 +77,7 @@ function hangup() {
 .bg-colors-111 {
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(251, 226, 100, 1) 0.31%, rgba(255, 255, 255, 0) 99.84%);
+  background: linear-gradient(0deg, rgba(48, 234, 255, 1) 0.47%, rgba(255, 132, 123, 0) 100%);
 }
 
 .video-call {
@@ -92,26 +92,26 @@ function hangup() {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  gap: calc(100vh * 52 / 812);
+  gap: calc(100vh * 35 / 812);
 }
 
 .avatar-outer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 20 / 812);
+  gap: calc(100vh * 18 / 812);
 }
 
 .avator-border-box {
   display: flex;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
 }
 
 .avator-border-box img{
-  width: calc(100vw * 100 / 375);
-  height: calc(100vw * 100 / 375);
+  width: calc(100vw * 105 / 375);
+  height: calc(100vw * 105 / 375);
   padding: calc(100vh * 2 / 812) calc(100vw * 2 / 375);
   border-radius: 50%;
   object-fit: cover;
@@ -163,28 +163,28 @@ function hangup() {
 }
 
 .user-name {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgb(0, 0, 0);
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgba(36, 24, 24, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .calling-text {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 17.36 / 375);
+  color: rgba(36, 24, 24, 1);
 }
 
 .hangup {
-  margin-bottom: calc(100vh * 90 / 812);
-  width: calc(100vw * 91 / 375);
-  height: calc(100vw * 91 / 375);
+  margin-bottom: calc(100vh * 125 / 812);
+  width: calc(100vw * 70 / 375);
+  height: calc(100vw * 70 / 375);
   /* border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.6);
   display: flex;
@@ -203,8 +203,8 @@ function hangup() {
 }
 
 .hangup-btn img {
-  width: calc(100vw * 91 / 375);
-  height: calc(100vw * 91 / 375);
+  width: calc(100vw * 70 / 375);
+  height: calc(100vw * 70 / 375);
   object-fit: cover;
   overflow: hidden;
 }

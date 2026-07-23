@@ -279,7 +279,7 @@ function commentReportSelect(value) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(14, 8, 15, 1);
+  background: rgba(0, 0, 0, 1);
   overflow: hidden;
 }
 
@@ -297,8 +297,8 @@ function commentReportSelect(value) {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100vw * 60 / 375);
-  height: calc(100vw * 60 / 375);
+  width: calc(100vw * 64 / 375);
+  height: calc(100vw * 64 / 375);
   z-index: 2;
 }
 
@@ -308,7 +308,7 @@ function commentReportSelect(value) {
   bottom: 0;
   width: 100%;
   height: calc(100vh * 96 / 812);
-  background: linear-gradient(180deg, rgba(251, 226, 100, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(180deg, rgba(48, 234, 255, 1) 0.16%, rgba(255, 132, 123, 0) 100%);
   pointer-events: none;
   transform: rotate(180deg);
 }
@@ -354,28 +354,34 @@ function commentReportSelect(value) {
 }
 
 .bottom-info {
+  width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: end;
+  align-items: flex-end;
+  gap: calc(100vh * 20 / 812);
 }
 
 .user-left {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   gap: calc(100vw * 16 / 375);
 }
 
 .avatar-border-box {
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: #fff;
   border-radius: 50%;
   display: flex;
   justify-content: center;
-  margin-bottom: calc(100vw * 9 / 375);
 }
 
 .avatar {
-  width: calc(100vw * 48 / 375);
-  height: calc(100vw * 48 / 375);
+  width: calc(100vw * 56 / 375);
+  height: calc(100vw * 56 / 375);
   border-radius: 50%;
   padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   box-sizing: border-box;
@@ -400,11 +406,11 @@ function commentReportSelect(value) {
 
 .follow {
   position: absolute;
-  left: 50%;
   bottom: 0;
+  right: calc(100vw * -4 / 375);
   transform: translateX(-50%);
-  width: calc(100vw * 24 / 375);
-  height: calc(100vw * 24 / 375);
+  width: calc(100vw * 14 / 375);
+  height: calc(100vw * 14 / 375);
   /* border-radius: calc(100vw * 40 / 375); */
   /* background: rgba(255, 255, 255, 1); */
   display: flex;
@@ -416,8 +422,8 @@ function commentReportSelect(value) {
 }
 
 .follow img {
-  width: calc(100vw * 24 / 375);
-  height: calc(100vw * 24 / 375);
+  width: calc(100vw * 14 / 375);
+  height: calc(100vw * 14 / 375);
 }
 
 .user-text {
@@ -429,23 +435,23 @@ function commentReportSelect(value) {
 }
 
 .username {
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 900;
-  line-height: calc(100vw * 21.33 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgba(0, 0, 0, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .video-desc {
-  font-family: 'PlayfairDisplayRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0px;
-  line-height: calc(100vw * 18.66 / 375);
-  color: rgba(94, 69, 58, 1);
+  color: rgba(0, 0, 0, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -457,17 +463,20 @@ function commentReportSelect(value) {
   right: calc(100vw * 20 / 375); */
   width: 100%;
   display: flex;
-  gap: calc(100vh * 6 / 812);
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(100vh * 13 / 812);
   justify-content: end;
 }
 
 .action-box {
-  /* flex: 1; */
-  display: flex;
-  align-items: center;
-  height: calc(100vh * 34 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255);
+  display: inline-flex;
+  width: fit-content;
+  justify-content: center;
+  width: calc(100vw * 30 / 375);
+  border-radius: calc(100vw * 12 / 375);
+  background: rgba(0, 0, 0, 1);
+  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
   /* margin-top: calc(100vh * 13 / 812);
   position: relative; */
 }
@@ -478,24 +487,24 @@ function commentReportSelect(value) {
   left: 50%;
   transform: translate(-50%, 0); */
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: calc(100vw * 5 / 375);
-  padding: 0 calc(100vw * 8 / 375);
+  gap: calc(100vw * 6 / 375);
+  padding: calc(100vh * 6 / 812) 0;
 }
 
 .action-button img {
-  width: calc(100vw * 30 / 375);
-  height: calc(100vw * 30 / 375);
+  width: calc(100vw * 20 / 375);
+  height: calc(100vw * 20 / 375);
 }
 
 .action-button span {
-  font-family: 'OPPOSansBold', sans-serif;
-  font-size: calc(100vw * 12 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 15.83 / 375);
-  color: rgb(0, 0, 0);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 400;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgb(255, 255, 255);
 }
 
 .comment-overlay {

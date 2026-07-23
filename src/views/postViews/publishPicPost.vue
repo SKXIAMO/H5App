@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div class="page-top-background"></div>
     <div class="back">
       <BackButton/>
     </div>
@@ -15,11 +16,11 @@
           <div class="text-count">{{ text.length }}/150</div>
         </div>
         <!-- Theme -->
-        <!-- <div class="theme-label">Theme</div> -->
+        <div class="theme-label">Theme</div>
         <!-- ThemeList -->
-        <!-- <div class="theme-list">
-          <div v-for="(theme, index) in otherStore.other.postTheme" :key="index" class="theme-item" :class="{ selected: selectedTheme === index }" @click="selectedTheme = index"># {{ theme }}</div>
-        </div> -->
+        <div class="theme-list">
+          <div v-for="(theme, index) in otherStore.other.postTheme" :key="index" class="theme-item" :class="{ selected: selectedTheme === index }" @click="selectedTheme = index">{{ theme }}</div>
+        </div>
         <!-- Upload（Pic） -->
         <div class="theme-label">Upload（Pic）</div>
         <!-- 图片上传 -->
@@ -132,14 +133,24 @@ const handleRelease = async () => {
 
 <style scoped>
 .page {
-  /* position: relative; */
+  position: relative;
   width: 100%;
   height: 100vh;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 .back {
@@ -162,9 +173,11 @@ const handleRelease = async () => {
   margin-right: calc(100vw * 20 / 375);
   height: calc(100vh * 174 / 812);
   border-radius: calc(100vw * 16 / 375);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
-  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  padding: calc(100vh * 16 / 812) calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
@@ -174,41 +187,41 @@ const handleRelease = async () => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   background: transparent;
   color: #000000;
 }
 
 .post-textarea::placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(153, 153, 153, 1);
 }
 
 .text-count {
   position: absolute;
   right: calc(100vw * 13 / 375);
   bottom: calc(100vh * 16 / 812);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 17.36 / 375);
+  color: rgba(153, 153, 153, 1);
 }
 
 .theme-label {
   margin-top: calc(100vh * 24 / 812);
   margin-left: calc(100vw * 20 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgba(0, 0, 0, 1);
   text-align: left;
 }
 
-/* .theme-list {
+.theme-list {
   display: flex;
   justify-content: flex-start;
   gap: calc(100vw * 11 / 375);
@@ -220,23 +233,30 @@ const handleRelease = async () => {
   width: calc(100vw * 94 / 375);
   height: calc(100vh * 44 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.16);
+  background: #fff;
+  border: calc(100vw * 1 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'Archivo', sans-serif;
-  font-size: calc(100vw * 14 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 18 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.23 / 375);
+  line-height: calc(100vw * 22.32 / 375);
   letter-spacing: 0;
-  color: rgba(255, 255, 255, 1);
+  color: rgba(153, 153, 153, 1);
   cursor: pointer;
 }
 
 .theme-item.selected {
-  background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
-  color: rgba(74, 32, 25, 1);
-} */
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-weight: 700;
+  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
+  background: rgba(252, 71, 178, 1);
+  color: rgb(255, 255, 255);
+}
 
 .upload-list {
   display: flex;
@@ -258,8 +278,11 @@ const handleRelease = async () => {
   height: calc(100vw * 108 / 375);
   flex-shrink: 0;
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(0, 0, 0, 1);
-  backdrop-filter: blur(calc(100vw * 12 / 375));
+  background: rgb(255, 255, 255);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -277,8 +300,8 @@ const handleRelease = async () => {
 }
 
 .upload-add {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 30 / 375);
+  height: calc(100vw * 30 / 375);
   background-image: url('@/assets/uploadpic.png');
   background-size: cover;
   background-position: center;
@@ -301,18 +324,20 @@ const handleRelease = async () => {
 
 /* Release Button Styles */
 .release-button {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  width: calc(100vw * 198 / 375);
+  height: calc(100vh * 53 / 812);
+  border-radius: calc(100vw * 40 / 375);
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
+  font-weight: 700;
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: calc(100vh * 238 / 812) auto calc(100vh * 34 / 812) auto;
+  margin: calc(100vh * 123 / 812) auto calc(100vh * 34 / 812) auto;
 }
 </style>

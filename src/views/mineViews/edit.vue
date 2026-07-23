@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div class="page-top-background"></div>
     <div class="top-header">
       <BackButton />
       <span class="edit-title">Edit</span>
@@ -143,12 +144,21 @@ onMounted(() => {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 .top-header {
@@ -156,22 +166,15 @@ onMounted(() => {
   align-items: center;
   gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
+  z-index: 1;
 }
 
 .edit-title {
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  /* color: #fff; */
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgba(36, 24, 24, 1);
 }
 
 .content {
@@ -194,7 +197,7 @@ onMounted(() => {
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  /* border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1); */
+  border: calc(100vw * 1 / 375) solid rgb(0, 0, 0);
   position: relative;
   margin-top: calc(100vh * 20 / 812);
 }
@@ -207,6 +210,7 @@ onMounted(() => {
   height: calc(100vw * 28 / 375);
   border-radius: 50%;
   background: rgba(0, 0, 0, 1);
+  border: calc(100vw * 1 / 375) solid rgb(255, 255, 255);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,19 +232,21 @@ onMounted(() => {
 }
 
 .label {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(51, 24, 13, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgb(0, 0, 0);
 }
 
 .input-box {
   width: 100%;
   height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 16 / 375);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   align-items: center;
   padding: 0 calc(100vw * 16 / 375);
@@ -251,17 +257,17 @@ onMounted(() => {
   width: 100%;
   border: none;
   outline: none;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
   color: #000000;
   background: transparent;
 }
 
 .input-box input::placeholder {
-  color: rgba(94, 69, 58, 1);
+  color: rgba(153, 153, 153, 1);
 }
 
 .third-section {
@@ -270,7 +276,7 @@ onMounted(() => {
   align-items: flex-start;
   gap: calc(100vh * 10 / 812);
   width: calc(100% - calc(100vh * 40 / 812));
-  margin-top: calc(100vh * 30 / 812);
+  margin-top: calc(100vh * 36 / 812);
 }
 
 /* .about-me-box {
@@ -283,10 +289,10 @@ onMounted(() => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
   color: #000000;
   background: transparent;
@@ -295,22 +301,24 @@ onMounted(() => {
 }
 
 .fourth-section {
-  margin: calc(100vh * 204 / 812) 0 calc(100vh * 34 / 812);
+  margin: calc(100vh * 190 / 812) 0 calc(100vh * 34 / 812);
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .save-btn {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  width: calc(100vw * 198 / 375);
+  height: calc(100vh * 53 / 812);
+  border-radius: calc(100vw * 40 / 375);
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
+  font-weight: 700;
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   align-items: center;
   justify-content: center;

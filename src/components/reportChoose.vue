@@ -43,7 +43,7 @@
   background-position: center;
   background-repeat: no-repeat; */
   border-radius: calc(100vw * 40 / 375) calc(100vw * 40 / 375) 0px 0px;
-  background: linear-gradient(135deg, rgba(251, 226, 100, 1) 0%, rgba(250, 196, 172, 1) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(48, 234, 255, 1) 100%);
   z-index: 1000;
   display: flex;
   justify-self: flex-end;
@@ -58,7 +58,7 @@
   /* height: 100%; */
   /* width: auto; */
   /* margin-right: calc(100vw * 28 / 375); */
-  padding-bottom: calc(100vh * 55 / 812); /* 底部间距 */
+  padding-bottom: calc(100vh * 28 / 812); /* 底部间距 */
   gap: calc(100vh * 22 / 812); /* 上下间距26 */
 }
 
@@ -69,7 +69,7 @@
   flex-direction: column;
   justify-content: center;
   gap: calc(100vh * 16 / 812); /* 上下间距26 */
-  margin-top: calc(100vh * 34 / 812);
+  margin-top: calc(100vh * 25 / 812);
   align-items: center;
 }
 
@@ -78,28 +78,27 @@
   height: calc(100vh * 46 / 812);
   border-radius: calc(100vw * 40 / 375);
   background: rgb(255, 255, 255);
-  /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.1); */
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 16 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 18 / 375);
   font-weight: 400;
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 22.32 / 375);
   text-align: center;
-
+  color: rgba(36, 24, 24, 1);
   display: flex; /* 新增 */
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
 }
 
 .cancel {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  width: calc(100vw * 198 / 375);
+  height: calc(100vh * 53 / 812);
+  border-radius: calc(100vw * 40 / 375);
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
+  font-weight: 700;
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  border: calc(100vw * 2 / 375) solid rgba(165, 237, 57, 1);
+  background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;

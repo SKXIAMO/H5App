@@ -431,6 +431,6 @@
 </style>
 
 <script setup>
-const appName = 'Glimd'
+const appName = 'Tenao'
 </script>
 

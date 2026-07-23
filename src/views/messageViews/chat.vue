@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <!-- 顶部背景层 -->
-    <div class="top-background"></div>
+    <div class="page-top-background"></div>
     <!-- 内容部分 -->
     <div class="content">
       <!-- 顶部内容 -->
@@ -28,28 +28,31 @@
 
       <!-- 聊天内容 -->
       <div class="chat-content">
-        <div v-for="msg in messages" :key="msg.msgId" :class="['chat-item', { 'own-message': msg.userId === currentUserId }]">
+        <div
+          v-for="msg in messages"
+          :key="msg.msgId"
+          :class="['chat-item', { 'own-message': msg.userId === currentUserId }]"
+        >
           <div class="chat-left">
-            <div v-if="msg.userId === currentUserId" class="chat-time">{{ formatTime(msg.sendTime) }}</div>
             <div class="chat-avatar-border">
               <img class="chat-avatar" @click="goOtherHome(msg.userId)" :src="getUserAvatar(msg.userId)" alt="avatar" />
             </div>
-            <div v-if="msg.userId !== currentUserId" class="chat-time">{{ formatTime(msg.sendTime) }}</div>
           </div>
           <div class="chat-right">
-            <div v-if="msg.userId === currentUserId && msg.sendPicUrl" class="chat-message-image">
+            <div v-if="msg.sendPicUrl" class="chat-message-image">
               <div class="image-container">
                 <img :src="msg.sendPicUrl" alt="send image" />
               </div>
             </div>
             <div v-else class="chat-message" v-text="msg.sendContent"></div>
+            <div class="chat-time">{{ formatTime(msg.sendTime) }}</div>
           </div>
         </div>
       </div>
     </div>
     <!-- 底部输入框 -->
     <div class="bottom-input">
-      <input type="text" placeholder="Say something" v-model="inputText" />
+      <input type="text" placeholder="Say something" v-model="inputText" @keyup.enter="sendMessage" />
       <div class="send-btn" @click="sendMessage" >
         <img src="@/assets/commentsend.png" alt="send"/>
       </div>
@@ -240,15 +243,21 @@ function reportSelect(value) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(14, 8, 15, 1);
+  background: rgba(238, 239, 248, 1);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
-.top-background {
-  height: calc(100vh * 162 / 812);
-  background-image: url('@/assets/chattopbg.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  overflow: hidden;
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 .content {
@@ -274,7 +283,7 @@ function reportSelect(value) {
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: calc(100vw * 16 / 375);
+  gap: calc(100vw * 12 / 375);
 }
 
 .user-info {
@@ -282,19 +291,19 @@ function reportSelect(value) {
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: calc(100vw * 12 / 375);
+  gap: calc(100vw * 3 / 375);
 }
 
 .avatar-border-box {
   border-radius: 50%;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: #fff;
   display: flex;
   justify-content: center;
 }
 
 .avatar {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 38 / 375);
+  height: calc(100vw * 38 / 375);
   padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   border-radius: 50%;
   object-fit: cover;
@@ -302,22 +311,14 @@ function reportSelect(value) {
 }
 
 .username {
-  /* flex: 1;
-  min-width: 0; */
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  flex: 1;
+  min-width: 0;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
   letter-spacing: 0;
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  color: rgba(3, 3, 3, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -326,7 +327,7 @@ function reportSelect(value) {
 .right-part {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 19 / 375);
+  gap: calc(100vw * 20 / 375);
 }
 
 .icon-group {
@@ -346,37 +347,38 @@ function reportSelect(value) {
   background-color: #fff;
   /* backdrop-filter: blur(calc(100vw * 12 / 375)); */
   overflow-y: auto;
-  padding-top: calc(100vh * 28 / 812);
+  padding-top: calc(100vh * 24 / 812);
   padding-bottom: calc(100vh * 90 / 812);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 23 / 812);
+  gap: calc(100vh * 10 / 812);
 }
 
 .chat-item {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  gap: calc(100vh * 8 / 812);
-  margin: 0 calc(100vw * 143 / 375) 0 calc(100vw * 20 / 375); /* 默认靠左消息 */
+  gap: calc(100vw * 10 / 375);
+  margin: 0 calc(100vw * 108 / 375) 0 calc(100vw * 20 / 375);
 }
 
 .chat-left {
+  flex-shrink: 0;
   display: flex;
   align-items: flex-end;
-  gap: calc(100vw * 10 / 375);
+  gap: calc(100vw * 4 / 375);
 }
 
 .chat-right {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  /* gap: calc(100vh * 8 / 812); */
+  align-items: flex-start;
+  gap: calc(100vh * 4 / 812);
 }
 
 .chat-avatar-border {
   border-radius: 50%;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
   display: flex;
   justify-content: center;
 }
@@ -402,42 +404,48 @@ function reportSelect(value) {
 }
 
 .chat-message {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 15.83 / 375);
-  color: rgba(94, 69, 58, 1);
+  line-height: calc(100vw * 14.88 / 375);
+  color: rgb(0, 0, 0);
   padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
   border-radius: 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(251, 226, 100, 1);
+  background: rgba(165, 237, 57, 1);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .chat-time {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 16 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 21.1 / 375);
-  color: rgba(45, 33, 45, 1);
-  text-align: right;
+  line-height: calc(100vw * 14.88 / 375);
+  color: rgba(153, 153, 153, 1);
 }
 
 .chat-item.own-message {
-  /* flex-direction: row-reverse; */
-  align-items: flex-end;
-  margin: 0 calc(100vw * 20 / 375) 0 calc(100vw * 143 / 375); /* 自己消息靠右反转间距 */
+  flex-direction: row-reverse;
+  margin: 0 calc(100vw * 20 / 375) 0 calc(100vw * 89 / 375);
 }
 
 .chat-item.own-message .chat-right {
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .chat-item.own-message .chat-message {
   border-radius: calc(100vw * 10 / 375) 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(255, 110, 50, 1);
+  background: rgba(252, 71, 178, 1);
   color: #fff;
 }
 
 /* image message styles */
+.chat-message-image {
+  max-width: calc(100vw * 122 / 375);
+}
+
 .chat-message-image .image-container {
   border-radius: calc(100vw * 20 / 375);
   /* background: rgba(255, 255, 255, 1);
@@ -445,6 +453,7 @@ function reportSelect(value) {
 }
 
 .chat-message-image .image-container img {
+  display: block;
   width: 100%;
   height: auto;
   border-radius: calc(100vw * 20 / 375);
@@ -458,11 +467,11 @@ function reportSelect(value) {
   bottom: calc(100vh * 29 / 812);
   height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgb(0, 0, 0);
-  backdrop-filter: blur(calc(100vw * 32 / 375));
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1);
   display: flex;
   align-items: center;
-  padding: 0 calc(100vw * 10 / 375) 0 calc(100vw * 16 / 375);
+  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
   gap: calc(100vw * 10 / 375);
   box-sizing: border-box;
 }
@@ -475,18 +484,18 @@ function reportSelect(value) {
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
-  color: #fff;
+  color: #000000;
 }
 
 .bottom-input input::placeholder {
-  color: rgba(102, 95, 103, 1);
+  color: rgba(153, 153, 153, 1);
 }
 
 .send-btn {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
   /* border-radius: 50%;
   background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
   /* cursor: pointer; */
@@ -498,8 +507,8 @@ function reportSelect(value) {
 }
 
 .send-btn img {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
 }
 
 .video-call-sheet {

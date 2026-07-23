@@ -7,9 +7,18 @@
         "name": "Genji",
         "about": "Nice to meet you all.",
         "coins": 0,
-        "follow": [],
-        "fans": [],
-        "blockList": [],
+        "follow": [
+            "2",
+            "3"
+        ],
+        "fans": [
+            "2",
+            "3"
+        ],
+        "blockList": [
+            "2",
+            "3"
+        ],
         "postLikeIds": [],
         "isdelete": 0
     },

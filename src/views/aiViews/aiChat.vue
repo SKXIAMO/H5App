@@ -2,28 +2,25 @@
   <div class="page">
     <!-- <div class="aiusermodel"></div>
     <div class="aichatmodel"></div> -->
+    <div class="page-top-background"></div>
+    <div class="page-top-aiuser"></div>
     <div class="page-container">
       <!-- top -->
       <div class="top-bgc">
         <div class="top-section">
           <BackButton />
-          <p>Glimd AI</p>
         </div>
-        <div class="top-ai-out-drection">
-          <div class="top-ai-bg-contanier">
-            <div class="top-ai-bg-contanier-text">Glimd AI</div>
-            <div class="top-ai-bg-contanier-image"></div>
-          </div>
-        </div>
-        <!-- center -->
-        <div class="center-section">
-          <div
-            v-for="(item, index) in messages"
-            :key="index"
-            class="message-box"
-            @click="handleMessageClick(item)"
-          >
-            <span>{{ item }}</span>
+        <div class="bottom-first">
+          <!-- <div class="ai-bgc-icon"></div> -->
+          <div class="ai-title-inter">
+            <div class="ai-title-inter-one">
+              AI Yoga<br>
+              Improvement<br>
+              Guide
+            </div>
+            <div class="ai-title-inter-two">
+              Give it a try!
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +99,7 @@ const getFirstTime = () => {
 }
 
 const bottomItems = ref([
-  { sendId: '0', time: getFirstTime(), message: 'Hi there! I\'m Glimd, your AI buddy for all things fun and.'},
+  { sendId: '0', time: getFirstTime(), message: 'Hi there! I\'m Tenao, your AI buddy for all things fun and creative.'},
 ])
 
 async function handleMessageClick(message) {
@@ -191,14 +188,42 @@ async function sendMessage() {
 
 <style scoped>
 .page {
-  width: 100vw;
+  position: relative;
+  width: 100%;
   height: 100vh;
-  overflow: hidden; /* prevent scrolling */
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page-top-aiuser {
+  position: absolute;
+  top: calc(100vh * 56 / 812);
+  right: 0;
+  width: calc(100vw * 338 / 375);
+  height: calc(100vh * 343 / 812);
+  background-image: url('@/assets/aiuserpic.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+  z-index: 0;
 }
 
 .page-container {
+  z-index: 2;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -214,6 +239,67 @@ async function sendMessage() {
   background-repeat: no-repeat; */
   display: flex;
   flex-direction: column;
+}
+
+.bottom-first {
+  position: relative;
+  margin: calc(100vh * 9 / 812) calc(100vw * 20 / 375) calc(100vh * 39 / 812);
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-user-container {
+  position: absolute;
+  top: calc(100vh * 56 / 812);
+  right: 0;
+  width: calc(100vw * 338 / 375);
+  height: calc(100vh * 343 / 812);
+  background-image: url('@/assets/aiuserpic.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.ai-bgc-icon {
+  position: absolute;
+  right: calc(100vw * 2 / 375);
+  top: calc(100vh * -12 / 812);
+  width: calc(100vw * 66 / 375);
+  height: calc(100vh * 66 / 812);
+  background-image: url('@/assets/aibgcicon.png');
+  background-size: cover; /* 等比缩放覆盖 */
+  background-position: center; /* 居中显示 */
+  background-repeat: no-repeat;
+  z-index: 2;
+}
+
+.ai-title-inter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(100vh * 16 / 812);
+  z-index: 3;
+}
+
+.ai-title-inter-one {
+  font-family: 'CinzelBlack', sans-serif;
+  font-size: calc(100vw * 24 / 375);
+  font-weight: 900;
+  line-height: calc(100vw * 32.23 / 375);
+  color: rgb(0, 0, 0);
+  text-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(0, 0, 0, 0.25);
+}
+
+.ai-title-inter-two {
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgba(252, 71, 178, 1);
+  padding: calc(100vh * 6 / 812) calc(100vw * 10 / 375);
+  border-radius: calc(100vw * 10 / 375);
+  background-color: #000;
 }
 
 /* .aiusermodel {
@@ -246,7 +332,7 @@ async function sendMessage() {
 
 .top-section {
   position: relative;
-  margin-top: calc(100vh * 56 / 812);
+  margin-top: calc(100vh * 20 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
   display: flex;
@@ -342,9 +428,9 @@ async function sendMessage() {
   display: flex;
   flex-direction: column;
   min-height: 0; /* ⚡ 关键 */
-  border-radius: calc(100vw * 30 / 375) calc(100vw * 30 / 375) 0px 0px;
+  border-radius: calc(100vw * 20 / 375) calc(100vw * 20 / 375) 0px 0px;
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(calc(100vw * 12 / 375));
 }
 
 .bottom-scroll {
@@ -354,7 +440,7 @@ async function sendMessage() {
   padding: calc(100vh * 20 / 812) 0 calc(100vh * 90 / 812) 0;
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 15 / 812);
+  gap: calc(100vh * 20 / 812);
 }
 
 /* Optional: hide scrollbar */
@@ -380,12 +466,12 @@ async function sendMessage() {
 
 .chat-time {
   text-align: center;
-  font-family: 'PlayfairDisplayRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 21.33 / 375);
+  line-height: calc(100vw * 19.84 / 375);
   letter-spacing: 0;
-  color: rgba(51, 24, 13, 1);
+  color: rgba(51, 51, 51, 1);
 }
 
 .chat-content {
@@ -393,7 +479,7 @@ async function sendMessage() {
   align-items: flex-start;
   gap: calc(100vw * 12 / 375);
   margin-left: calc(100vw * 20 / 375);
-  margin-right: calc(100vw * 59 / 375);
+  margin-right: calc(100vw * 37 / 375);
 }
 
 .chat-content-rigth {
@@ -401,7 +487,7 @@ async function sendMessage() {
   align-items: flex-start;
   justify-content: end;
   gap: calc(100vw * 12 / 375);
-  margin-left: calc(100vw * 59 / 375);
+  margin-left: calc(100vw * 37 / 375);
   margin-right: calc(100vw * 20 / 375);
 }
 
@@ -413,7 +499,7 @@ async function sendMessage() {
 
 .chat-avatar-rigth-border-box {
   flex-shrink: 0;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
+  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
   border-radius: 50%; /* fully circular */
   display: flex;
   justify-content: center;
@@ -443,32 +529,32 @@ async function sendMessage() {
 
 .chat-message {
   border-radius: 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(251, 226, 100, 1);
+  background: rgba(165, 237, 57, 1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
-  color: rgba(94, 69, 58, 1);
+  color: rgba(36, 24, 24, 1);
 }
 
 .chat-message-rigth {
   border-radius: calc(100vw * 10 / 375) 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(255, 110, 50, 1);
+  background: rgba(252, 71, 178, 1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
 }
@@ -480,13 +566,14 @@ async function sendMessage() {
   bottom: calc(100vh * 29 / 812);
   height: calc(100vh * 54 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgb(0, 0, 0);
-  backdrop-filter: blur(calc(100vw * 32 / 375));
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1);
   display: flex;
   align-items: center;
-  padding: 0 calc(100vw * 10 / 375) 0 calc(100vw * 16 / 375);
-  gap: calc(100vw * 16 / 375);
+  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
+  gap: calc(100vw * 10 / 375);
   box-sizing: border-box;
+  z-index: 10;
 }
 
 .bottom-input input {
@@ -497,18 +584,18 @@ async function sendMessage() {
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
+  line-height: calc(100vw * 17.36 / 375);
   letter-spacing: 0;
-  color: #fff;
+  color: #000;
 }
 
 .bottom-input input::placeholder {
-  color: rgba(102, 95, 103, 1);
+  color: rgba(153, 153, 153, 1);
 }
 
 .send-icon {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
   /* border-radius: 50%;
   background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
   /* cursor: pointer; */
@@ -520,7 +607,7 @@ async function sendMessage() {
 }
 
 .send-icon img {
-  width: calc(100vw * 32 / 375);
-  height: calc(100vw * 32 / 375);
+  width: calc(100vw * 36 / 375);
+  height: calc(100vw * 36 / 375);
 }
 </style>

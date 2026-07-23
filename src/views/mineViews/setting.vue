@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div class="page-top-background"></div>
     <div class="header">
       <BackButton />
       <h1 class="title">Setting</h1>
@@ -32,7 +33,6 @@ const options = ref([
   { text: 'Privacy Policy' },
   { text: 'User Agreement' },
   { text: 'Blacklist' },
-  { text: 'Wallet' },
   { text: 'Edit personal information' }
 ])
 
@@ -57,13 +57,6 @@ function handleOption(index) {
       router.push({ name: 'block' })
       break
     case 3:
-      if (otherStore.getIsShowToLogin()) {
-        showToLogin()
-        return
-      }
-      router.push({ name: 'coins' })
-      break
-    case 4:
       if (otherStore.getIsShowToLogin()) {
         showToLogin()
         return
@@ -97,12 +90,21 @@ function handleAction(isDelete) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 h1 {
@@ -116,22 +118,15 @@ h1 {
   align-items: center;
   gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
+  z-index: 1;
 }
 
 .title {
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  /* color: #fff; */
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgba(36, 24, 24, 1);
 }
 
 /* Options List */
@@ -143,13 +138,16 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: calc(100vh * 16 / 812);
+  z-index: 1;
 }
 
 .option {
-  height: calc(100vh * 52 / 812);
-  background: rgba(255, 255, 255, 1);
+  height: calc(100vh * 59 / 812);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   border-radius: calc(100vw * 12 / 375);
-  box-shadow: 0 calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,15 +155,16 @@ h1 {
 }
 
 .option-text {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  color: rgba(51, 24, 13, 1);
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: #000;
 }
 
 .option-right .arrow-placeholder {
-  width: calc(100vw * 24 / 375);
-  height: calc(100vw * 24 / 375);
+  width: calc(100vw * 20 / 375);
+  height: calc(100vw * 20 / 375);
   background-image: url('@/assets/seetinggoicon.png');
   background-size: cover; /* 等比缩放覆盖 */
   background-position: center; /* 居中显示 */
@@ -184,25 +183,27 @@ h1 {
 }
 
 .btn {
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  width: calc(100vw * 198 / 375);
+  height: calc(100vh * 53 / 812);
+  border-radius: calc(100vw * 40 / 375);
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
   color: #fff;
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
-  border: 0px solid;
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
 }
 
 /* .delete-btn {
   background: linear-gradient(135deg, rgba(255, 159, 142, 1) 0%, rgba(241, 213, 160, 1) 32.13%, rgba(201, 255, 221, 1) 67.84%, rgba(157, 255, 255, 1) 100%);
   color: rgba(74, 32, 25, 1);
-}
+} */
 
 .logout-btn {
-  background: rgba(74, 32, 25, 1);
-  color: rgba(255, 255, 255, 1);
-} */
+  background: rgba(252, 71, 178, 1);
+  border: calc(100vw * 2 / 375) solid rgba(0, 0, 0, 1);
+}
 </style>

@@ -3,6 +3,7 @@
     <!-- <div class="aiusermodel"></div>
     <div class="aichatmodel"></div> -->
 
+    <div class="page-top-background"></div>
     <!-- 页面内容 -->
     <div class="page-content">
       <div class="ai-user-container"></div>
@@ -11,21 +12,23 @@
       </div>
       <div class="bottom-scroll">
         <div class="bottom-first">
-          <div class="ai-bgc-icon"></div>
+          <!-- <div class="ai-bgc-icon"></div> -->
           <div class="ai-title-inter">
             <div class="ai-title-inter-one">
-              Hi! In Glimd
+              AI Yoga<br>
+              Improvement<br>
+              Guide
             </div>
             <div class="ai-title-inter-two">
-              Discover more dazzling makeup looks and your beauty transformation plan. I'm here to assist you!
+              Give it a try!
             </div>
           </div>
         </div>
         <div class="bottom-section">
           <div class="bottom-container">
             <div class="bottom-top">
-              <!-- <div class="bottom-title">Glimd AI</div> -->
-              <div class="bottom-text">Hi! I'm Glimd, your personal makeup buddy on this app. Looking for a certain beauty style? Want tricks to level up your routine? Or just want to discover new ideas? Let me know, and I'll point you in the right direction!</div>
+              <!-- <div class="bottom-title">Tenao AI</div> -->
+              <div class="bottom-text">Hello! I’m Tenao AI, your yoga companion, here to guide you on your journey toward mind-body balance and strength. Whether you enjoy gentle flows, challenging poses, or deep stretches, I’m here to share tips, plan sessions, and keep your yoga practice fun and motivating. Ready to relax, find your center, and grow stronger in both body and mind? Let’s move, breathe, and transform together with every practice!</div>
             </div>
           <!-- 购买 -->
           <div class="purchase-container" @click="handlePurchaseClick">
@@ -91,12 +94,24 @@ function handleRechargeEvent(value) {
 
 <style scoped>
 .page {
-  position: absolute;
-  width: 100vw;
+  position: relative;
+  width: 100%;
   height: 100vh;
-  overflow: hidden;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 .page-content {
@@ -124,24 +139,22 @@ function handleRechargeEvent(value) {
 
 .bottom-first {
   position: relative;
-  margin: calc(100vh * 71 / 812) calc(100vw * 20 / 375) calc(100vh * 37 / 812);
-  height: calc(100vh * 143 / 812);
-  border-radius: calc(100vw * 20 / 375);
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  border: calc(100vw * 2 / 375) solid rgba(251, 226, 100, 1);
+  margin: calc(100vh * 9 / 812) calc(100vw * 20 / 375) calc(100vh * 82 / 812);
+  display: flex;
+  flex-direction: column;
 }
 
 .ai-user-container {
   position: absolute;
-  left: calc(100vw * 48 / 375);
-  top: calc(100vh * 48 / 812);
-  width: calc(100vw * 158 / 375);
-  height: calc(100vh * 202 / 812);
+  top: calc(100vh * 56 / 812);
+  right: 0;
+  width: calc(100vw * 338 / 375);
+  height: calc(100vh * 343 / 812);
   background-image: url('@/assets/aiuserpic.png');
   background-size: cover; /* 等比缩放覆盖 */
   background-position: center; /* 居中显示 */
   background-repeat: no-repeat;
-  z-index: 2;
+  z-index: 0;
 }
 
 .ai-bgc-icon {
@@ -158,31 +171,31 @@ function handleRechargeEvent(value) {
 }
 
 .ai-title-inter {
-  position: absolute;
-  bottom: calc(100vh * 13 / 812);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: calc(100vh * 14 / 812);
-  padding: 0 calc(100vw * 22 / 375);
+  align-items: flex-start;
+  gap: calc(100vh * 16 / 812);
   z-index: 3;
 }
 
 .ai-title-inter-one {
-  padding-right: calc(100vw * 7 / 375);
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-family: 'CinzelBlack', sans-serif;
+  font-size: calc(100vw * 24 / 375);
+  font-weight: 900;
+  line-height: calc(100vw * 32.23 / 375);
+  color: rgb(0, 0, 0);
+  text-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(0, 0, 0, 0.25);
 }
 
 .ai-title-inter-two {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 15.83 / 375);
-  color: rgba(255, 255, 255, 1);
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgba(252, 71, 178, 1);
+  padding: calc(100vh * 6 / 812) calc(100vw * 10 / 375);
+  border-radius: calc(100vw * 10 / 375);
+  background-color: #000;
 }
 
 .bottom-section {
@@ -200,7 +213,7 @@ function handleRechargeEvent(value) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 85 / 812);
+  gap: calc(100vh * 24 / 812);
   box-sizing: border-box;
 }
 
@@ -210,10 +223,13 @@ function handleRechargeEvent(value) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 calc(100vw * 30 / 375);
+  margin: 0 calc(100vw * 20 / 375);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0px 0px calc(100vw * 10 / 375)  rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
 }
 /* 
@@ -228,8 +244,8 @@ function handleRechargeEvent(value) {
 } */
 
 .bottom-text {
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size: calc(100vw * 20 / 375);
+  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
   font-weight: 400;
   line-height: calc(100vw * 30 / 375);
   letter-spacing: 0;
@@ -239,12 +255,14 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-container {
-  margin-bottom: calc(100vh * 34 / 812);
+  margin-bottom: calc(100vh * 53 / 812);
   width: calc(100vw * 240 / 375);
-  height: calc(100vh * 59 / 812);
-  border-radius: calc(100vw * 87 / 375);
-  background: linear-gradient(141.29deg, rgba(255, 110, 50, 1) 0%, rgba(253, 61, 104, 1) 44.94%, rgba(251, 226, 100, 1) 100%);
-  box-shadow: 0px calc(100vw * 2 / 375) 0px  rgba(200, 100, 154, 1), 0px calc(100vw * 2 / 375) calc(100vw * 6 / 375)  rgba(200, 100, 154, 1),inset 0px calc(100vw * 2 / 375) 0px  rgba(255, 255, 255, 0.8);
+  height: calc(100vh * 53 / 812);
+  border-radius: calc(100vw * 40 / 375);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -260,7 +278,7 @@ function handleRechargeEvent(value) {
 
 .purchase-icon {
   width: calc(100vw * 38 / 375);
-  height: calc(100vh * 37 / 812);
+  height: calc(100vh * 38 / 812);
   background-image: url('@/assets/coin.png'); /* replace with your local image */
   background-size: cover;
   background-position: center;
@@ -268,10 +286,10 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-count {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 21.2 / 375);
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
 }
@@ -284,10 +302,10 @@ function handleRechargeEvent(value) {
   display: flex;
   justify-content: center;
   align-items: center; */
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
+  line-height: calc(100vw * 19.84 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
   box-sizing: border-box;

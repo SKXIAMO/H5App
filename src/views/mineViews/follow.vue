@@ -1,5 +1,6 @@
 <template>
   <div class="page">
+    <div class="page-top-background"></div>
     <div class="top-header">
       <BackButton />
       <span class="edit-title">Follow</span>
@@ -85,12 +86,21 @@ function cancelFollow(userId) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: rgba(238, 239, 248, 1);
   background-size: cover;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.page-top-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh * 186 / 812);
+  background: linear-gradient(0deg, rgba(165, 237, 57, 0) 0%, rgba(48, 234, 255, 0.38) 100%);
+  pointer-events: none;
 }
 
 .top-header {
@@ -98,22 +108,15 @@ function cancelFollow(userId) {
   align-items: center;
   gap: calc(100vw * 16 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
+  z-index: 1;
 }
 
 .edit-title {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  /* color: #fff; */
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgba(36, 24, 24, 1);
 }
 
 .container {
@@ -137,14 +140,16 @@ function cancelFollow(userId) {
   align-items: center;
   height: calc(100vh * 79 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375) rgba(0, 0, 0, 0.06);
+  border: calc(100vw * 2 / 375) solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   padding: 0 calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
 .follow-left {
-  width: calc(100% - calc(100vw * 50 / 375));
+  width: calc(100% - calc(100vw * 70 / 375));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -163,12 +168,7 @@ function cancelFollow(userId) {
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
+  background: #000;
   padding: calc(100vw * 1 / 375);
 }
 
@@ -192,30 +192,30 @@ function cancelFollow(userId) {
 }
 
 .user-name {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 16.96 / 375);
-  color: rgba(45, 33, 45, 1);
+  font-weight: 700;
+  line-height: calc(100vw * 19.84 / 375);
+  color: rgba(51, 51, 51, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .user-intro {
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 18.47 / 375);
-  color: rgba(102, 95, 103, 1);
+  line-height: calc(100vw * 17.36 / 375);
+  color: rgba(102, 102, 102, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .follow-right {
-  width: calc(100vw * 50 / 375);
-  height: calc(100vh * 28 / 812);
+  width: calc(100vw * 70 / 375);
+  height: calc(100vh * 33 / 812);
   background-image: url('@/assets/removefollow.png');
   background-size: cover; /* 等比缩放覆盖 */
   background-position: center; /* 居中显示 */
