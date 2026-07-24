@@ -11,75 +11,115 @@
     <div class="agreement-content">
 
       <h1>Tenao Privacy Policy</h1>
-      <p class="update-time">Last updated: 2026</p>
+      <p class="update-time">Last updated: July 23, 2026</p>
 
       <p>
-        Welcome to <strong>Tenao</strong>, your ultimate AI-powered makeup assistant and short video tutorial platform. At Tenao, we are dedicated to helping you enhance your beauty routine with personalized AI recommendations and engaging video content. Your privacy is our priority. This Privacy Policy explains how Tenao collects, uses, and protects your information when you use our app and services.
+        Welcome to <strong>Tenao</strong>, a community for yoga enthusiasts to connect, share their practice, explore yoga videos, and receive AI-powered suggestions. This Privacy Policy explains what information we collect, how we use and protect it, and the choices available to you when you use Tenao.
       </p>
 
       <h2>1. Information We Collect</h2>
 
-      <p>We collect information to provide and improve Tenao, including:</p>
+      <p>We may collect the following information when you use Tenao:</p>
 
       <ul>
-        <li>Account details such as username, profile picture, and email address</li>
-        <li>Device information like model, operating system, and unique identifiers</li>
-        <li>Content you create or share, including makeup looks and tutorial videos</li>
-        <li>Usage data including interactions with the AI makeup assistant and video tutorials</li>
-        <li>Payment information when you purchase premium features or virtual goods</li>
+        <li><strong>Account information:</strong> your username, profile photo, account identifier, and other details you choose to provide.</li>
+        <li><strong>User content:</strong> yoga posts, photos, videos, captions, comments, likes, messages, and other content you create or share.</li>
+        <li><strong>AI feature data:</strong> photos, videos, prompts, and related information you voluntarily submit to receive yoga pose or practice suggestions.</li>
+        <li><strong>Usage information:</strong> the features you use, content you view, searches, interactions, and activity within the community.</li>
+        <li><strong>Device and technical information:</strong> device model, operating system, app version, language, IP address, and diagnostic or log information.</li>
+        <li><strong>Transaction information:</strong> records relating to purchases, virtual items, or paid features. Payment credentials may be processed by the applicable app store or payment provider and are not stored directly by Tenao.</li>
       </ul>
 
       <h2>2. How We Use Your Information</h2>
 
-      <p>Your information helps us to:</p>
+      <p>We use information to operate and improve Tenao, including to:</p>
 
       <ul>
-        <li>Deliver and enhance Tenao’s AI makeup assistant and tutorial features</li>
-        <li>Personalize your experience and content recommendations</li>
-        <li>Maintain a safe and supportive community environment</li>
-        <li>Process transactions and manage subscriptions</li>
-        <li>Communicate important updates and support information</li>
+        <li>Create and manage your account and provide the features you request.</li>
+        <li>Publish your posts and enable likes, comments, messages, follows, sharing, and other community interactions.</li>
+        <li>Process content submitted to AI features and return personalized yoga suggestions.</li>
+        <li>Recommend relevant yoga videos, posts, and community content.</li>
+        <li>Process purchases, maintain transaction records, and provide purchased features or virtual items.</li>
+        <li>Detect fraud, abuse, harmful content, and violations of our User Agreement.</li>
+        <li>Maintain app performance, troubleshoot issues, and develop new features.</li>
+        <li>Respond to support requests and send service-related notices.</li>
       </ul>
 
-      <h2>3. Sharing Your Information</h2>
+      <h2>3. Public Content and Community Activity</h2>
 
-      <p>We do not sell your personal data. We may share information only as necessary:</p>
+      <p>
+        Content you post publicly, along with your profile information and community interactions, may be visible to other Tenao users. Please avoid sharing personal or sensitive information that you do not want others to see. Private messages are intended only for their participants, subject to necessary safety, security, and legal processing.
+      </p>
+
+      <h2>4. How We Share Information</h2>
+
+      <p>We do not sell your personal information. We may share information:</p>
 
       <ul>
-        <li>With trusted service providers who support our platform operations</li>
-        <li>When required by law or to protect Tenao’s rights and user safety</li>
-        <li>To prevent fraud and abuse within the community</li>
+        <li>With service providers that support hosting, storage, content delivery, AI processing, analytics, customer support, security, and payments.</li>
+        <li>When you direct us to share information or use a feature that requires sharing.</li>
+        <li>To comply with applicable law, legal process, or valid government requests.</li>
+        <li>To protect the rights, safety, and integrity of Tenao, our users, or others, and to prevent fraud or abuse.</li>
+        <li>In connection with a merger, acquisition, financing, reorganization, or transfer of all or part of our business, subject to appropriate safeguards.</li>
       </ul>
 
-      <h2>4. Data Security</h2>
+      <h2>5. AI-Powered Features</h2>
 
-      <p>We use industry-standard technical and organizational measures to safeguard your data against unauthorized access, alteration, or disclosure.</p>
+      <p>
+        When you use an AI-powered feature, the content you submit is processed to generate suggestions about yoga poses, form, or practice. AI results may be incomplete or inaccurate and should not be treated as medical advice, diagnosis, or a substitute for guidance from a qualified professional. Do not submit content containing another person unless you have their permission.
+      </p>
 
-      <h2>5. Data Retention</h2>
+      <h2>6. Data Retention</h2>
 
-      <p>We retain your information only as long as necessary to provide services and comply with legal obligations.</p>
+      <p>
+        We retain information for as long as reasonably necessary to provide Tenao, maintain security, resolve disputes, enforce our agreements, and comply with legal obligations. Retention periods vary depending on the type of information and why it was collected. Some information may remain in backups for a limited period after deletion.
+      </p>
 
-      <h2>6. Children’s Privacy</h2>
+      <h2>7. Data Security</h2>
 
-      <p>Tenao is not intended for users under the age required by applicable law. We do not knowingly collect personal information from children.</p>
+      <p>
+        We use reasonable administrative, technical, and organizational safeguards designed to protect information against unauthorized access, loss, misuse, alteration, or disclosure. No method of electronic transmission or storage is completely secure, so we cannot guarantee absolute security.
+      </p>
 
-      <h2>7. Your Rights</h2>
+      <h2>8. Your Choices and Rights</h2>
 
-      <p>Depending on your location, you may have rights to:</p>
+      <p>Depending on your location and applicable law, you may be able to:</p>
 
       <ul>
-        <li>Access the personal data we hold about you</li>
-        <li>Request correction or deletion of your information</li>
-        <li>Restrict or object to certain types of processing</li>
+        <li>Access, correct, or delete certain account information and content.</li>
+        <li>Request a copy of personal information we hold about you.</li>
+        <li>Object to or restrict certain processing where legally available.</li>
+        <li>Withdraw consent where processing is based on consent.</li>
+        <li>Manage device permissions, such as camera, photo library, or notification access, through your device settings.</li>
       </ul>
 
-      <h2>8. Changes to This Policy</h2>
+      <p>
+        You may submit a privacy request through the support channel available in Tenao. We may need to verify your identity before completing a request.
+      </p>
 
-      <p>We may update this Privacy Policy periodically. Continued use of Tenao after changes means you accept the updated terms.</p>
+      <h2>9. Children’s Privacy</h2>
 
-      <h2>9. Contact Us</h2>
+      <p>
+        Tenao is not directed to children under the minimum age required by applicable law. We do not knowingly collect personal information from children without legally valid authorization. If you believe a child has provided personal information improperly, please contact us through the in-app support channel.
+      </p>
 
-      <p>If you have any questions or concerns about this Privacy Policy, please contact us through the support channels available within the Tenao app.</p>
+      <h2>10. International Processing</h2>
+
+      <p>
+        Your information may be processed in countries or regions other than where you live. Where required, we use appropriate safeguards for cross-border transfers of personal information.
+      </p>
+
+      <h2>11. Changes to This Policy</h2>
+
+      <p>
+        We may update this Privacy Policy to reflect changes to Tenao, our practices, or applicable law. We will provide notice within the app or through another appropriate method when material changes are made. The “Last updated” date shows when this Policy was most recently revised.
+      </p>
+
+      <h2>12. Contact Us</h2>
+
+      <p>
+        If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us through the support channel available within the Tenao app.
+      </p>
 
     </div>
   </div>
@@ -115,19 +155,11 @@ p, h1 {
 }
 
 .title{
-  font-family: 'PlayfairDisplayBlack', sans-serif;
+  font-family: 'JetBrainsMonoBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 900;
-  /* color: #fff; */
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  font-weight: 700;
+  line-height: calc(100vw * 24.8 / 375);
+  color: rgba(36, 24, 24, 1);
 }
 
 /* 内容 */
@@ -142,31 +174,31 @@ p, h1 {
 
 /* 标题 */
 .agreement-content h1{
-  font-family: 'OPPOSansRegular', sans-serif;
-  font-size:calc(100vw * 24 / 375);
+  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-size:calc(100vw * 16 / 375);
   margin-bottom:calc(100vh * 10 / 812);
 }
 
 /* 更新时间 */
 .update-time{
   opacity:0.7;
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size:calc(100vw * 12 / 375);
   margin-bottom:calc(100vh * 20 / 812);
 }
 
 /* 小标题 */
 .agreement-content h2{
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size:calc(100vw * 18 / 375);
   margin-top:calc(100vh * 24 / 812);
   margin-bottom:calc(100vh * 10 / 812);
-  color:rgba(255, 110, 50, 1);
+  color:rgba(48, 234, 255, 1);
 }
 
 /* 正文 */
 .agreement-content p{
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
   line-height:1.7;
   margin-bottom:calc(100vh * 10 / 812);
@@ -179,7 +211,7 @@ p, h1 {
 
 .agreement-content li{
   margin-bottom:calc(100vh * 6 / 812);
-  font-family: 'OPPOSansRegular', sans-serif;
+  font-family: 'JetBrainsMonoRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
 }
 </style>
