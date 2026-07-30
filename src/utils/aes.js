@@ -1,7 +1,7 @@
 import CryptoJS from 'crypto-js'
 
-const KEY = CryptoJS.enc.Utf8.parse('518486he8pzgbjsk')
-const IV = CryptoJS.enc.Utf8.parse('614436p28qzhkjsl')
+const KEY = CryptoJS.enc.Utf8.parse('6xng32ltpmhhyyu5')
+const IV = CryptoJS.enc.Utf8.parse('zllmnkstc3j5brnz')
 
 // 加密
 export function encryptAES(data) {

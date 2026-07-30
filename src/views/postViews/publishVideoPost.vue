@@ -114,6 +114,7 @@ const handleRelease = async () => {
       dynamicTitleType: 0,
       dynamicPic: [imageUrl],
       dynamicVideo: videoUrl, // 如果有视频可以赋值
+      dynamicPublishTime: new Date().toISOString(),
       dynamicLikeCount: 0,
       dynamicCommentCount: 0
     }

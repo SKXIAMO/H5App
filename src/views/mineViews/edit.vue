@@ -279,9 +279,9 @@ onMounted(() => {
   margin-top: calc(100vh * 36 / 812);
 }
 
-/* .about-me-box {
-  height: calc(100vh * 111 / 812);
-} */
+.about-me-box {
+  height: calc(100vh * 100 / 812);
+}
 
 .about-me-box textarea {
   width: 100%;
@@ -301,7 +301,7 @@ onMounted(() => {
 }
 
 .fourth-section {
-  margin: calc(100vh * 190 / 812) 0 calc(100vh * 34 / 812);
+  margin: calc(100vh * 150 / 812) 0 calc(100vh * 34 / 812);
   display: flex;
   justify-content: center;
   width: 100%;

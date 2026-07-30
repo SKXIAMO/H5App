@@ -197,7 +197,9 @@ function handleFollow() {
   }
 
   // Update post user's fans list
-  const postUserFans = currentUser.fans ? [...currentUser.fans] : []
+  const postUserFans = currentUser.value.fans
+    ? [...currentUser.value.fans]
+    : []
   if (!postUserFans.includes(currentUserId)) {
     postUserFans.unshift(currentUserId)
   }
@@ -215,13 +217,27 @@ function handleChat() {
     showToLogin()
     return
   }
+
+  const currentUserId = String(currentUserStore.currentUser.userId)
+  const profileUserId = String(userId)
+  const currentUserFollowIds = (currentUserStore.currentUser.follow || []).map(String)
+  const profileUserFollowIds = (currentUser.value.follow || []).map(String)
+  const isMutuallyFollowing = currentUserFollowIds.includes(profileUserId)
+    && profileUserFollowIds.includes(currentUserId)
+
+  if (!isMutuallyFollowing) {
+    sendShowToastToIOS('You can only chat with mutual followers.')
+    return
+  }
+
   sendShowLoadingToIOS(true)
-  const currentUserId = currentUserStore.currentUser.userId
 
   // 查找是否已有 chat
   const existChat = chatStore.chat.find(chat => {
-    const ids = chat.chatUserIds || []
-    return ids.includes(currentUserId) && ids.includes(userId)
+    const ids = (chat.chatUserIds || []).map(String)
+    return ids.length === 2
+      && ids.includes(currentUserId)
+      && ids.includes(profileUserId)
   })
 
   let chatId
@@ -232,7 +248,7 @@ function handleChat() {
     // 创建新的 chat
     const newChat = {
       chatId: String(chatStore.chat.length + 1),
-      chatUserIds: [currentUserId, userId],
+      chatUserIds: [currentUserId, profileUserId],
       lastSendContent: '',
       lastSendTime: new Date().toISOString(),
       unreadMsgCount: 0,

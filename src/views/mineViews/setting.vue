@@ -187,7 +187,7 @@ h1 {
   height: calc(100vh * 53 / 812);
   border-radius: calc(100vw * 40 / 375);
   font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
+  font-size: calc(100vw * 16 / 375);
   font-weight: 700;
   line-height: calc(100vw * 24.8 / 375);
   color: #fff;

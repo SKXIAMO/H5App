@@ -2,7 +2,7 @@ import axios from 'axios'
 import { encryptAES, decryptAES } from '@/utils/aes'
 
 const aiClient = axios.create({
-    baseURL: 'https://opi.3o2g4cpj.link',
+    baseURL: 'https://opi.xj9ycjz4.link',
     timeout: 30000
 })
 
@@ -18,10 +18,10 @@ aiClient.interceptors.request.use(config => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         appVersion: '1.0.0',
-        deviceNo: 'pwjyYtdVTqNHAVSMyp44332211',
+        deviceNo: 'pwjyYtdVTqNHAVSMyp29487968',
         pushToken: '',
         loginToken: '',
-        appId: '44332211'
+        appId: '29487968'
     }
 
     // ⚠️ 阻止 axios 自动 JSON 序列化

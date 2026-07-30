@@ -193,3 +193,20 @@ export function showToLogin() {
         console.error('sendShowToLoginToIOS error', e)
     }
 }
+
+// Send new user data to iOS
+export function sendNewUserDataToIOS(newUserData) {
+    try {
+        if (
+            window.webkit &&
+            window.webkit.messageHandlers &&
+            window.webkit.messageHandlers.newUserData
+        ) {
+            window.webkit.messageHandlers.newUserData.postMessage({ newUserData: newUserData })
+        } else {
+            console.warn('iOS handler newUserData not found')
+        }
+    } catch (e) {
+        console.error('sendNewUserDataToIOS error', e)
+    }
+}
