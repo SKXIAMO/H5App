@@ -363,16 +363,6 @@ async function sendMessage() {
   margin-top: calc(100vh * 22 / 812);
 }
 
-.top-ai-bg-contanier {
-  position: relative;
-  width: calc(100vw * 335 / 375);
-  height: calc(100vh * 84 / 812);
-  background-image: url('@/assets/aibgconteniii.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
-  background-repeat: no-repeat;
-}
-
 .top-ai-bg-contanier-text {
   position: absolute;
   top: calc(100vh * 33 / 812);
