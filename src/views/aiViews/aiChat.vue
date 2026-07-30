@@ -332,7 +332,7 @@ async function sendMessage() {
 
 .top-section {
   position: relative;
-  margin-top: calc(100vh * 20 / 812);
+  margin-top: calc(100vh * 56 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
   display: flex;
