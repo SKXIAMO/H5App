@@ -24,16 +24,16 @@ function handleRecharge() {
   position: absolute;
 }
 
-.coninnot-bgi {
+/* .coninnot-bgi {
   position: absolute;
   top: calc(100vh * -89 / 812);
   width: 100%;
   height: calc(100vh * 401 / 812);
   background-image: url('@/assets/coinnotbgi.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
+  background-size: cover; 
+  background-position: center; 
   background-repeat: no-repeat;
-}
+} */
 
 .coinnot-box {
   display: flex;
