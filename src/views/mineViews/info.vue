@@ -444,14 +444,14 @@ const saveProfile = async () => {
   cursor: pointer;
 }
 
-.gender-woman-icon {
+/* .gender-woman-icon {
   width: calc(100vw * 41 / 375);
   height: calc(100vh * 41 / 812);
   background-image: url('@/assets/registerwomanicon.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */
 
 /* .gender-man-icon {
   width: calc(100vw * 37 / 375);
