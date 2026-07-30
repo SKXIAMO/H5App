@@ -149,17 +149,17 @@ function handleCoinClick(item) {
   z-index: 2;
 }
 
-.coin-bg-button {
+/* .coin-bg-button {
   position: absolute;
   bottom: calc(100vh * -21 / 812);
   left: calc(100vw * 19 / 375);
   width: calc(100vw * 82 / 375);
   height: calc(100vh * 79 / 812);
   background-image: url('@/assets/coinbgbutton.png');
-  background-size: cover; /* 等比缩放覆盖 */
+  background-size: cover; 
   overflow: hidden;
   z-index: 3;
-}
+} */
 
 /* 下部分盒子内容 */
 .coin-box-content {
