@@ -164,7 +164,7 @@ p {
   display: flex;
   flex-direction: column;
   /* Use local background image */
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: #fff;
   background-size: cover;
   color: #000;
 }

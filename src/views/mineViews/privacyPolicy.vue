@@ -141,7 +141,7 @@ p, h1 {
   height:100vh;
   display:flex;
   flex-direction:column;
-  background: url('@/assets/pagebgc.png') no-repeat center center;
+  background: #fff;
   background-size: cover;
   color: #000;
 }
