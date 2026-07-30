@@ -453,14 +453,14 @@ const saveProfile = async () => {
   background-repeat: no-repeat;
 }
 
-.gender-man-icon {
+/* .gender-man-icon {
   width: calc(100vw * 37 / 375);
   height: calc(100vh * 41 / 812);
   background-image: url('@/assets/registermanicon.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
+} */
 
 .gender-text {
   font-family: 'ArchivoNarrowRegular', sans-serif;
