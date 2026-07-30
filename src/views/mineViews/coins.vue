@@ -125,17 +125,17 @@ function handleCoinClick(item) {
   background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
 }
 
-.coin-bg-top {
+/* .coin-bg-top {
   position: absolute;
   top: calc(100vh * -21 / 812);
   right: calc(100vw * 85 / 375);
   width: calc(100vw * 67 / 375);
   height: calc(100vh * 39 / 812);
   background-image: url('@/assets/coinbgtop.png');
-  background-size: cover; /* 等比缩放覆盖 */
+  background-size: cover; 
   overflow: hidden;
   z-index: 1;
-}
+} */
 
 .coin-bg-right {
   position: absolute;
