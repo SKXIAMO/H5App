@@ -4,13 +4,24 @@
     <div class="top-header">
       <BackButton theme="black" />
     </div>
-    <div class="content">
+    <form class="content" @submit.prevent="saveProfile">
+      <div class="intro">
+        <h1>Complete your profile</h1>
+        <p>Add a photo and a few words so the community can get to know you.</p>
+      </div>
       <div class="top">
-        <div class="top-block" :style="{ backgroundImage: `url(${topBlockImage})` }" @click="chooseAvatar">
-            <div class="camera-corner">
-            <img src="@/assets/cameraicon.png" alt="camera" />
-            </div>
-        </div>
+        <button
+          class="top-block"
+          type="button"
+          aria-label="Choose a profile photo"
+          :style="{ backgroundImage: `url(${topBlockImage})` }"
+          @click="chooseAvatar"
+        >
+          <span class="camera-corner">
+            <img src="@/assets/cameraicon.png" alt="" />
+          </span>
+        </button>
+        <button class="photo-action" type="button" @click="chooseAvatar">Choose photo</button>
       </div>
       <input
         ref="fileInput"
@@ -19,21 +30,33 @@
         style="display:none"
         @change="onFileChange"
       />
-      <div class="second">
-        <div class="second-section">
-            <div class="label">Name</div>
+      <div class="form-section">
+        <label class="field-label" for="profile-name">Name</label>
             <div class="input-box">
-            <input v-model="name" type="text" placeholder="Please enter" />
+            <input
+              id="profile-name"
+              v-model="name"
+              type="text"
+              maxlength="30"
+              autocomplete="name"
+              placeholder="Your display name"
+            />
             </div>
-        </div>
       </div>
-      <div class="third">
-        <div class="third-section">
-            <div class="label">About  me</div>
-            <div class="input-box">
-            <input v-model="aboutMe" type="text" placeholder="Please enter" />
-            </div>
+      <div class="form-section">
+        <div class="field-heading">
+          <label class="field-label" for="profile-about">About me</label>
+          <span class="character-count">{{ aboutMe.length }}/120</span>
         </div>
+            <div class="input-box about-box">
+            <textarea
+              id="profile-about"
+              v-model="aboutMe"
+              maxlength="120"
+              rows="3"
+              placeholder="Tell people a little about yourself"
+            ></textarea>
+            </div>
       </div>
       <!-- <div class="third">
         <div class="third-section">
@@ -98,22 +121,24 @@
         </div>
       </div> -->
       <div class="fourth-section">
-        <div class="save-btn" @click="saveProfile">Save</div>
+        <button class="save-btn" type="submit" :disabled="isSaving">
+          {{ isSaving ? 'Saving…' : 'Save profile' }}
+        </button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue'
 import BackButton from '@/components/back.vue'
+import avatarImage from '@/assets/avataricon.png'
 import { sendShowLoadingToIOS, sendShowToastToIOS, sendNewUserDataToIOS } from '@/utils/iosBridge'
 import { uploadSingleImage } from '@/utils/ossUpload'
 
 defineOptions({ name: 'PracticeProfileInfo' })
 
-// Use relative path for web build
-const topBlockImage = ref('/src/assets/avataricon.png')
+const topBlockImage = ref(avatarImage)
 
 const name = ref('')
 const aboutMe = ref('')
@@ -199,6 +224,7 @@ const fileInput = ref(null)
 // eslint-disable-next-line no-unused-vars -- retained for the optional profile fields kept in the design draft
 const birthdayInput = ref(null)
 const avatarFile = ref(null)
+const isSaving = ref(false)
 
 // eslint-disable-next-line no-unused-vars -- retained for the optional profile fields kept in the design draft
 const normalizeBirthday = () => {
@@ -239,6 +265,7 @@ const saveProfile = async () => {
   }
 
   sendShowLoadingToIOS(true)
+  isSaving.value = true
 
   let avatarUrl = topBlockImage.value
 
@@ -258,6 +285,7 @@ const saveProfile = async () => {
       }
 
       sendShowLoadingToIOS(false)
+      isSaving.value = false
 
       sendNewUserDataToIOS(newUserData)
 
@@ -266,6 +294,7 @@ const saveProfile = async () => {
   } catch (e) {
     console.error(e)
     sendShowLoadingToIOS(false)
+    isSaving.value = false
     sendShowToastToIOS('Updated failed, please check your network.')
   }
 }
@@ -526,5 +555,275 @@ const saveProfile = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Responsive profile layout */
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  height: 100dvh;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(245, 91, 250, 0.12), transparent 34%),
+    #fff;
+}
+
+.top-header {
+  min-height: 52px;
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px 0;
+  box-sizing: border-box;
+}
+
+.content {
+  width: min(100%, 480px);
+  margin: 0 auto;
+  padding: 20px 20px calc(env(safe-area-inset-bottom, 0px) + 24px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.intro {
+  text-align: center;
+}
+
+.intro h1 {
+  margin: 0;
+  color: #141414;
+  font-family: 'SFProDisplayBold', sans-serif;
+  font-size: clamp(26px, 7vw, 32px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+
+.intro p {
+  max-width: 330px;
+  margin: 10px auto 0;
+  color: #707070;
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.top {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-block {
+  width: 96px;
+  height: 96px;
+  flex: 0 0 96px;
+  margin: 0;
+  padding: 0;
+  border: 4px solid rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  background-color: #f1f1f4;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 24px rgba(40, 18, 72, 0.14);
+  cursor: pointer;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.top-block:focus-visible {
+  outline: 3px solid rgba(168, 80, 255, 0.32);
+  outline-offset: 3px;
+}
+
+.camera-corner {
+  right: -2px;
+  bottom: -2px;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16);
+}
+
+.camera-corner img {
+  width: 26px;
+  height: 26px;
+}
+
+.photo-action {
+  margin-top: 10px;
+  padding: 5px 8px;
+  border: 0;
+  background: transparent;
+  color: #8b48ee;
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-section {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.field-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #1b1b1b;
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.character-count {
+  margin-bottom: 9px;
+  color: #aaa;
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: 12px;
+}
+
+.input-box {
+  width: 100%;
+  min-height: 54px;
+  height: auto;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: rgba(245, 245, 247, 0.96);
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.input-box:focus-within {
+  border-color: rgba(151, 70, 238, 0.55);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(151, 70, 238, 0.08);
+}
+
+.input-box input,
+.input-box textarea {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #171717;
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.input-box input {
+  height: 52px;
+}
+
+.about-box {
+  align-items: flex-start;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.input-box textarea {
+  min-height: 64px;
+  padding: 0;
+  resize: none;
+}
+
+.input-box input::placeholder,
+.input-box textarea::placeholder {
+  color: #a2a2a8;
+}
+
+.fourth-section {
+  width: 100%;
+  margin: auto 0 0;
+  padding-top: 28px;
+}
+
+.save-btn {
+  width: 100%;
+  min-height: 56px;
+  height: 56px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 18px;
+  color: #fff;
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 10px 24px rgba(168, 54, 232, 0.22);
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.save-btn:active:not(:disabled) {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: 0 6px 16px rgba(168, 54, 232, 0.2);
+}
+
+.save-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+@media (max-height: 720px) {
+  .content {
+    padding-top: 10px;
+  }
+
+  .intro p {
+    display: none;
+  }
+
+  .top {
+    margin-top: 14px;
+  }
+
+  .top-block {
+    width: 80px;
+    height: 80px;
+    flex-basis: 80px;
+  }
+
+  .form-section {
+    margin-top: 16px;
+  }
+
+  .fourth-section {
+    padding-top: 20px;
+  }
+}
+
+@media (min-width: 700px) {
+  .page {
+    background:
+      radial-gradient(circle at 50% -8%, rgba(245, 91, 250, 0.16), transparent 36%),
+      #f7f7f9;
+  }
+
+  .content {
+    flex: initial;
+    margin: 24px auto 40px;
+    padding: 32px;
+    border: 1px solid rgba(30, 30, 30, 0.06);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 22px 60px rgba(35, 24, 54, 0.1);
+  }
+
+  .fourth-section {
+    margin-top: 32px;
+  }
 }
 </style>
