@@ -27,6 +27,8 @@
 import { defineProps, defineEmits, ref, onMounted, onUnmounted } from 'vue'
 import { useUserStore } from '@/stores/user'
 
+defineOptions({ name: 'VideoCallView' })
+
 const props = defineProps({ userId: String })
 const emits = defineEmits(['hangup'])
 
@@ -66,25 +68,28 @@ function hangup() {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   /* opacity: 0.1; */
+
+  height: calc(100vh * (812 - 181) / 812);
+  bottom: calc(100vh * 181 / 812);
 }
 
 .bg-colors-111 {
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(48, 234, 255, 1) 0.47%, rgba(255, 132, 123, 0) 100%);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .video-call {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(45, 33, 45, 1);
+  background: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,26 +97,26 @@ function hangup() {
   background-size: cover;
   background-position: center;
   overflow: hidden;
-  gap: calc(100vh * 35 / 812);
+  gap: calc(100vh * 205 / 812);
 }
 
 .avatar-outer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 18 / 812);
+  gap: calc(100vh * 46 / 812);
 }
 
 .avator-border-box {
   display: flex;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .avator-border-box img{
-  width: calc(100vw * 105 / 375);
-  height: calc(100vw * 105 / 375);
+  width: calc(100vw * 80 / 375);
+  height: calc(100vw * 80 / 375);
   padding: calc(100vh * 2 / 812) calc(100vw * 2 / 375);
   border-radius: 50%;
   object-fit: cover;
@@ -163,28 +168,28 @@ function hangup() {
 }
 
 .user-name {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplayBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
   font-weight: 700;
-  line-height: calc(100vw * 24.8 / 375);
-  color: rgba(36, 24, 24, 1);
+  line-height: calc(100vw * 23.87 / 375);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .calling-text {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
-  color: rgba(36, 24, 24, 1);
+  line-height: calc(100vw * 16.71 / 375);
+  color: rgb(255, 255, 255, 0.6);
 }
 
 .hangup {
-  margin-bottom: calc(100vh * 125 / 812);
-  width: calc(100vw * 70 / 375);
-  height: calc(100vw * 70 / 375);
+  margin-bottom: calc(100vh * 85 / 812);
+  width: calc(100vw * 60 / 375);
+  height: calc(100vw * 60 / 375);
   /* border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.6);
   display: flex;
@@ -203,8 +208,8 @@ function hangup() {
 }
 
 .hangup-btn img {
-  width: calc(100vw * 70 / 375);
-  height: calc(100vw * 70 / 375);
+  width: calc(100vw * 60 / 375);
+  height: calc(100vw * 60 / 375);
   object-fit: cover;
   overflow: hidden;
 }

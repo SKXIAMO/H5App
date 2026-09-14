@@ -3,7 +3,7 @@ import otherData from '../data/other.json'
 
 export const useOtherStore = defineStore('other', {
     state: () => ({
-        other: window.other || otherData,  // 初始化为本地 JSON
+        other: { ...otherData, ...(window.other || {}) },
     }),
     actions: {
         getTagByIndex(index) {
@@ -14,4 +14,9 @@ export const useOtherStore = defineStore('other', {
             return this.other.isGuestLogin === 1
         }
     }
+})
+
+window.addEventListener('barreUsersReady', () => {
+    const store = useOtherStore()
+    if (window.other) store.other = { ...store.other, ...window.other }
 })

@@ -42,8 +42,8 @@
   /* background-size: cover;
   background-position: center;
   background-repeat: no-repeat; */
-  border-radius: calc(100vw * 40 / 375) calc(100vw * 40 / 375) 0px 0px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(48, 234, 255, 1) 100%);
+  border-radius: calc(100vw * 24 / 375) calc(100vw * 24 / 375) 0px 0px;
+  background: rgba(255, 255, 255, 1);
   z-index: 1000;
   display: flex;
   justify-self: flex-end;
@@ -58,8 +58,8 @@
   /* height: 100%; */
   /* width: auto; */
   /* margin-right: calc(100vw * 28 / 375); */
-  padding-bottom: calc(100vh * 28 / 812); /* 底部间距 */
-  gap: calc(100vh * 22 / 812); /* 上下间距26 */
+  padding-bottom: calc(100vh * 45 / 812); /* 底部间距 */
+  gap: calc(100vh * 28 / 812); /* 上下间距26 */
 }
 
 .dialog-options {
@@ -69,36 +69,36 @@
   flex-direction: column;
   justify-content: center;
   gap: calc(100vh * 16 / 812); /* 上下间距26 */
-  margin-top: calc(100vh * 25 / 812);
+  margin-top: calc(100vh * 32 / 812);
   align-items: center;
 }
 
 .option {
   width: calc(100vw * 260 / 375);
   height: calc(100vh * 46 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  background: rgb(255, 255, 255);
-  font-family: 'JetBrainsMonoRegular', sans-serif;
-  font-size: calc(100vw * 18 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 22.32 / 375);
+  border-radius: calc(100vw * 24 / 375);
+  background: rgba(242, 242, 242, 1);
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: calc(100vw * 16 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
   text-align: center;
-  color: rgba(36, 24, 24, 1);
+  color: rgb(0, 0, 0);
   display: flex; /* 新增 */
   justify-content: center; /* 水平居中 */
   align-items: center; /* 垂直居中 */
 }
 
 .cancel {
-  width: calc(100vw * 198 / 375);
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
+  border-radius: calc(100vw * 100 / 375);
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: calc(100vw * 18 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 21.48 / 375);
   color: #fff;
-  border: calc(100vw * 2 / 375) solid rgba(165, 237, 57, 1);
-  background-color: #000;
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;

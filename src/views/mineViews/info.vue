@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <div class="page-top-background"></div>
+    <!-- <div class="page-top-background"></div> -->
     <div class="top-header">
-      <BackButton />
+      <BackButton theme="black" />
     </div>
     <div class="content">
       <div class="top">
@@ -21,13 +21,21 @@
       />
       <div class="second">
         <div class="second-section">
-            <div class="label">Name:</div>
+            <div class="label">Name</div>
             <div class="input-box">
             <input v-model="name" type="text" placeholder="Please enter" />
             </div>
         </div>
       </div>
       <div class="third">
+        <div class="third-section">
+            <div class="label">About  me</div>
+            <div class="input-box">
+            <input v-model="aboutMe" type="text" placeholder="Please enter" />
+            </div>
+        </div>
+      </div>
+      <!-- <div class="third">
         <div class="third-section">
             <div class="label">Gender</div>
             <div class="input-box birthday-content">
@@ -88,7 +96,7 @@
                 </select>
             </div>
         </div>
-      </div>
+      </div> -->
       <div class="fourth-section">
         <div class="save-btn" @click="saveProfile">Save</div>
       </div>
@@ -108,6 +116,7 @@ defineOptions({ name: 'PracticeProfileInfo' })
 const topBlockImage = ref('/src/assets/avataricon.png')
 
 const name = ref('')
+const aboutMe = ref('')
 
 const formatDate = (date) => {
   const y = date.getFullYear()
@@ -131,6 +140,7 @@ const getMaxBirthday = () => {
 const maxBirthday = getMaxBirthday()
 const birthday = ref(getDefaultBirthday())
 const genderOptions = ['Female', 'Male']
+// eslint-disable-next-line no-unused-vars -- retained for the optional profile fields kept in the design draft
 const selectedGender = ref(genderOptions[0])
 const countryOptions = [
   { code: 'US', name: 'United States' },
@@ -175,6 +185,7 @@ const countryOptions = [
   { code: 'EG', name: 'Egypt' },
 ]
 const selectedCountryCode = ref('US')
+// eslint-disable-next-line no-unused-vars -- retained for the optional profile fields kept in the design draft
 const selectedCountryLabel = computed(() => {
   const selectedCountry = countryOptions.find(
     (countryOption) => countryOption.code === selectedCountryCode.value,
@@ -185,9 +196,11 @@ const selectedCountryLabel = computed(() => {
 })
 
 const fileInput = ref(null)
+// eslint-disable-next-line no-unused-vars -- retained for the optional profile fields kept in the design draft
 const birthdayInput = ref(null)
 const avatarFile = ref(null)
 
+// eslint-disable-next-line no-unused-vars -- retained for the optional profile fields kept in the design draft
 const normalizeBirthday = () => {
   if (birthday.value > maxBirthday) {
     birthday.value = maxBirthday
@@ -220,6 +233,11 @@ const saveProfile = async () => {
     return
   }
 
+  if (!aboutMe.value.trim()) {
+    sendShowToastToIOS('Please enter your introduction')
+    return
+  }
+
   sendShowLoadingToIOS(true)
 
   let avatarUrl = topBlockImage.value
@@ -236,6 +254,7 @@ const saveProfile = async () => {
       let newUserData = {
         'avator': submittedAvatarUrl,
         'name': name.value,
+        'about': aboutMe.value,
       }
 
       sendShowLoadingToIOS(false)
@@ -258,7 +277,7 @@ const saveProfile = async () => {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -280,7 +299,7 @@ const saveProfile = async () => {
   display: flex;
   align-items: center;
   gap: calc(100vw * 16 / 375);
-  padding: calc(100vh * 56 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .content {
@@ -302,9 +321,9 @@ const saveProfile = async () => {
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
+  border: calc(100vw * 4 / 375) solid rgba(255, 255, 255, 0.6);
   position: relative;
-  margin-top: calc(100vh * 35 / 812);
+  margin-top: calc(100vh * 38 / 812);
 }
 
 .camera-corner {
@@ -330,29 +349,29 @@ const saveProfile = async () => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 14 / 812);
   width: calc(100% - calc(100vh * 40 / 812));
-  margin: calc(100vh * 30 / 812) 0 0;
+  margin: calc(100vh * 44 / 812) 0 0;
 }
 
 .label {
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 18 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 22.32 / 375);
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: calc(100vw * 20 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 23.87 / 375);
   color: rgb(0, 0, 0);
 }
 
 .input-box {
   width: 100%;
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 14 / 375);
-  background: rgba(227, 227, 227, 1);
+  height: calc(100vh * 54 / 812);
+  border-radius: calc(100vw * 16 / 375);
+  background: rgba(242, 242, 242, 1);
   /* box-shadow: 0px calc(100vw * 2 / 375) calc(100vw * 4 / 375)  rgba(0, 0, 0, 0.1); */
   /* backdrop-filter: calc(100vw * 12 / 375); */
   display: flex;
   align-items: center;
-  padding: 0 calc(100vw * 12 / 375);
+  padding: 0 calc(100vw * 16 / 375);
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -360,10 +379,10 @@ const saveProfile = async () => {
 .birthday-content {
   position: relative;
   justify-content: space-between;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
   color: rgba(153, 153, 153, 1);
 }
@@ -407,17 +426,17 @@ const saveProfile = async () => {
   width: 100%;
   border: none;
   outline: none;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
   color: #000000;
   background: transparent;
 }
 
 .input-box input::placeholder {
-  color: rgba(153, 153, 153, 1);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .third-section {
@@ -488,24 +507,22 @@ const saveProfile = async () => {
 }
 
 .fourth-section {
-  margin: calc(100vh * 47 / 812) 0 calc(100vh * 34 / 812);
+  margin: calc(100vh * 240 / 812) 0 calc(100vh * 34 / 812);
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
 .save-btn {
-  width: calc(100vw * 198 / 375);
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
+  border-radius: calc(100vw * 100 / 375);
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
+  font-weight: 600;
+  line-height: calc(100vw * 23.87 / 375);
   color: #fff;
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#000, #000) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;

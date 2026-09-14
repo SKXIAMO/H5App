@@ -30,23 +30,24 @@
       <!-- 顶部按钮 -->
       <div class="top-actions">
         <BackButton />
-        <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showVideoPostReport" />
       </div>
 
       <!-- 底部信息 -->
       <div class="bottom-info">
         <!-- 喜欢、评论数 -->
         <div class="action-buttons">
-          <div class="action-box">
-            <div class="action-button" @click="toggleLike">
-              <img v-if="currentUserStore.currentUser.postLikeIds.includes(post.dynamicId)" src="@/assets/likepic.png" alt="like" />
-              <img v-else src="@/assets/dislikepic.png" alt="like" />
+          <div class="action-box" @click="toggleLike">
+            <div class="action-butto-outbox"></div>
+            <div class="action-button">
+              <img v-if="currentUserStore.currentUser.postLikeIds.includes(post.dynamicId)" src="@/assets/likevideo.png" alt="like" />
+              <img v-else src="@/assets/dislikevideo.png" alt="like" />
               <span>{{post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(post.dynamicId) ? 1 : 0) }}</span>
             </div>
           </div>
-          <div class="action-box">
-            <div class="action-button" @click="openComment">
-              <img src="@/assets/chaticon.png" alt="comment" />
+          <div class="action-box" @click="openComment">
+            <div class="action-butto-outbox"></div>
+            <div class="action-button">
+              <img src="@/assets/videocomments-icom.png" alt="comment" />
               <span>{{ post.dynamicCommentCount }}</span>
             </div>
           </div>
@@ -67,6 +68,8 @@
             <div class="username"  @click="goOtherHome(post.userId)">{{ postUser && postUser.name }}</div>
             <div class="video-desc">{{ post && post.dynamicDesc }}</div>
           </div>
+
+          <MoreButton v-if="post.userId !== currentUserStore.currentUser.userId" @click="showVideoPostReport" />
         </div>
       </div>
     </div>
@@ -74,7 +77,7 @@
     <!-- 评论弹窗（底部弹出） -->
     <div v-if="uiStore.showComment" class="comment-overlay" @click.self="uiStore.closeComment()">
       <div class="comment-sheet">
-        <Comment :postId="postId" :reportAction="commentAction" @openCommentReport="showCommentReport = true" />
+        <Comment :postId="postId" :reportAction="commentAction" @openCommentReport="showCommentReport = true" @close="uiStore.closeComment()" />
       </div>
     </div>
     <ReportDialog v-if="showPostReport" @close="showPostReport = false" @select="postReportSelect" >
@@ -86,7 +89,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { usePostStore } from '@/stores/post'
 import { useUserStore } from '@/stores/user'
@@ -98,6 +100,8 @@ import BackButton from '@/components/back.vue'
 import MoreButton from '@/components/more.vue'
 import Comment from '@/views/postViews/comment.vue'
 import ReportDialog from '@/components/reportChoose.vue'
+
+defineOptions({ name: 'VideoPostDetailsView' })
 import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, showToLogin } from '@/utils/iosBridge'
 
 const { postId } = defineProps({
@@ -297,8 +301,8 @@ function commentReportSelect(value) {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100vw * 64 / 375);
-  height: calc(100vw * 64 / 375);
+  width: calc(100vw * 60 / 375);
+  height: calc(100vw * 60 / 375);
   z-index: 2;
 }
 
@@ -307,8 +311,8 @@ function commentReportSelect(value) {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: calc(100vh * 96 / 812);
-  background: linear-gradient(180deg, rgba(48, 234, 255, 1) 0.16%, rgba(255, 132, 123, 0) 100%);
+  height: calc(100vh * 170 / 812);
+  background: linear-gradient(180deg, rgba(14, 8, 15, 0.8) 0%, rgba(14, 8, 15, 0) 100%);
   pointer-events: none;
   transform: rotate(180deg);
 }
@@ -322,7 +326,7 @@ function commentReportSelect(value) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: calc(100vh * 56 / 812) calc(100vw * 20 / 375) calc(100vh * 31 / 812);
+  padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) calc(100vh * 37 / 812);
   box-sizing: border-box;
   z-index: 3;
   pointer-events: none; /* allow clicks to pass through */
@@ -360,7 +364,7 @@ function commentReportSelect(value) {
   flex-direction: column;
   justify-content: end;
   align-items: flex-end;
-  gap: calc(100vh * 20 / 812);
+  gap: calc(100vh * 32 / 812);
 }
 
 .user-left {
@@ -373,15 +377,15 @@ function commentReportSelect(value) {
 }
 
 .avatar-border-box {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
   border-radius: 50%;
   display: flex;
   justify-content: center;
 }
 
 .avatar {
-  width: calc(100vw * 56 / 375);
-  height: calc(100vw * 56 / 375);
+  width: calc(100vw * 48 / 375);
+  height: calc(100vw * 48 / 375);
   border-radius: 50%;
   padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
   box-sizing: border-box;
@@ -406,11 +410,11 @@ function commentReportSelect(value) {
 
 .follow {
   position: absolute;
-  bottom: 0;
-  right: calc(100vw * -4 / 375);
+  right: 0;
+  bottom: calc(100vh * -9 / 812);
   transform: translateX(-50%);
-  width: calc(100vw * 14 / 375);
-  height: calc(100vw * 14 / 375);
+  width: calc(100vw * 24 / 375);
+  height: calc(100vw * 24 / 375);
   /* border-radius: calc(100vw * 40 / 375); */
   /* background: rgba(255, 255, 255, 1); */
   display: flex;
@@ -422,8 +426,8 @@ function commentReportSelect(value) {
 }
 
 .follow img {
-  width: calc(100vw * 14 / 375);
-  height: calc(100vw * 14 / 375);
+  width: calc(100vw * 24 / 375);
+  height: calc(100vw * 24 / 375);
 }
 
 .user-text {
@@ -431,27 +435,27 @@ function commentReportSelect(value) {
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* gap: calc(100vh * 1 / 812); */
+  gap: calc(100vh * 5 / 812);
 }
 
 .username {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
-  color: rgba(0, 0, 0, 1);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
+  color: rgba(255, 255, 255, 1);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .video-desc {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0px;
-  color: rgba(0, 0, 0, 1);
+  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -465,45 +469,48 @@ function commentReportSelect(value) {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: calc(100vh * 13 / 812);
+  gap: calc(100vh * 32 / 812);
   justify-content: end;
 }
 
 .action-box {
-  display: inline-flex;
-  width: fit-content;
-  justify-content: center;
-  width: calc(100vw * 30 / 375);
-  border-radius: calc(100vw * 12 / 375);
-  background: rgba(0, 0, 0, 1);
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
-  /* margin-top: calc(100vh * 13 / 812);
-  position: relative; */
+  position: relative;
+  width: calc(100vw * 100 / 375);
+  height: calc(100vh * 53 / 812);
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.action-butto-outbox {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(100vw * 20 / 375);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .action-button {
-  /* position: absolute;
-  top: calc(100vh * -13 / 812);
+  position: absolute;
   left: 50%;
-  transform: translate(-50%, 0); */
+  top: calc(100vh * -13 / 812);
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  gap: calc(100vw * 6 / 375);
-  padding: calc(100vh * 6 / 812) 0;
+  z-index: 1;
+  /* gap: calc(100vw * 6 / 375); */
 }
 
 .action-button img {
-  width: calc(100vw * 20 / 375);
-  height: calc(100vw * 20 / 375);
+  width: calc(100vw * 40 / 375);
+  height: calc(100vw * 40 / 375);
 }
 
 .action-button span {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 19.84 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
   color: rgb(255, 255, 255);
 }
 

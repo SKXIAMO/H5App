@@ -64,7 +64,7 @@ const router = createRouter({
     {
       path: '/setting',
       name: 'setting',
-      component: () => import('../views/mineViews/setting.vue'),
+      component: () => import('../views/mineViews/AccountSettingsView.vue'),
     },
     {
       path: '/edit',
@@ -74,17 +74,17 @@ const router = createRouter({
     {
       path: '/follow',
       name: 'follow',
-      component: () => import('../views/mineViews/follow.vue'),
+      component: () => import('../views/mineViews/FollowListView.vue'),
     },
     {
       path: '/fan',
       name: 'fan',
-      component: () => import('../views/mineViews/fan.vue'),
+      component: () => import('../views/mineViews/FanListView.vue'),
     },
     {
       path: '/block',
       name: 'block',
-      component: () => import('../views/mineViews/block.vue'),
+      component: () => import('../views/mineViews/BlockedUsersView.vue'),
     },
     {
       path: '/coins',

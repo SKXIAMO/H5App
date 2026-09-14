@@ -2,25 +2,9 @@
     {
         "msgId": "1",
         "chatId": "1",
-        "userId": "3",
-        "sendContent": "Hello, I am interested in your stuff.",
+        "userId": "6",
+        "sendContent": "Hello",
         "sendPicUrl": "",
-        "sendTime": "2026-03-08T11:30:29"
-    },
-    {
-        "msgId": "2",
-        "chatId": "1",
-        "userId": "1",
-        "sendContent": "OK, if you have anything you want to know, you can ask me",
-        "sendPicUrl": "",
-        "sendTime": "2026-03-08T11:33:29"
-    },
-    {
-        "msgId": "3",
-        "chatId": "1",
-        "userId": "1",
-        "sendContent": "",
-        "sendPicUrl": "https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/Fluce_pic8.jpg",
-        "sendTime": "2026-03-08T11:33:29"
+        "sendTime": "2026-09-13T19:39:12"
     }
 ]

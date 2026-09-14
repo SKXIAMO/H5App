@@ -1,23 +1,14 @@
 {
     "userId": "1",
-    "email": "test@gmail.com",
-    "password": "123456",
-    "avator": "https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/Fluce_user1.jpg",
-    "name": "Genji",
-    "about": "Nice to meet you all.",
+    "email": "barre@gmail.com",
+    "password": "12345678",
+    "avator": "https://huanniuchat.oss-accelerate.aliyuncs.com/template_development/Barre_user1.jpeg",
+    "name": "LioraVey",
+    "about": "Dribble through doubt, shoot for my goal.",
     "coins": 0,
-    "follow": [
-        "2",
-        "3"
-    ],
-    "fans": [
-        "2",
-        "3"
-    ],
-    "blockList": [
-        "2",
-        "3"
-    ],
+    "follow": [],
+    "fans": [],
+    "blockList": [],
     "postLikeIds": [],
     "isdelete": 0
 }

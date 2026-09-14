@@ -1,36 +1,41 @@
 <template>
-  <div class="comment">
-    <div class="comment-container">
-      <!-- 标题部分 -->
-      <div class="comment-header">
-        <!-- <div class="header-line" style="max-width: calc(100vw * 31 / 375);"></div> -->
-        <div class="header-title">Comments</div>
-        <!-- <div class="header-line"></div> -->
-      </div>
-
-      <!-- 评论列表 -->
-      <div v-if="comments.length > 0" class="comment-list" >
-        <div v-for="(item, index) in comments" :key="index" class="comment-item">
-          <div class="comment-top">
-            <div class="comment-user" @click="goOtherHome(item.userId)">
-              <div class="avatar">
-                <img :src="userStore.getUserById(item.userId).avator" alt="avatar" />
-              </div>
-              <div class="username">{{ userStore.getUserById(item.userId).name }}</div>
-            </div>
-            <img @click="openComment(item.userId)" v-if="item.userId !== currentUserStore.currentUser.userId" class="report-btn" src="@/assets/postpiccommentreport.png" alt="report" />
-          </div>
-          <div class="comment-text">{{ item.content }}</div>
+  <div class="comment-out">
+    <div class="comment-cancle" @click="closeComment"></div>
+    <div class="comment">
+      <div class="comment-container">
+        <!-- 标题部分 -->
+        <div class="comment-header">
+          <div class="header-line" style="max-width: calc(100vw * 31 / 375);"></div>
+          <div class="header-title">Comments</div>
+          <div class="header-line"></div>
         </div>
-      </div>
-      <Empty class="empty" v-else />
-    </div>
 
-    <!-- Bottom input box -->
-    <div class="bottom-input">
-      <input type="text" placeholder="Say something" v-model="inputText" />
-      <div class="send-btn" @click="sendComment" >
-        <img src="@/assets/commentsend.png" alt="send"/>
+        <!-- 评论列表 -->
+        <div v-if="comments.length > 0" class="comment-list" >
+          <div v-for="(item, index) in comments" :key="index" class="comment-item">
+            <div class="comment-top">
+              <div class="comment-user" @click="goOtherHome(item.userId)">
+                <div class="avatar">
+                  <img :src="userStore.getUserById(item.userId).avator" alt="avatar" />
+                </div>
+                <div class="username">{{ userStore.getUserById(item.userId).name }}</div>
+              </div>
+              <img @click="openComment(item.userId)" v-if="item.userId !== currentUserStore.currentUser.userId" class="report-btn" src="@/assets/postpiccommentreport.png" alt="report" />
+            </div>
+            <div class="comment-text">{{ item.content }}</div>
+          </div>
+        </div>
+        <Empty class="empty" v-else />
+      </div>
+
+      <!-- Bottom input box -->
+      <div class="bottom-input-out">
+        <div class="bottom-input">
+          <input type="text" placeholder="Say something" v-model="inputText" />
+          <div class="send-btn" @click="sendComment" >
+            <img src="@/assets/commentsend.png" alt="send"/>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -44,9 +49,10 @@ import { useCommentsStore } from '@/stores/comment'
 import { useUserStore } from '@/stores/user'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { usePostStore } from '@/stores/post'
-import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
 import { sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
+
+defineOptions({ name: 'CommentThreadView' })
 
 const props = defineProps({
   postId: {
@@ -103,7 +109,12 @@ function sendComment() {
   comments.value = commentsStore.getCommentsById(postId)
 }
 
-const emit = defineEmits(['openCommentReport'])
+const emit = defineEmits(['openCommentReport', 'close'])
+
+// 通知父组件关闭评论 Sheet
+function closeComment() {
+  emit('close')
+}
 
 // 打开帖子举报
 function openComment(userId) {
@@ -145,12 +156,30 @@ watch(
 </script>
 
 <style scoped>
-.comment {
+.comment-out {
   position: relative;
-  /* width: 100%; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: calc(100vh * 12 / 812);
+  align-items: flex-end;
+}
+
+.comment-cancle {
+  width: calc(100vw * 24 / 375);
+  height: calc(100vw * 24 / 375);
+  background-image: url('@/assets/comment-cancle.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: calc(100vw * 20 / 375);
+}
+
+.comment {
+  width: 100%;
   height: calc(100vh * 495 / 812);
-  border-radius: calc(100vh * 40 / 812) calc(100vh * 40 / 812) 0 0;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(48, 234, 255, 1) 99.84%);
+  border-radius: calc(100vh * 24 / 812) calc(100vh * 24 / 812) 0 0;
+  background: rgba(255, 255, 255, 1);
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
@@ -168,28 +197,22 @@ watch(
   min-height: 0;
   display: flex;
   align-items: center;
-  /* gap: calc(100vw * 6 / 375); */
-  padding: calc(100vh * 24 / 812) calc(100vw * 20 / 375) 0;
+  gap: calc(100vw * 8 / 375);
+  padding: calc(100vh * 32 / 812) calc(100vw * 20 / 375) 0;
 }
 
-/* .header-line {
+.header-line {
   flex: 1;
   height: 1px;
-  background-color: #fff;
-} */
+  background-color: rgba(0, 0, 0, 0.3);
+}
 
 .header-title {
-  padding: calc(100vh * 8 / 812) calc(100vw * 16 / 375);
-  border-radius: calc(100vw * 14 / 375);
-  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
-  border: calc(100vw * 1 / 375) solid rgba(48, 234, 255, 1);
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
-  letter-spacing: 0;
-  color: rgb(0, 0, 0);
-  white-space: nowrap;
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
+  color: rgba(0, 0, 0, 1);
 /* 
   background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%);
   -webkit-background-clip: text;
@@ -200,10 +223,10 @@ watch(
   flex: 1;
   /* height: 0; */
   min-height: 0;
-  padding: calc(100vh * 16 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 11 / 812);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -216,10 +239,10 @@ watch(
 .comment-item {
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 4 / 812);
-  padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375);
+  gap: calc(100vh * 8 / 812);
+  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375) calc(100vh * 13 / 812) calc(100vw * 16 / 375);
   border-radius: calc(100vw * 20 / 375);
-  background: rgb(0, 0, 0);
+  background: rgba(242, 242, 242, 1);
   backdrop-filter: blur(calc(100vw * 12 / 375));
 }
 
@@ -257,12 +280,12 @@ watch(
 }
 
 .username {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
+  color: rgba(0, 0, 0, 1);
   letter-spacing: 0;
-  color: rgb(255, 255, 255);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -274,27 +297,34 @@ watch(
 }
 
 .comment-text {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 14.88 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
-  color: rgb(255, 255, 255);
+  color: rgba(5, 5, 5, 1);
   text-align: left;
 }
 
-.bottom-input {
+.bottom-input-out {
   position: absolute;
-  left: calc(100vw * 20 / 375);
-  right: calc(100vw * 20 / 375);
-  bottom: calc(100vh * 29 / 812);
-  height: calc(100vh * 54 / 812);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh * 90 / 812);
+  background-color: #fff;
+  box-shadow:inset 0px calc(100vw * 1 / 375) 0px  rgba(0, 0, 0, 0.05);
+}
+
+.bottom-input {
+  height: calc(100vh * 46 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgb(255, 255, 255);
-  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1);
+  background: rgba(242, 242, 242, 1);
+  /* box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1); */
   display: flex;
   align-items: center;
-  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
+  margin: calc(100vh * 8 / 812) calc(100vw * 20 / 375) 0;
+  padding: 0 calc(100vw * 16 / 375);
   gap: calc(100vw * 10 / 375);
   box-sizing: border-box;
 }
@@ -307,18 +337,18 @@ watch(
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
   color: #000000;
 }
 
 .bottom-input input::placeholder {
-  color: rgba(153, 153, 153, 1);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .send-btn {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
   /* border-radius: 50%;
   background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
   /* cursor: pointer; */
@@ -330,8 +360,8 @@ watch(
 }
 
 .send-btn img {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
 }
 
 .empty {

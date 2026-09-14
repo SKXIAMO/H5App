@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <div class="page-top-background"></div>
+    <!-- <div class="page-top-background"></div> -->
     <div class="back">
-      <BackButton/>
+      <BackButton theme="black" />
     </div>
     <div class="page-content">
         <!-- 输入框 -->
@@ -41,7 +41,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useOtherStore } from '@/stores/other'
 import { usePostStore } from '@/stores/post'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import BackButton from '@/components/back.vue'
@@ -49,9 +48,6 @@ import { uploadSingleImage, uploadVideo } from '@/utils/ossUpload'
 import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 
 const text = ref('')
-const selectedTheme = ref(0)
-
-const otherStore =  useOtherStore()
 const postStore = usePostStore()
 const currentUserStore = useCurrentUserStore()
 
@@ -67,12 +63,10 @@ const handleAddVideo = async (event) => {
   // 使用 URL.createObjectURL(file) 创建临时 URL
   const videoUrl = URL.createObjectURL(file);
 
-  console.log(videoUrl);
   // 获取首帧封面
   videoFirstFrame.value = await getVideoInfo(videoUrl);
 
-  // 释放 URL，防止内存泄漏
-  // URL.revokeObjectURL(videoUrl); // 可在确认首帧生成后释放
+  URL.revokeObjectURL(videoUrl)
 };
 
 const handleRemoveVideo = () => {
@@ -162,7 +156,6 @@ const getVideoInfo = async (videoUrl) => {
       video.load();
       video.remove();
       video = null;
-      canvas = null;
 
       resolve(thumb);
     });
@@ -175,7 +168,7 @@ const getVideoInfo = async (videoUrl) => {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -194,7 +187,7 @@ const getVideoInfo = async (videoUrl) => {
 
 .back {
   min-width: 0;
-  padding-top: calc(100vh * 56 / 812);
+  padding-top: calc(100vh * 58 / 812);
   padding-left: calc(100vw * 20 / 375);
 }
 
@@ -214,13 +207,10 @@ const getVideoInfo = async (videoUrl) => {
   margin-top: calc(100vh * 18 / 812);
   margin-left: calc(100vw * 20 / 375);
   margin-right: calc(100vw * 20 / 375);
-  height: calc(100vh * 174 / 812);
-  border-radius: calc(100vw * 16 / 375);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
-  padding: calc(100vh * 16 / 812) calc(100vw * 16 / 375);
+  height: calc(100vh * 186 / 812);
+  border-radius: calc(100vw * 20 / 375);
+  background: rgba(242, 242, 242, 1);
+  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
 }
 
 .post-textarea {
@@ -229,36 +219,36 @@ const getVideoInfo = async (videoUrl) => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   background: transparent;
   color: #000000;
 }
 
 .post-textarea::placeholder {
-  color: rgba(153, 153, 153, 1);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .text-count {
   position: absolute;
-  right: calc(100vw * 10 / 375);
-  bottom: calc(100vh * 10 / 812);
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  right: calc(100vw * 12 / 375);
+  bottom: calc(100vh * 12 / 812);
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
-  color: rgba(153, 153, 153, 1);
+  line-height: calc(100vw * 16.71 / 375);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .theme-label {
   margin-top: calc(100vh * 24 / 812);
   margin-left: calc(100vw * 20 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 24.8 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 23.87 / 375);
   color: rgb(0, 0, 0);
   text-align: left;
 }
@@ -266,7 +256,9 @@ const getVideoInfo = async (videoUrl) => {
 .upload-list {
   display: flex;
   overflow-x: auto;
-  margin-top: calc(100vh * 20 / 812);
+  margin-top: calc(100vh * 14 / 812);
+  /* 为顶部向外偏移的删除按钮预留空间，避免被横向滚动容器裁剪 */
+  padding-top: calc(100vh * 4 / 812);
   padding-left: calc(100vw * 20 / 375);
   padding-right: calc(100vw * 20 / 375);
   /* gap: calc(100vw * 10 / 375);  */
@@ -283,11 +275,7 @@ const getVideoInfo = async (videoUrl) => {
   height: calc(100vw * 108 / 375);
   flex-shrink: 0;
   border-radius: calc(100vw * 20 / 375);
-  background: rgb(255, 255, 255);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  background: rgba(242, 242, 242, 1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -303,8 +291,8 @@ const getVideoInfo = async (videoUrl) => {
 }
 
 .upload-add {
-  width: calc(100vw * 30 / 375);
-  height: calc(100vw * 30 / 375);
+  width: calc(100vw * 40 / 375);
+  height: calc(100vw * 40 / 375);
   background-image: url('@/assets/uploadpic.png');
   background-size: cover;
   background-position: center;
@@ -314,10 +302,10 @@ const getVideoInfo = async (videoUrl) => {
 
 .upload-remove {
   position: absolute;
-  top: calc(100vh * 6 / 812);
-  right: calc(100vw * 6 / 375);
-  width: calc(100vw * 15 / 375);
-  height: calc(100vw * 15 / 375);
+  top: calc(100vh * -4 / 812);
+  right: calc(100vw * -4 / 375);
+  width: calc(100vw * 24 / 375);
+  height: calc(100vw * 24 / 375);
   background-image: url('@/assets/uploadremove.png');
   background-size: cover;
   background-position: center;
@@ -327,20 +315,17 @@ const getVideoInfo = async (videoUrl) => {
 
 /* Release Button Styles */
 .release-button {
-  width: calc(100vw * 198 / 375);
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
+  border-radius: calc(100vw * 100 / 375);
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: calc(100vw * 18 / 375);
+  font-weight: 600;
   color: #fff;
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#000, #000) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: calc(100vh * 123 / 812) auto calc(100vh * 34 / 812) auto;
+  margin: calc(100vh * 229 / 812) auto calc(100vh * 34 / 812) auto;
 }
 </style>

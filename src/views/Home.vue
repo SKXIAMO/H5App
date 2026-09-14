@@ -4,13 +4,14 @@
 
     <div class="email-box">
       <div class="email">
-        gaoyilu0601@icloud.com
+        test@icloud.com
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+defineOptions({ name: 'HomeFeedView' })
 </script>
 
 <style scoped>

@@ -8,12 +8,12 @@
     <div class="page-content">
       <div class="ai-user-container"></div>
       <div class="top-section">
-        <BackButton />
+        <BackButton theme="black" />
       </div>
       <div class="bottom-scroll">
         <div class="bottom-first">
           <!-- <div class="ai-bgc-icon"></div> -->
-          <div class="ai-title-inter">
+          <!-- <div class="ai-title-inter">
             <div class="ai-title-inter-one">
               AI Yoga<br>
               Improvement<br>
@@ -22,13 +22,13 @@
             <div class="ai-title-inter-two">
               Give it a try!
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="bottom-section">
           <div class="bottom-container">
             <div class="bottom-top">
-              <!-- <div class="bottom-title">Tenao AI</div> -->
-              <div class="bottom-text">Hello! I’m Tenao AI, your yoga companion, here to guide you on your journey toward mind-body balance and strength. Whether you enjoy gentle flows, challenging poses, or deep stretches, I’m here to share tips, plan sessions, and keep your yoga practice fun and motivating. Ready to relax, find your center, and grow stronger in both body and mind? Let’s move, breathe, and transform together with every practice!</div>
+              <div class="bottom-title">Barre AI</div>
+              <div class="bottom-text">Hi! I’m barre, your friendly AI companion here to chat about all your passions and interests. Whether you love fashion, art, music, or anything in between, I’m here to explore ideas, share tips, and keep the conversation fun and inspiring. Ready to dive into your favorite hobbies together? Let’s talk and discover something new every day!</div>
             </div>
           <!-- 购买 -->
           <div class="purchase-container" @click="handlePurchaseClick">
@@ -37,6 +37,7 @@
               <div class="purchase-count">x 200</div>
             </div>
             <div class="chat-box">Chat</div>
+            <div class="ai-chat-arr"></div>
           </div>
           </div>
         </div>
@@ -97,7 +98,7 @@ function handleRechargeEvent(value) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -124,7 +125,7 @@ function handleRechargeEvent(value) {
 }
 
 .top-section {
-  margin-top: calc(100vh * 56 / 812);
+  margin-top: calc(100vh * 58 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
 }
@@ -138,23 +139,21 @@ function handleRechargeEvent(value) {
 }
 
 .bottom-first {
-  position: relative;
-  margin: calc(100vh * 9 / 812) calc(100vw * 20 / 375) calc(100vh * 82 / 812);
-  display: flex;
-  flex-direction: column;
+  flex: 1;
 }
 
 .ai-user-container {
   position: absolute;
-  top: calc(100vh * 56 / 812);
-  right: 0;
-  width: calc(100vw * 338 / 375);
-  height: calc(100vh * 343 / 812);
-  background-image: url('@/assets/aiuserpic.png');
-  background-size: cover; /* 等比缩放覆盖 */
-  background-position: center; /* 居中显示 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1125 / 1554;
+  background-image: url('@/assets/ai-detils-top-bgi.png');
+  background-size: 100% 100%;
+  background-position: top center;
   background-repeat: no-repeat;
   z-index: 0;
+  pointer-events: none;
 }
 
 /* .ai-bgc-icon {
@@ -199,7 +198,7 @@ function handleRechargeEvent(value) {
 }
 
 .bottom-section {
-  flex: 1;
+  /* flex: 1; */
   min-height: 0;
   display: flex;
   justify-content: flex-start;
@@ -207,13 +206,13 @@ function handleRechargeEvent(value) {
 }
 
 .bottom-container { 
-  flex: 1;
+  /* flex: 1; */
   min-height: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 24 / 812);
+  gap: calc(100vh * 113 / 812);
   box-sizing: border-box;
 }
 
@@ -223,57 +222,49 @@ function handleRechargeEvent(value) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0 calc(100vw * 20 / 375);
-  border-radius: calc(100vw * 20 / 375);
-  background: rgba(255, 255, 255);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
+  margin: 0 calc(100vw * 68 / 375);
+  gap: calc(100vh * 21 / 812);
 }
-/* 
+
+
 .bottom-title {
-  font-family: 'SourceHanSansBold', sans-serif;
-  font-size: calc(100vw * 25 / 375);
+  font-family: 'SFProDisplayBold', sans-serif;
+  font-size: calc(100vw * 20 / 375);
   font-weight: 700;
-  line-height: calc(100vw * 36.2 / 375);
+  line-height: calc(100vw * 34.75 / 375);
   letter-spacing: 0;
-  color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 1);
   text-align: center;
-} */
+}
 
 .bottom-text {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
-  font-size: calc(100vw * 14 / 375);
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 30 / 375);
+  line-height: calc(100vw * 19.09 / 375);
   letter-spacing: 0;
-  color: rgba(94, 69, 58, 1);
+  color: rgba(0, 0, 0, 0.6);
   text-align: center;
   overflow-y: auto;
 }
 
 .purchase-container {
-  margin-bottom: calc(100vh * 53 / 812);
-  width: calc(100vw * 240 / 375);
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#000, #000) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  margin-bottom: calc(100vh * 62 / 812);
+  width: calc(100vw * 233 / 375);
+  height: calc(100vh * 56 / 812);
+  border-radius: calc(100vw * 400 / 375);
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: calc(100vw * 18 / 375);
+  gap: calc(100vw * 10 / 375);
   box-sizing: border-box;
 }
 
 .purchase-info {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 3 / 375);
+  gap: calc(100vw * 10 / 375);
 }
 
 .purchase-icon {
@@ -286,10 +277,10 @@ function handleRechargeEvent(value) {
 }
 
 .purchase-count {
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 24.8 / 375);
+  font-family: 'SFProDisplaySemibold', sans-serif;
+  font-size: calc(100vw * 18 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 21.48 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
 }
@@ -302,10 +293,10 @@ function handleRechargeEvent(value) {
   display: flex;
   justify-content: center;
   align-items: center; */
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 19.84 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
   letter-spacing: 0;
   color: rgba(255, 255, 255, 1);
   box-sizing: border-box;
@@ -322,5 +313,14 @@ function handleRechargeEvent(value) {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+.ai-chat-arr {
+  width: calc(100vw * 24 / 375);
+  height: calc(100vh * 24 / 812);
+  background-image: url('@/assets/ai-chat-arr.png'); /* replace with your local image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 </style>

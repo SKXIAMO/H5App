@@ -431,6 +431,6 @@
 </style>
 
 <script setup>
-const appName = 'Tenao'
+defineOptions({ name: 'PrivacyNoticeView' })
+const appName = 'Barre'
 </script>
-

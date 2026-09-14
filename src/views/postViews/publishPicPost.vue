@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <div class="page-top-background"></div>
+    <!-- <div class="page-top-background"></div> -->
     <div class="back">
-      <BackButton/>
+      <BackButton theme="black" />
     </div>
     <div class="page-content">
         <!-- 输入框 -->
@@ -137,7 +137,7 @@ const handleRelease = async () => {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -155,7 +155,7 @@ const handleRelease = async () => {
 }
 
 .back {
-  padding-top: calc(100vh * 56 / 812);
+  padding-top: calc(100vh * 58 / 812);
   padding-left: calc(100vw * 20 / 375);
 }
 
@@ -169,16 +169,13 @@ const handleRelease = async () => {
 
 .input-box {
   position: relative;
-  margin-top: calc(100vh * 16 / 812);
+  margin-top: calc(100vh * 18 / 812);
   margin-left: calc(100vw * 20 / 375);
   margin-right: calc(100vw * 20 / 375);
-  height: calc(100vh * 174 / 812);
-  border-radius: calc(100vw * 16 / 375);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
-  padding: calc(100vh * 16 / 812) calc(100vw * 16 / 375);
+  height: calc(100vh * 186 / 812);
+  border-radius: calc(100vw * 20 / 375);
+  background: rgba(242, 242, 242, 1);
+  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375);
   box-sizing: border-box;
 }
 
@@ -188,36 +185,36 @@ const handleRelease = async () => {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   background: transparent;
   color: #000000;
 }
 
 .post-textarea::placeholder {
-  color: rgba(153, 153, 153, 1);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .text-count {
   position: absolute;
-  right: calc(100vw * 13 / 375);
-  bottom: calc(100vh * 16 / 812);
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  right: calc(100vw * 12 / 375);
+  bottom: calc(100vh * 12 / 812);
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
-  color: rgba(153, 153, 153, 1);
+  line-height: calc(100vw * 16.71 / 375);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .theme-label {
   margin-top: calc(100vh * 24 / 812);
   margin-left: calc(100vw * 20 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 24.8 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 23.87 / 375);
   color: rgba(0, 0, 0, 1);
   text-align: left;
 }
@@ -225,44 +222,38 @@ const handleRelease = async () => {
 .theme-list {
   display: flex;
   justify-content: flex-start;
-  gap: calc(100vw * 11 / 375);
+  gap: calc(100vw * 8 / 375);
   margin-left: calc(100vw * 20 / 375);
-  margin-top: calc(100vh * 20 / 812);
+  margin-top: calc(100vh * 22 / 812);
 }
 
 .theme-item {
-  width: calc(100vw * 94 / 375);
-  height: calc(100vh * 44 / 812);
+  width: calc(100vw * 107 / 375);
+  height: calc(100vh * 40 / 812);
   border-radius: calc(100vw * 20 / 375);
   background: #fff;
-  border: calc(100vw * 1 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 18 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 22.32 / 375);
+  line-height: calc(100vw * 26.06 / 375);
   letter-spacing: 0;
-  color: rgba(153, 153, 153, 1);
+  color: rgb(0, 0, 0, 0.6);
   cursor: pointer;
 }
 
 .theme-item.selected {
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-weight: 700;
-  border: calc(100vw * 1 / 375) solid rgba(255, 255, 255, 1);
-  background: rgba(252, 71, 178, 1);
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
   color: rgb(255, 255, 255);
 }
 
 .upload-list {
   display: flex;
   overflow-x: auto;
-  margin-top: calc(100vh * 20 / 812);
+  margin-top: calc(100vh * 10 / 812);
+  padding-top: calc(100vw * 4 / 375);
   padding-left: calc(100vw * 20 / 375);
   padding-right: calc(100vw * 20 / 375);
   gap: calc(100vw * 5 / 375); /* 间距10，当有图片时 */
@@ -279,11 +270,7 @@ const handleRelease = async () => {
   height: calc(100vw * 108 / 375);
   flex-shrink: 0;
   border-radius: calc(100vw * 20 / 375);
-  background: rgb(255, 255, 255);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  background: rgba(242, 242, 242, 1);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -301,8 +288,8 @@ const handleRelease = async () => {
 }
 
 .upload-add {
-  width: calc(100vw * 30 / 375);
-  height: calc(100vw * 30 / 375);
+  width: calc(100vw * 40 / 375);
+  height: calc(100vw * 40 / 375);
   background-image: url('@/assets/uploadpic.png');
   background-size: cover;
   background-position: center;
@@ -312,10 +299,10 @@ const handleRelease = async () => {
 
 .upload-remove {
   position: absolute;
-  top: calc(100vh * 6 / 812);
-  right: calc(100vw * 6 / 375);
-  width: calc(100vw * 15 / 375);
-  height: calc(100vw * 15 / 375);
+  top: calc(100vh * -4 / 812);
+  right: calc(100vw * -4 / 375);
+  width: calc(100vw * 24 / 375);
+  height: calc(100vw * 24 / 375);
   background-image: url('@/assets/uploadremove.png');
   background-size: cover;
   background-position: center;
@@ -325,20 +312,18 @@ const handleRelease = async () => {
 
 /* Release Button Styles */
 .release-button {
-  width: calc(100vw * 198 / 375);
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
+  border-radius: calc(100vw * 100 / 375);
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
+  font-family: 'SFProDisplayBold', sans-serif;
+  font-size: calc(100vw * 18 / 375);
   font-weight: 700;
+  line-height: calc(100vw * 21.48 / 375);
   color: #fff;
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#000, #000) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: calc(100vh * 123 / 812) auto calc(100vh * 34 / 812) auto;
+  margin: calc(100vh * 119 / 812) auto calc(100vh * 34 / 812) auto;
 }
 </style>

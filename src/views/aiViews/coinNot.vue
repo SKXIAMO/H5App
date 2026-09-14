@@ -40,12 +40,12 @@ function handleRecharge() {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: calc(100vh * 23 / 812);
+  gap: calc(100vh * 20 / 812);
 } 
 
 .coinnot-bgc {
-  width: calc(100vw * 269 / 375);
-  height: calc(100vh * 295 / 812);
+  width: calc(100vw * 280 / 375);
+  height: calc(100vh * 190 / 812);
   background-image: url('@/assets/coinnot.png');
   background-size: cover;
   background-position: center;
@@ -54,19 +54,14 @@ function handleRecharge() {
 }
 
 .recharge-button {
-  position: absolute;
-  bottom: calc(100vh * 30 / 812);
-  width: calc(100vw * 203 / 375);
-  height: calc(100vh * 53 / 812);
-  border-radius: calc(100vw * 40 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
-  font-size: calc(100vw * 20 / 375);
+  width: calc(100vw * 190 / 375);
+  height: calc(100vh * 54 / 812);
+  border-radius: calc(100vw * 100 / 375);
+  font-family: 'SFProDisplayBold', sans-serif;
+  font-size: calc(100vw * 18 / 375);
   font-weight: 700;
   color: #fff;
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#000, #000) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
+  background: linear-gradient(135deg, rgba(255, 137, 177, 1) 0%, rgba(245, 91, 250, 1) 49.99%, rgba(46, 171, 255, 1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -4,13 +4,13 @@ export function sendUsersToIOS(users) {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.userListUpdate
+            window.webkit.messageHandlers.playerLedgerSync
         ) {
             // 解开 Vue Proxy，保证纯数组对象
             const plainUsers = JSON.parse(JSON.stringify(users))
-            window.webkit.messageHandlers.userListUpdate.postMessage({ users: plainUsers })
+            window.webkit.messageHandlers.playerLedgerSync.postMessage({ users: plainUsers })
         } else {
-            console.warn('iOS handler userListUpdate not found')
+            console.warn('iOS handler playerLedgerSync not found')
         }
     } catch (e) {
         console.error('sendUsersToIOS error', e)
@@ -28,7 +28,6 @@ export function sendPostsToIOS(posts) {
             // 解开 Vue Proxy，保证纯数组对象
             const plainPosts = JSON.parse(JSON.stringify(posts))
             window.webkit.messageHandlers.postsUpdate.postMessage({ posts: plainPosts })
-            window.webkit.messageHandlers.postsUpdate.postMessage(posts)
         } else {
             console.warn('iOS handler postsUpdate not found')
         }
@@ -100,11 +99,11 @@ export function sendLogoutToIOS(isLogout) {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.logout
+            window.webkit.messageHandlers.accountSessionEnded
         ) {
-            window.webkit.messageHandlers.logout.postMessage({ isLogout: isLogout })
+            window.webkit.messageHandlers.accountSessionEnded.postMessage({ isDelete: isLogout })
         } else {
-            console.warn('iOS handler logout not found')
+            console.warn('iOS handler accountSessionEnded not found')
         }
     } catch (e) {
         console.error('sendLogoutToIOS error', e)
@@ -149,11 +148,11 @@ export function sendShowLoadingToIOS(isShow) {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.showLoading
+            window.webkit.messageHandlers.surfaceActivityState
         ) {
-            window.webkit.messageHandlers.showLoading.postMessage({ isShow: isShow })
+            window.webkit.messageHandlers.surfaceActivityState.postMessage({ isShow: isShow })
         } else {
-            console.warn('iOS handler showLoading not found')
+            console.warn('iOS handler surfaceActivityState not found')
         }
     } catch (e) {
         console.error('sendShowLoadingToIOS error', e)
@@ -166,11 +165,11 @@ export function sendShowToastToIOS(toastMsg) {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.showToast
+            window.webkit.messageHandlers.surfaceNotice
         ) {
-            window.webkit.messageHandlers.showToast.postMessage({ toastMsg: toastMsg })
+            window.webkit.messageHandlers.surfaceNotice.postMessage({ toastMsg: toastMsg })
         } else {
-            console.warn('iOS handler showToast not found')
+            console.warn('iOS handler surfaceNotice not found')
         }
     } catch (e) {
         console.error('sendShowToastToIOS error', e)
@@ -200,11 +199,11 @@ export function sendNewUserDataToIOS(newUserData) {
         if (
             window.webkit &&
             window.webkit.messageHandlers &&
-            window.webkit.messageHandlers.newUserData
+            window.webkit.messageHandlers.profileDraftReady
         ) {
-            window.webkit.messageHandlers.newUserData.postMessage({ newUserData: newUserData })
+            window.webkit.messageHandlers.profileDraftReady.postMessage({ newUserData: newUserData })
         } else {
-            console.warn('iOS handler newUserData not found')
+            console.warn('iOS handler profileDraftReady not found')
         }
     } catch (e) {
         console.error('sendNewUserDataToIOS error', e)

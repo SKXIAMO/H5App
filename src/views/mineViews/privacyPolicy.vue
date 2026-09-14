@@ -3,42 +3,42 @@
 
     <!-- header -->
     <div class="header">
-      <BackButton />
+      <BackButton theme="black" />
       <div class="title">Privacy Policy</div>
     </div>
 
     <!-- content -->
     <div class="agreement-content">
 
-      <h1>Tenao Privacy Policy</h1>
+      <h1>Barre Privacy Policy</h1>
       <p class="update-time">Last updated: July 23, 2026</p>
 
       <p>
-        Welcome to <strong>Tenao</strong>, a community for yoga enthusiasts to connect, share their practice, explore yoga videos, and receive AI-powered suggestions. This Privacy Policy explains what information we collect, how we use and protect it, and the choices available to you when you use Tenao.
+        Welcome to <strong>Barre</strong>, a basketball community where players can share their progress, explore skill videos, and receive AI-powered feedback. This Privacy Policy explains what information we collect, how we use and protect it, and the choices available to you when you use Barre.
       </p>
 
       <h2>1. Information We Collect</h2>
 
-      <p>We may collect the following information when you use Tenao:</p>
+      <p>We may collect the following information when you use Barre:</p>
 
       <ul>
         <li><strong>Account information:</strong> your username, profile photo, account identifier, and other details you choose to provide.</li>
-        <li><strong>User content:</strong> yoga posts, photos, videos, captions, comments, likes, messages, and other content you create or share.</li>
-        <li><strong>AI feature data:</strong> photos, videos, prompts, and related information you voluntarily submit to receive yoga pose or practice suggestions.</li>
+        <li><strong>User content:</strong> basketball posts, photos, videos, captions, comments, likes, messages, and other content you create or share.</li>
+        <li><strong>AI feature data:</strong> photos, videos, prompts, and related information you voluntarily submit to receive basketball skill or training feedback.</li>
         <li><strong>Usage information:</strong> the features you use, content you view, searches, interactions, and activity within the community.</li>
         <li><strong>Device and technical information:</strong> device model, operating system, app version, language, IP address, and diagnostic or log information.</li>
-        <li><strong>Transaction information:</strong> records relating to purchases, virtual items, or paid features. Payment credentials may be processed by the applicable app store or payment provider and are not stored directly by Tenao.</li>
+        <li><strong>Transaction information:</strong> records relating to purchases, virtual items, or paid features. Payment credentials may be processed by the applicable app store or payment provider and are not stored directly by Barre.</li>
       </ul>
 
       <h2>2. How We Use Your Information</h2>
 
-      <p>We use information to operate and improve Tenao, including to:</p>
+      <p>We use information to operate and improve Barre, including to:</p>
 
       <ul>
         <li>Create and manage your account and provide the features you request.</li>
         <li>Publish your posts and enable likes, comments, messages, follows, sharing, and other community interactions.</li>
-        <li>Process content submitted to AI features and return personalized yoga suggestions.</li>
-        <li>Recommend relevant yoga videos, posts, and community content.</li>
+        <li>Process content submitted to AI features and return personalized basketball feedback.</li>
+        <li>Recommend relevant basketball videos, posts, and community content.</li>
         <li>Process purchases, maintain transaction records, and provide purchased features or virtual items.</li>
         <li>Detect fraud, abuse, harmful content, and violations of our User Agreement.</li>
         <li>Maintain app performance, troubleshoot issues, and develop new features.</li>
@@ -48,7 +48,7 @@
       <h2>3. Public Content and Community Activity</h2>
 
       <p>
-        Content you post publicly, along with your profile information and community interactions, may be visible to other Tenao users. Please avoid sharing personal or sensitive information that you do not want others to see. Private messages are intended only for their participants, subject to necessary safety, security, and legal processing.
+        Content you post publicly, along with your profile information and community interactions, may be visible to other Barre users. Please avoid sharing personal or sensitive information that you do not want others to see. Private messages are intended only for their participants, subject to necessary safety, security, and legal processing.
       </p>
 
       <h2>4. How We Share Information</h2>
@@ -59,20 +59,20 @@
         <li>With service providers that support hosting, storage, content delivery, AI processing, analytics, customer support, security, and payments.</li>
         <li>When you direct us to share information or use a feature that requires sharing.</li>
         <li>To comply with applicable law, legal process, or valid government requests.</li>
-        <li>To protect the rights, safety, and integrity of Tenao, our users, or others, and to prevent fraud or abuse.</li>
+        <li>To protect the rights, safety, and integrity of Barre, our users, or others, and to prevent fraud or abuse.</li>
         <li>In connection with a merger, acquisition, financing, reorganization, or transfer of all or part of our business, subject to appropriate safeguards.</li>
       </ul>
 
       <h2>5. AI-Powered Features</h2>
 
       <p>
-        When you use an AI-powered feature, the content you submit is processed to generate suggestions about yoga poses, form, or practice. AI results may be incomplete or inaccurate and should not be treated as medical advice, diagnosis, or a substitute for guidance from a qualified professional. Do not submit content containing another person unless you have their permission.
+        When you use an AI-powered feature, the content you submit is processed to generate suggestions about basketball skills, form, or training. AI results may be incomplete or inaccurate and should not be treated as medical advice, diagnosis, or a substitute for guidance from a qualified professional. Do not submit content containing another person unless you have their permission.
       </p>
 
       <h2>6. Data Retention</h2>
 
       <p>
-        We retain information for as long as reasonably necessary to provide Tenao, maintain security, resolve disputes, enforce our agreements, and comply with legal obligations. Retention periods vary depending on the type of information and why it was collected. Some information may remain in backups for a limited period after deletion.
+        We retain information for as long as reasonably necessary to provide Barre, maintain security, resolve disputes, enforce our agreements, and comply with legal obligations. Retention periods vary depending on the type of information and why it was collected. Some information may remain in backups for a limited period after deletion.
       </p>
 
       <h2>7. Data Security</h2>
@@ -94,13 +94,13 @@
       </ul>
 
       <p>
-        You may submit a privacy request through the support channel available in Tenao. We may need to verify your identity before completing a request.
+        You may submit a privacy request through the support channel available in Barre. We may need to verify your identity before completing a request.
       </p>
 
       <h2>9. Children’s Privacy</h2>
 
       <p>
-        Tenao is not directed to children under the minimum age required by applicable law. We do not knowingly collect personal information from children without legally valid authorization. If you believe a child has provided personal information improperly, please contact us through the in-app support channel.
+        Barre is not directed to children under the minimum age required by applicable law. We do not knowingly collect personal information from children without legally valid authorization. If you believe a child has provided personal information improperly, please contact us through the in-app support channel.
       </p>
 
       <h2>10. International Processing</h2>
@@ -112,13 +112,13 @@
       <h2>11. Changes to This Policy</h2>
 
       <p>
-        We may update this Privacy Policy to reflect changes to Tenao, our practices, or applicable law. We will provide notice within the app or through another appropriate method when material changes are made. The “Last updated” date shows when this Policy was most recently revised.
+        We may update this Privacy Policy to reflect changes to Barre, our practices, or applicable law. We will provide notice within the app or through another appropriate method when material changes are made. The “Last updated” date shows when this Policy was most recently revised.
       </p>
 
       <h2>12. Contact Us</h2>
 
       <p>
-        If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us through the support channel available within the Tenao app.
+        If you have questions, concerns, or requests regarding this Privacy Policy or your personal information, please contact us through the support channel available within the Barre app.
       </p>
 
     </div>
@@ -155,7 +155,7 @@ p, h1 {
 }
 
 .title{
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplayBold', sans-serif;
   font-size: calc(100vw * 20 / 375);
   font-weight: 700;
   line-height: calc(100vw * 24.8 / 375);
@@ -174,7 +174,7 @@ p, h1 {
 
 /* 标题 */
 .agreement-content h1{
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplayBold', sans-serif;
   font-size:calc(100vw * 16 / 375);
   margin-bottom:calc(100vh * 10 / 812);
 }
@@ -182,14 +182,14 @@ p, h1 {
 /* 更新时间 */
 .update-time{
   opacity:0.7;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size:calc(100vw * 12 / 375);
   margin-bottom:calc(100vh * 20 / 812);
 }
 
 /* 小标题 */
 .agreement-content h2{
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size:calc(100vw * 18 / 375);
   margin-top:calc(100vh * 24 / 812);
   margin-bottom:calc(100vh * 10 / 812);
@@ -198,7 +198,7 @@ p, h1 {
 
 /* 正文 */
 .agreement-content p{
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
   line-height:1.7;
   margin-bottom:calc(100vh * 10 / 812);
@@ -211,7 +211,7 @@ p, h1 {
 
 .agreement-content li{
   margin-bottom:calc(100vh * 6 / 812);
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size:calc(100vw * 14 / 375);
 }
 </style>

@@ -2,25 +2,24 @@
   <div class="page">
     <!-- <div class="aiusermodel"></div>
     <div class="aichatmodel"></div> -->
-    <div class="page-top-background"></div>
-    <div class="page-top-aiuser"></div>
+    <!-- <div class="page-top-background"></div>
+    <div class="page-top-aiuser"></div> -->
     <div class="page-container">
       <!-- top -->
       <div class="top-bgc">
         <div class="top-section">
-          <BackButton />
+          <BackButton theme="black" />
+          <p>Barre AI</p>
         </div>
         <div class="bottom-first">
-          <!-- <div class="ai-bgc-icon"></div> -->
-          <div class="ai-title-inter">
-            <div class="ai-title-inter-one">
-              AI Yoga<br>
-              Improvement<br>
-              Guide
-            </div>
-            <div class="ai-title-inter-two">
-              Give it a try!
-            </div>
+          <div
+            v-for="(item, index) in promptList"
+            :key="index"
+            class="prompt-item"
+            @click="handlePromptClick(item)"
+          >
+            <span class="prompt-text">{{ item }}</span>
+            <div class="prompt-icon"></div>
           </div>
         </div>
       </div>
@@ -52,10 +51,12 @@
     </div>
     <!-- 底部输入框 -->
     <!-- bottom input box -->
-    <div class="bottom-input">
-      <input type="text" placeholder="Say something" v-model="chatInput" />
-      <div class="send-icon" @click="sendMessage" >
-        <img src="@/assets/commentsend.png" alt="Send" />
+    <div class="bottom-input-outbox">
+      <div class="bottom-input">
+        <input type="text" placeholder="Say something" v-model="chatInput" />
+        <div class="send-icon" @click="sendMessage" >
+          <img src="@/assets/commentsend.png" alt="Send" />
+        </div>
       </div>
     </div>
   </div>
@@ -69,6 +70,8 @@ import { sendShowLoadingToIOS, sendShowToastToIOS } from '@/utils/iosBridge'
 import { aiChat } from '@/utils/ai'
 import { decryptAES } from '@/utils/aes'
 
+defineOptions({ name: 'AiChatView' })
+
 const formatTime12 = (date) => {
   let hours = date.getHours()
   let minutes = date.getMinutes()
@@ -77,10 +80,10 @@ const formatTime12 = (date) => {
   return `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}`
 }
 
-const messages = ref([
-  'How to avoid smudging the eye makeup?',
-  'Which items are essential for a light makeup?',
-  'How to make the foundation last longer for oily skin?'
+const promptList = ref([
+  "I'm feeling great today.",
+  'Do you like reading?',
+  'Can you comfort me?'
 ])
 
 const currentUserStore = useCurrentUserStore()
@@ -99,7 +102,7 @@ const getFirstTime = () => {
 }
 
 const bottomItems = ref([
-  { sendId: '0', time: getFirstTime(), message: 'Hi there! I\'m Tenao, your AI buddy for all things fun and creative.'},
+  { sendId: '0', time: getFirstTime(), message: "Hi there! I'm Barre, your AI buddy for all things fun and creative."},
 ])
 
 async function handleMessageClick(message) {
@@ -134,10 +137,14 @@ async function handleMessageClick(message) {
       sendShowToastToIOS(res.data.message)
     }
 
-  } catch (err) {
+  } catch {
     sendShowLoadingToIOS(false)
     sendShowToastToIOS('Network error')
   }
+}
+
+async function handlePromptClick(message) {
+  await handleMessageClick(message)
 }
 
 const chatInput = ref('')
@@ -179,7 +186,7 @@ async function sendMessage() {
       sendShowToastToIOS(res.data.message)
     }
 
-  } catch (err) {
+  } catch {
     sendShowLoadingToIOS(false)
     sendShowToastToIOS('Network error')
   }
@@ -191,7 +198,7 @@ async function sendMessage() {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -232,20 +239,53 @@ async function sendMessage() {
 
 .top-bgc {
   width: 100%;
-  /* height: calc(100vh * 281 / 812);
+  height: calc(100vh * 281 / 812);
   background-image: url('@/assets/aichattop.png');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .bottom-first {
   position: relative;
-  margin: calc(100vh * 9 / 812) calc(100vw * 20 / 375) calc(100vh * 39 / 812);
+  margin: calc(100vh * 0 / 812) calc(100vw * 20 / 375) calc(100vh * 24 / 812);
   display: flex;
   flex-direction: column;
+  gap: calc(100vh * 8 / 812);
+  z-index: 3;
+}
+
+.prompt-item {
+  width: calc(100vw * 201 / 375);
+  height: calc(100vh * 36 / 812);
+  padding: 0 calc(100vw * 12 / 375);
+  border-radius: calc(100vw * 32 / 375);
+  background: rgba(13, 8, 13, 0.2);
+  backdrop-filter: blur(calc(100vw * 8 / 375));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.prompt-text {
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
+  line-height: calc(100vw * 16.71 / 375);
+  color: #fff;
+}
+
+.prompt-icon {
+  width: calc(100vw * 16 / 375);
+  height: calc(100vw * 16 / 375);
+  flex-shrink: 0;
+  background-image: url('@/assets/ai-chat-list-icon.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .ai-user-container {
@@ -332,28 +372,20 @@ async function sendMessage() {
 
 .top-section {
   position: relative;
-  margin-top: calc(100vh * 56 / 812);
+  margin-top: calc(100vh * 58 / 812);
   margin-left: calc(100vw * 20 / 375);
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: calc(100vh * 14 / 812);
+  gap: calc(100vh * 12 / 812);
 }
 
 .top-section p {
-  font-family: 'PangMenZhengDaoBiaoTiTiMianFeiBan', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 400;
-  /* color: #fff; */
-  background: linear-gradient(
-    141.29deg,
-    rgba(255, 110, 50, 1) 0%,
-    rgba(253, 61, 104, 1) 44.94%,
-    rgba(251, 226, 100, 1) 100%
-  );
-  -webkit-background-clip: text; /* 仅对文本裁剪背景 */
-  -webkit-text-fill-color: transparent; /* 文字透明，让背景显示 */
-  background-clip: text; /* 标准属性，兼容非 webkit 浏览器 */
+  font-weight: 600;
+  color: #000;
+  line-height: calc(100vw * 23.78 / 375);
   margin: 0;
 }
 
@@ -418,9 +450,6 @@ async function sendMessage() {
   display: flex;
   flex-direction: column;
   min-height: 0; /* ⚡ 关键 */
-  border-radius: calc(100vw * 20 / 375) calc(100vw * 20 / 375) 0px 0px;
-  background: rgba(255, 255, 255, 1);
-  backdrop-filter: blur(calc(100vw * 12 / 375));
 }
 
 .bottom-scroll {
@@ -430,7 +459,7 @@ async function sendMessage() {
   padding: calc(100vh * 20 / 812) 0 calc(100vh * 90 / 812) 0;
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 20 / 812);
+  gap: calc(100vh * 16 / 812);
 }
 
 /* Optional: hide scrollbar */
@@ -451,17 +480,17 @@ async function sendMessage() {
 .chat-choose {
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 12 / 812);
+  gap: calc(100vh * 13 / 812);
 }
 
 .chat-time {
   text-align: center;
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 19.84 / 375);
+  line-height: calc(100vw * 19.09 / 375);
   letter-spacing: 0;
-  color: rgba(51, 51, 51, 1);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .chat-content {
@@ -469,7 +498,7 @@ async function sendMessage() {
   align-items: flex-start;
   gap: calc(100vw * 12 / 375);
   margin-left: calc(100vw * 20 / 375);
-  margin-right: calc(100vw * 37 / 375);
+  margin-right: calc(100vw * 46 / 375);
 }
 
 .chat-content-rigth {
@@ -477,7 +506,7 @@ async function sendMessage() {
   align-items: flex-start;
   justify-content: end;
   gap: calc(100vw * 12 / 375);
-  margin-left: calc(100vw * 37 / 375);
+  margin-left: calc(100vw * 46 / 375);
   margin-right: calc(100vw * 20 / 375);
 }
 
@@ -489,7 +518,7 @@ async function sendMessage() {
 
 .chat-avatar-rigth-border-box {
   flex-shrink: 0;
-  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
+  /* background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%); */
   border-radius: 50%; /* fully circular */
   display: flex;
   justify-content: center;
@@ -499,7 +528,7 @@ async function sendMessage() {
   width: calc(100vw * 44 / 375);
   height: calc(100vw * 44 / 375);
   border-radius: 50%; /* fully circular */
-  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
+  /* padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -518,49 +547,59 @@ async function sendMessage() {
 }
 
 .chat-message {
-  border-radius: 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(165, 237, 57, 1);
+  border-radius: 0px calc(100vw * 24 / 375) calc(100vw * 24 / 375) calc(100vw * 24 / 375);
+  background: rgba(242, 242, 242, 1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  padding: calc(100vh * 13 / 812) calc(100vw * 16 / 375);
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
-  color: rgba(36, 24, 24, 1);
+  color: rgb(0, 0, 0);
 }
 
 .chat-message-rigth {
-  border-radius: calc(100vw * 10 / 375) 0px calc(100vw * 10 / 375) calc(100vw * 10 / 375);
-  background: rgba(252, 71, 178, 1);
+  border-radius: calc(100vw * 24 / 375) 0px calc(100vw * 24 / 375) calc(100vw * 24 / 375);
+  background: rgba(185, 100, 255, 1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: calc(100vh * 10 / 812) calc(100vw * 10 / 375);
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  padding: calc(100vh * 13 / 812) calc(100vw * 16 / 375);
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
   color: rgb(255, 255, 255);
 }
 
-.bottom-input {
+.bottom-input-outbox {
   position: absolute;
-  left: calc(100vw * 20 / 375);
-  right: calc(100vw * 20 / 375);
-  bottom: calc(100vh * 29 / 812);
-  height: calc(100vh * 54 / 812);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(100vh * 90 / 812);
+  background: rgba(255, 255, 255, 1);
+  box-shadow:inset 0px calc(100vw * 1 / 375) 0px  rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  z-index: 10;
+}
+
+.bottom-input {
+  height: calc(100vh * 46 / 812);
   border-radius: calc(100vw * 40 / 375);
-  background: rgb(255, 255, 255);
-  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1);
+  background: rgba(242, 242, 242, 1);
   display: flex;
   align-items: center;
-  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
+  margin: calc(100vh * 8 / 812) calc(100vw * 20 / 375) 0;
+  padding: 0 calc(100vw * 16 / 375);
   gap: calc(100vw * 10 / 375);
   box-sizing: border-box;
   z-index: 10;
@@ -574,18 +613,18 @@ async function sendMessage() {
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
   color: #000;
 }
 
 .bottom-input input::placeholder {
-  color: rgba(153, 153, 153, 1);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .send-icon {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
   /* border-radius: 50%;
   background: linear-gradient(180deg, rgba(255, 0, 128, 1) 0%, rgba(236, 86, 184, 1) 100%); */
   /* cursor: pointer; */
@@ -597,7 +636,7 @@ async function sendMessage() {
 }
 
 .send-icon img {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
 }
 </style>

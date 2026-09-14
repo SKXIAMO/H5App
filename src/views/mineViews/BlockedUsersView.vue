@@ -1,8 +1,8 @@
 <template>
   <div class="page">
-    <div class="page-top-background"></div>
+    <!-- <div class="page-top-background"></div> -->
     <div class="top-header">
-      <BackButton />
+      <BackButton theme="black" />
       <span class="edit-title">Blacklist</span>
     </div>
     <!-- 黑名单列表 -->
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useCurrentUserStore } from '@/stores/currentUser'
 import { useUserStore } from '@/stores/user'
 import BackButton from '@/components/back.vue'
@@ -43,8 +43,6 @@ const userStore = useUserStore()
 
 const blocks = computed(() => {
   return currentUserStore.currentUser?.blockList?.map(userId => {
-    // Here you can map userId to user info if you have a userStore
-    // For now we return placeholder data
     return userStore.getUserById(userId)
   }) || []
 })
@@ -77,7 +75,7 @@ function removeBlock(userId) {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -97,23 +95,23 @@ function removeBlock(userId) {
 .top-header {
   display: flex;
   align-items: center;
-  gap: calc(100vw * 16 / 375);
+  gap: calc(100vw * 12 / 375);
   padding: calc(100vh * 58 / 812) calc(100vw * 20 / 375) 0;
   z-index: 1;
 }
 
 .edit-title {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 20 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 24.8 / 375);
-  color: rgba(36, 24, 24, 1);
+  font-weight: 600;
+  line-height: calc(100vw * 23.87 / 375);
+  color: rgb(0, 0, 0);
 }
 
 .container {
   flex: 1;
   overflow-y: auto;
-  margin: calc(100vh * 20 / 812) 0 0;
+  margin: calc(100vh * 32 / 812) 0 0;
   box-sizing: border-box;
 }
 
@@ -121,7 +119,7 @@ function removeBlock(userId) {
   margin: 0 calc(100vw * 20 / 375) 0;
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 16 / 812);
+  gap: calc(100vh * 15 / 812);
   padding-bottom: calc(100vh * 34 / 812);
 }
 
@@ -129,18 +127,15 @@ function removeBlock(userId) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: calc(100vh * 79 / 812);
+  height: calc(100vh * 82 / 812);
   border-radius: calc(100vw * 20 / 375);
-  border: calc(100vw * 2 / 375) solid transparent;
-  background:
-    linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%) border-box;
-  padding: 0 calc(100vw * 16 / 375);
+  background: rgba(242, 242, 242, 1);
+  padding: 0 calc(100vw * 24 / 375) 0 calc(100vw * 16 / 375);
   box-sizing: border-box;
 }
 
 .block-left {
-  width: calc(100% - calc(100vw * 70 / 375));
+  width: calc(100% - calc(100vw * 50 / 375));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -159,7 +154,7 @@ function removeBlock(userId) {
   width: calc(100vw * 32 / 375);
   height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  background: #000;
+  /* background: #000; */
   padding: calc(100vw * 1 / 375);
 }
 
@@ -183,30 +178,30 @@ function removeBlock(userId) {
 }
 
 .user-name {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
-  color: rgba(51, 51, 51, 1);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
+  color: rgb(0, 0, 0);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .user-intro {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
-  color: rgba(102, 102, 102, 1);
+  line-height: calc(100vw * 16.71 / 375);
+  color: rgba(0, 0, 0, 0.6);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .block-right {
-  width: calc(100vw * 70 / 375);
-  height: calc(100vh * 33 / 812);
+  width: calc(100vw * 24 / 375);
+  height: calc(100vh * 24 / 812);
   background-image: url('@/assets/cnacleblock.png');
   background-size: cover; /* 等比缩放覆盖 */
   background-position: center; /* 居中显示 */

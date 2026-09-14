@@ -1,6 +1,22 @@
 @font-face {
-    font-family: 'JetBrainsMonoRegular';
-    src: url('./JetBrainsMono-Regular.ttf') format('truetype');
+    font-family: 'SFProDisplaySemibold';
+    src: url('./SF-Pro-Display-Semibold.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SFProDisplayRegular';
+    src: url('./SF-Pro-Display-Regular.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'SFProDisplayBold';
+    src: url('./SF-Pro-Display-Bold.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

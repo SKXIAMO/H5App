@@ -3,7 +3,6 @@
     <div v-if="post" class="page-content">
       <!-- 顶部轮播图 -->
       <div class="swipe-wrapper">
-        <div class="swipe-wrapper">
         <van-swipe lazy-render :loop="false" class="swipe-container">
           <van-swipe-item v-for="image in images" :key="image" class="swipe-item">
             <img :src="image" class="swipe-img" />
@@ -29,7 +28,6 @@
           <div class="like-count">{{ post.dynamicLikeCount + (currentUserStore.currentUser.postLikeIds.includes(postId.toString()) ? 1 : 0) }}</div>
         </div>
       </div>
-      </div>
       <!-- 帖子内容 -->
       <div class="post-content">
         <div class="post-row">
@@ -45,25 +43,25 @@
             <div class="user-name" @click="goOtherHome(postUser.userId)">
               {{ postUser && postUser.name }}
             </div>
+            <div class="tag-box">
+              <div class="tag-text"># {{ postTag }}</div>
+            </div>
           </div>
           <!-- 帖子内容 -->
           <div class="second-box">
             <div class="post-desc">
               {{ post.dynamicDesc }}
             </div>
-            <div class="tag-box">
-              <div class="tag-text">{{ postTag }}</div>
-            </div>
           </div>
           </div>
         </div>
       </div>
-      <div class="comment-top-line"></div>
+      <!-- <div class="comment-top-line"></div> -->
       <!-- Comments -->
       <div class="comments-title">
-        <!-- <div class="comments-box1"></div> -->
+        <div class="comments-box1"></div>
         <div class="comments-title-text">Comments</div>
-        <!-- <div class="comments-box2"></div> -->
+        <div class="comments-box2"></div>
       </div>
       <!-- 评论列表 -->
         <template v-if="comments.length">
@@ -86,10 +84,12 @@
           <Empty />
         </template>
       <!-- 输入框 -->
-      <div class="input-box">
-        <input type="text" placeholder="Say something" class="input-field" v-model="commentInput" />
-        <div class="send-btn" @click="sendComment">
-          <img src="@/assets/commentsend.png" alt="Send"/>
+      <div class="input-box-out">
+        <div class="input-box">
+          <input type="text" placeholder="Say something" class="input-field" v-model="commentInput" />
+          <div class="send-btn" @click="sendComment">
+            <img src="@/assets/commentsend.png" alt="Send"/>
+          </div>
         </div>
       </div>
     </div>
@@ -117,10 +117,11 @@ import MoreButton from '@/components/more.vue'
 import likeImage from '@/assets/likepic.png'
 import disLikeImage from '@/assets/dislikepic.png'
 import commentMoreImage from '@/assets/postpiccommentreport.png'
-import commentSendImage from '@/assets/commentsend.png'
 import ReportDialog from '@/components/reportChoose.vue'
 import Empty from '@/components/empty.vue'
 import { goBackOrClose, sendShowLoadingToIOS, sendShowToastToIOS, showToLogin } from '@/utils/iosBridge'
+
+defineOptions({ name: 'PicturePostDetailsView' })
 
 const { postId } = defineProps({
   postId: {
@@ -305,7 +306,7 @@ function sendComment() {
   position: relative;
   width: 100%;
   height: 100vh;
-  background: rgba(238, 239, 248, 1);
+  background: rgb(255, 255, 255);
   background-size: cover;
   overflow: hidden;
 }
@@ -337,12 +338,14 @@ function sendComment() {
 .swipe-wrapper {
   position: relative;
   height: calc(100vh * 379 / 812);
-  overflow: hidden;
+  overflow: visible;
+  z-index: 1;
 }
 
 .swipe-container {
   width: 100%;
   height: 100%; /* 高度填满外层 */
+  overflow: hidden;
 }
 
 .swipe-item {
@@ -360,7 +363,7 @@ function sendComment() {
 
 .indicator-wrapper {
   position: absolute;
-  bottom: calc(100vh * 17 / 812);
+  bottom: calc(100vh * 24 / 812);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -372,7 +375,7 @@ function sendComment() {
   width: calc(100vw * 12 / 375);
   height: calc(100vh * 6 / 812);
   border-radius: calc(100vw * 45 / 375);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.5);
   transition: all 0.3s;
 }
 
@@ -386,7 +389,7 @@ function sendComment() {
 
 .top-btn {
   position: absolute;
-  top: calc(100vh * 56 / 812);
+  top: calc(100vh * 58 / 812);
   left: calc(100vw * 20 / 375);
   right: calc(100vw * 20 / 375);
   display: flex;
@@ -397,16 +400,17 @@ function sendComment() {
 
 .post-content {
   display: flex;
-  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 24 / 812) calc(100vw * 20 / 375) 0;
 }
 
 .user-box {
-  width: calc(100vw * 50 / 375);
+  width: 100%;
+  min-width: 0;
+  padding-right: calc(100vw * 40 / 375);
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: calc(100vh * 2 / 812);
-  margin-right: calc(100vw * 19 / 375); /* 左间距15 */
+  align-items: center;
+  gap: calc(100vh * 12 / 812);
 }
 
 .post-row {
@@ -418,7 +422,11 @@ function sendComment() {
 }
 
 .post-content-row {
+  width: 100%;
+  min-width: 0;
   display: flex;
+  flex-direction: column;
+  gap: calc(100vh * 16 / 812);
 }
 
 .second-box {
@@ -430,11 +438,11 @@ function sendComment() {
 
 .post-desc {
   margin-right: auto; /* 第二个靠左 */
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplayRegular', sans-serif;
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  color: rgba(102, 102, 102, 1);
-  line-height: calc(100vw * 17.36 / 375);
+  color: rgb(0, 0, 0, 0.8);
+  line-height: calc(100vw * 16.71 / 375);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2; /* 超过三行省略 */
@@ -443,23 +451,31 @@ function sendComment() {
 }
 
 .tag-box {
+  flex-shrink: 0;
+  max-width: 40%;
+  min-width: 0;
   display: inline-flex;
-  height: calc(100vh * 34 / 812);
+  margin-left: calc(100vw * 5 / 375);
+  height: calc(100vh * 23 / 812);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(165, 237, 57, 1);
+  background: rgba(242, 242, 242, 1);
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .tag-text {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
-  font-size: calc(100vw * 16 / 375);
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: 'SFProDisplayRegular', sans-serif;
+  font-size: calc(100vw * 12 / 375);
   font-weight: 400;
-  flex-shrink: calc(100vw * 19.84 / 375);
   color: rgba(0, 0, 0, 1);
-  padding: 0 calc(100vw * 15 / 375);
+  padding: 0 calc(100vw * 8 / 375);
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 /* 
 .post-time {
@@ -468,6 +484,7 @@ function sendComment() {
 } */
 
 .avatar-border-box {
+  flex-shrink: 0;
   background: #000;
   border-radius: 50%;
   display: flex;
@@ -475,11 +492,11 @@ function sendComment() {
 }
 
 .avatar {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
   border-radius: 50%;
-  padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375);
-  box-sizing: border-box;
+  /* padding: calc(100vh * 1 / 812) calc(100vw * 1 / 375); */
+  /* box-sizing: border-box; */
   object-fit: cover;
   overflow: hidden;
 }
@@ -493,11 +510,12 @@ function sendComment() {
 }
 
 .user-name {
-  width: calc(100vw * 50 / 375);
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  flex: 1;
+  min-width: 0;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
   color: rgb(0, 0, 0);
   overflow: hidden;
   white-space: nowrap;
@@ -506,27 +524,26 @@ function sendComment() {
 
 .like-box {
   position: absolute;
-  bottom: calc(100vh * 10 / 812); 
-  right: calc(100vw * 10 / 375);
-  display: inline-flex;
+  bottom: calc(100vh * -44 / 812);
+  right: calc(100vw * 20 / 375);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: calc(100vh * 6 / 812);
-  padding: calc(100vh * 6 / 812) calc(100vw * 10 / 375);
-  border-radius: calc(100vw * 12 / 375);
-  background-color: #000;
+  z-index: 20;
 }
 
 .like-icon {
-  width: calc(100vw * 20 / 375);
-  height: calc(100vw * 20 / 375);
+  width: calc(100vw * 40 / 375);
+  height: calc(100vw * 40 / 375);
 }
 
 .like-count {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
+  font-family: 'SFProDisplaySemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 400;
-  line-height: calc(100vw * 19.84 / 375);
-  color: rgb(255, 255, 255);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
+  color: rgb(0, 0, 0);
   text-align: center;
 }
 
@@ -539,47 +556,44 @@ function sendComment() {
 .comments-title {
   display: flex;
   align-items: center;
-  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) 0;
+  padding: calc(100vh * 26 / 812) calc(100vw * 20 / 375) 0;
+  gap: calc(100vw * 8 / 375);
 }
 
 .comments-box1 {
   width: calc(100vw * 31 / 375);
   height: calc(100vh * 1 / 812);
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .comments-title-text {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'SFProDisplayBold', sans-serif;
   font-size: calc(100vw * 16 / 375);
   font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
+  line-height: calc(100vw * 19.09 / 375);
   color: rgb(0, 0, 0);
-  padding: calc(100vh * 8 / 812) calc(100vw * 16 / 375);
-  border-radius: calc(100vw * 14 / 375);
-  background: linear-gradient(90deg, rgba(165, 237, 57, 1) 0%, rgba(48, 234, 255, 1) 100%);
-  border: calc(100vw * 1 / 375) solid rgba(48, 234, 255, 1);
 }
 
 .comments-box2 {
   flex: 1; /* 自动填充剩余宽度 */
   height: calc(100vh * 1 / 812);
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .comments-list {
-  padding: calc(100vh * 16 / 812) calc(100vw * 20 / 375) calc(100vh * 90 / 812);
+  padding: calc(100vh * 20 / 812) calc(100vw * 20 / 375) calc(100vh * 100 / 812);
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 12 / 812);    /* 行间距 */
+  gap: calc(100vh * 11 / 812);    /* 行间距 */
 }
 
 .comment-item {
   display: flex;
   flex-direction: column;
-  gap: calc(100vh * 4 / 812); /* 评论上下间隔10 */
-  padding: calc(100vh * 14 / 812) calc(100vw * 16 / 375);
+  gap: calc(100vh * 8 / 812); /* 评论上下间隔10 */
+  padding: calc(100vh * 12 / 812) calc(100vw * 12 / 375) calc(100vh * 13 / 812) calc(100vw * 16 / 375);
   border-radius: calc(100vw * 20 / 375);
-  background: rgba(0, 0, 0, 1);
+  background: rgba(242, 242, 242, 1);
 }
 
 .comment-list-top {
@@ -598,11 +612,11 @@ function sendComment() {
 }
 
 .comment-list-bottom {
-  font-family: 'JetBrainsMonoRegular', sans-serif;
-  font-size: calc(100vw * 12 / 375);
+  font-family: 'ProblematicMonoRegular', sans-serif;
+  font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 14.88 / 375);
-  color: rgb(255, 255, 255);
+  line-height: calc(100vw * 16.71 / 375);
+  color: rgba(5, 5, 5, 1);
   text-align: left;
 }
 
@@ -625,11 +639,11 @@ function sendComment() {
 }
 
 .comment-user-name {
-  font-family: 'JetBrainsMonoBold', sans-serif;
+  font-family: 'ProblematicMonoSemibold', sans-serif;
   font-size: calc(100vw * 16 / 375);
-  font-weight: 700;
-  line-height: calc(100vw * 19.84 / 375);
-  color: rgb(255, 255, 255);
+  font-weight: 600;
+  line-height: calc(100vw * 19.09 / 375);
+  color: rgba(13, 13, 13, 1);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -648,22 +662,32 @@ function sendComment() {
   background-repeat: no-repeat;
 }
 
+.input-box-out {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: calc(100vw * 91 / 375);
+  background: rgba(255, 255, 255, 1);
+  box-shadow:inset 0px calc(100vh * 1 / 812) 0px  rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  z-index: 20;
+}
+
 /* 输入框样式 */
 .input-box {
-  position: fixed;
-  left: calc(100vw * 20 / 375);
-  right: calc(100vw * 20 / 375);
-  bottom: calc(100vh * 29 / 812);
+  margin: calc(100vh * 8 / 812) calc(100vw * 20 / 375) 0;
   width: auto;
-  height: calc(100vh * 54 / 812);
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 0px calc(100vw * 4 / 375)  rgba(48, 234, 255, 1);
+  height: calc(100vh * 46 / 812);
+  background: rgba(242, 242, 242, 1);
   border-radius: calc(100vw * 40 / 375);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 calc(100vw * 8 / 375) 0 calc(100vw * 12 / 375);
-  z-index: 20;
+  padding: 0 calc(100vw * 16 / 375);
 }
 
 .input-field {
@@ -675,18 +699,18 @@ function sendComment() {
   /* font-family: 'OPPOSansRegular', sans-serif; */
   font-size: calc(100vw * 14 / 375);
   font-weight: 400;
-  line-height: calc(100vw * 17.36 / 375);
+  line-height: calc(100vw * 16.71 / 375);
   letter-spacing: 0;
   color: #000000;;
 }
 
 .input-field::placeholder {
-  color: rgba(153, 153, 153, 1);
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .send-btn {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
   /* cursor: pointer; */
   display: flex;
   flex-direction: column;
@@ -696,7 +720,7 @@ function sendComment() {
 }
 
 .send-btn img {
-  width: calc(100vw * 36 / 375);
-  height: calc(100vw * 36 / 375);
+  width: calc(100vw * 32 / 375);
+  height: calc(100vw * 32 / 375);
 }
 </style>

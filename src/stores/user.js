@@ -35,3 +35,11 @@ export const useUserStore = defineStore('user', {
     },
   }
 })
+
+window.addEventListener('barreUsersReady', () => {
+  const store = useUserStore()
+  store.users = window.userList || store.users
+  const currentUserStore = useCurrentUserStore()
+  const matched = store.users.find((user) => user.userId === currentUserStore.currentUser?.userId)
+  if (matched) currentUserStore.setCurrentUser(matched)
+})
