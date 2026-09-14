@@ -113,7 +113,7 @@ import { uploadSingleImage } from '@/utils/ossUpload'
 defineOptions({ name: 'PracticeProfileInfo' })
 
 // Use relative path for web build
-const topBlockImage = ref('/src/assets/avataricon.png')
+const topBlockImage = ref('@/assets/avataricon.png')
 
 const name = ref('')
 const aboutMe = ref('')
